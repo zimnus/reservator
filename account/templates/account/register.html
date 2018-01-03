@@ -1,0 +1,31 @@
+{% extends 'base_index.html' %}
+
+{% block title %}
+	Register
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<form action="." method="post" name="register">
+				<h1 align='center'>Register</h1>
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button class="btn btn-dark" type="submit">Register</button>
+			</form>
+			<hr>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block custom_script %}
+<script>
+	$(document).ready(function() {
+		$('form p').addClass('row form-group')
+		$('label').addClass('label-control col-2')
+		$('form[name="register"] input').addClass('form-control col-10');
+	})
+</script>
+{% endblock %}

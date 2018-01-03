@@ -1,0 +1,36 @@
+{% url 'enterprise:list' as home %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Reservator</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+        <a class="nav-link" href="{{ home }}">Home <span class="sr-only">(current)</span></a>
+      </li>
+			{% if request.user.is_authenticated %}
+	      <li class="nav-item {% if request.path == '/account/profile/' %}active{% endif %}">
+	        <a class="nav-link" href="{% url 'account:profile' %}">Profile</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="{% url 'account:logout' %}">Log Out({{ request.user.username }})</a>
+	      </li>
+			{% else %}
+				<li class="nav-item {% if request.path == '/account/register/' %}active{% endif %}">
+	        <a class="nav-link" href="{% url 'account:register' %}">Register</a>
+	      </li>
+	      <li class="nav-item {% if request.path == '/account/login/' %}active{% endif %}">
+	        <a class="nav-link" href="{% url 'account:login' %}">Login</a>
+	      </li>
+			{% endif %}
+    </ul>
+    <!-- <span class="navbar-text">
+      Navbar text with an inline element
+    </span> -->
+		<form class="form-inline my-2 my-lg-0" action="." method="GET">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}" name="q">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>

@@ -1,0 +1,98 @@
+{% extends 'base_index.html' %}
+{% load i18n %}
+{% block title %}
+	{{ instance.name }} Detail | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<style>
+#map {
+	width: 100%;
+	height: 400px;
+	background-color: grey;
+}
+</style>
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<h1 align='center'>Detail for Enterprise</h1>
+			<div class="jumbotron">
+				<h2>{{ instance.name }}</h2>
+				<p>{{ instance.description }}</p>
+				<strong>Contact email: </strong>{{ instance.phone }} <br/>
+				<strong>Personal site: </strong><a href="{{ instance.site }}">{{ instance.site }}</a> <br/>
+				<div id="map"></div>
+				<div class="row">
+					<div class="col-6">
+						<strong>Open: </strong> {{ instance.open }} <br>
+						<strong>Close: </strong> {{ instance.close }}
+					</div>
+					<div class="col-6">
+						<ul class="list-inline">
+							<strong>Work days:</strong> <br/>
+							{% for day in instance.days %}
+								<li class="list-inline-item badge badge-warning">{{ day }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<h1 align='center'>Employee List</h1>
+			{% if request.user == instance.owner %}
+				<a class="btn btn-primary" href="{% url 'enterprise:employee' instance.pk %}">Add new employee</a>
+				<a class="btn btn-dark" href="{% url 'booking:list' instance.pk %}">Booking list</a>
+			{% endif %}
+			{% for people in employee_list %}
+				<div class="card">
+					<div class="card-header">
+						<h3>{{ people.first_name }} {{ people.last_name }}</h3>
+					</div>
+					<div class="card-body">
+						<strong>Sex: </strong>{{ people.sex }} <br />
+						<strong>Start work day: </strong> {{ people.start }} <br />
+						<strong>End work day: </strong> {{ people.end }} <br />
+						<strong>Is work now: </strong> {% if people.is_work_now %} <span class="badge badge-success">Work</span> {% else %} <span class="badge badge-danger">Not work</span> {% endif %} <br />
+						<ul class="list-inlune">
+							Work days:
+							{% for day in people.works %}
+								<li class="list-inline-item badge badge-info">{{ day }}</li>
+							{% endfor %}
+						</ul>
+						<strong>Description:</strong>
+						<p class="catd-text">
+							{{ people.description }}
+						</p>
+						<a class="btn btn-info" href="{% url 'booking:record' instance.pk people.pk %}">Record</a>
+					</div>
+				</div>
+			{% empty %}
+					<div class="alert alert-primary" role="alert">
+						Don`t have visible employee!
+					</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block custom_script %}
+<script>
+      function initMap() {
+				var lat = "{{instance.position.latitude}}";
+				var lan = "{{instance.position.longitude}}";
+        var uluru = {lat: parseFloat(lat), lng: parseFloat(lan)};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7fZ3Dj0swiXjvBJD-MMe0FkhyaIMvoOo&callback=initMap">
+    </script>
+{% endblock %}

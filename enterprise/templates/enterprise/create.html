@@ -1,0 +1,39 @@
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}
+	Create Enterprise | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h1>Create Enterprise</h1>
+				<form action="." method="post">
+					{% csrf_token %}
+					{{ form.media }}
+					{{ form.as_p }}
+					<button type="submit" class="btn btn-success btn-block btn-sx">Create</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block custom_script %}
+<script>
+	$(document).ready(function() {
+		$('form  p').addClass('row form-group');
+		$('.timepicker').timepicker({'timeFormat': 'H:mm:ss' });
+		$('label').addClass('label-control col-2');
+		$('input').addClass('form-control col-10');
+		$('select').addClass('form-control col-10');
+		$('textarea').addClass('form-control col-10');
+		$('#id_position_0').addClass('col-5').removeClass('col-10');
+		$('#id_position_1').addClass('col-5').removeClass('col-10');
+		$('#id_days').addClass('list-inline');
+		$('#id_days li').addClass('list-inline-item');
+		$('input[type=checkbox]').removeClass('form-control col-10');
+	})
+</script>
+{% endblock %}

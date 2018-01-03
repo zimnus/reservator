@@ -1,0 +1,36 @@
+{% extends "base_index.html" %}
+
+{% block title %}
+  Add Employee | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 align='center'>Registration employee form</h1>
+        <form action="." method="post" align='center'>
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="btn btn-success btn-block">Create</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block custom_script %}
+<script>
+  $(document).ready(function(){
+    $('p').addClass('form-group row');
+    $('label').addClass('label-control col-2')
+    $('input').addClass('form-control col-10');
+    $('textarea').addClass('form-control col-10');
+    $('select').addClass('form-control col-10');
+    $('.timepicker').timepicker({'timeFormat': 'H:mm:ss' });
+    $('#id_works').addClass('list-inline form-group');
+		$('#id_works li').addClass('list-inline-item');
+    $('input[type=checkbox]').removeClass('form-control col-10');
+  })
+</script>
+{% endblock %}

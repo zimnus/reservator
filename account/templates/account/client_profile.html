@@ -1,0 +1,72 @@
+{% extends 'base_index.html' %}
+{% load i18n %}
+{% block title %}Profile | {{ block.super }} {% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header">
+                    {{ user.first_name }} {{ user.last_name }}
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Gender:</th>
+                            <th>{{ profile.sex }}</th>
+                        </tr>
+                        <tr>
+                            <th>Date birth:</th>
+                            <th>{{ profile.birth }}</th>
+                        </tr>
+                        <tr>
+                            <th>Phone</th>
+                            <th>{{profile.phone}}</th>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <th>{{profile.contact_email}}</th>
+                        </tr>
+                        <tr>
+                            <th>Address:</th>
+                            <th>
+                                <address class="">
+                                    {{ profile.address }}
+                                </address>
+                            </th>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <strong>About my:</strong>
+                    <p>
+                        {{ profile.about }}
+                    </p>
+                    <a class='btn btn-dark' href="{% url 'account:edit' %}">{% trans "Change" %}</a>
+                    <a class="btn btn-primary" href="{% url 'enterprise:create' %}">Create new Enterprise</a>
+                </div>
+                <div class="card-footer">
+                    {% blocktrans %}Enterprise{% endblocktrans %}: {{ owner_list.count }}
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            {% for owner in owner_list %}
+            <div class="card">
+                <div class="card-header">
+                    <a href="{{ owner.get_absolute_url }}"><h4>{{ owner.title }}</h4></a>
+                </div>
+                <img src="{{ owner.logo.url }}" class="card-img-top" alt="">
+                <div class="card-body">
+                    <strong>Desciption:</strong>
+                    <p class="card-text">
+                        {{ owner.short_descr }}
+                    </p>
+                    <p><strong>Schedule: </strong></p> {{ owner.schedule }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock %}

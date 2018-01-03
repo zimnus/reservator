@@ -1,0 +1,37 @@
+{% extends 'base_index.html' %}
+
+{% block title %}
+Enterprise List | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+          <div id="list">
+            <h1>Load......</h1>
+          </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            dataType: 'json',
+            url: 'http://localhost:8000/api/enterprise',
+            method: 'get',
+            success: function(data) {
+                $('h1').remove();
+                data.map(function(item){
+                    $('#list').append(
+                      '<div class="card"><div class="card-header">'+ item.title +'</div><img class="card-img-top" src="'+ item.logo +'" /><div class="card-body"><p>'+ item.short_descr +'</p></div></div>'
+                    )
+                })
+            },
+            error: function() {
+                console.log('Error get data!!!')
+            }
+        })
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base_index.html' %}
+{% load i18n %}
+{% block title %}
+  Edit profile {{ request.user.username }} | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="card">
+        <div class='card-body'>
+          <form class="form-horizontal" action="{% url 'account:edit' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-success" type="submit">{% trans 'Save' %}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block custom_script %}
+<script>
+  $('form p').addClass('form-group');
+  $('input').addClass('form-control');
+  $('textarea').addClass('form-control');
+  $('.errorlist').addClass('alert alert-danger list-unstyled');
+</script>
+{% endblock %}
