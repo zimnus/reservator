@@ -5,6 +5,8 @@ django-geoposition==0.3.0
 django-multiselectfield==0.1.8
 django-phonenumber-field==1.3.0
 djangorestframework==3.7.7
+djangorestframework-jwt==1.11.0
 phonenumberslite==8.8.6
 Pillow==5.0.0
+PyJWT==1.5.3
 pytz==2017.3

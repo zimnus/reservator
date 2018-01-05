@@ -113,7 +113,7 @@ class Enterprise(models.Model):
 class CategoryOfServices(models.Model):
     title = models.CharField(max_length=255, help_text='Name category of cervices')
     weight = models.PositiveIntegerField(default=1, help_text='Priority')
-    enterprise = models.ForeignKey(Enterprise, help_text='Select enterprise')
+    enterprise = models.ForeignKey(Enterprise, help_text='Select enterprise', related_name='services')
 
     class Meta:
         db_table = 'Category_of_services'

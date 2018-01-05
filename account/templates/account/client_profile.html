@@ -1,13 +1,14 @@
 {% extends 'base_index.html' %}
-{% load i18n %}
+{% load i18n static %}
 {% block title %}Profile | {{ block.super }} {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
+    <div class="container-fluid">
     <div class="row">
-        <div class="col-4">
+        <div class="col-sm-4">
             <div class="card">
                 <div class="card-header">
+                    <input id="hidden_id" type="hidden" value={{ user.id }}>
                     {{ user.first_name }} {{ user.last_name }}
                 </div>
                 <div class="card-body">
@@ -23,11 +24,11 @@
                         </tr>
                         <tr>
                             <th>Phone</th>
-                            <th>{{profile.phone}}</th>
+                            <th>{{ profile.phone }}</th>
                         </tr>
                         <tr>
                             <th>Email:</th>
-                            <th>{{profile.contact_email}}</th>
+                            <th>{{ profile.contact_email }}</th>
                         </tr>
                         <tr>
                             <th>Address:</th>
@@ -51,22 +52,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-8">
-            {% for owner in owner_list %}
-            <div class="card">
-                <div class="card-header">
-                    <a href="{{ owner.get_absolute_url }}"><h4>{{ owner.title }}</h4></a>
-                </div>
-                <img src="{{ owner.logo.url }}" class="card-img-top" alt="">
-                <div class="card-body">
-                    <strong>Desciption:</strong>
-                    <p class="card-text">
-                        {{ owner.short_descr }}
-                    </p>
-                    <p><strong>Schedule: </strong></p> {{ owner.schedule }}
-                </div>
-            </div>
-            {% endfor %}
+        <div class="col-sm-8">
+            <div id="profile"></div>
         </div>
     </div>
-    {% endblock %}
+{% endblock %}
+{% block custom_script %}
+    <script type="text/babel" src="{% static 'js/app/profile.js' %}"></script>
+{% endblock %}

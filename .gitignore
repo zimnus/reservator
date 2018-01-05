@@ -6,7 +6,7 @@
 *.pot
 *.py[co]
 .tox/
-__pycache__
+__pycache__/
 MANIFEST
 dist/
 docs/_build/
@@ -16,5 +16,10 @@ tests/coverage_html/
 tests/.coverage
 build/
 tests/report/
-.idea
-static_cdn
+.idea/
+static_cdn/*
+migrations/
+*.sqlite3
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py

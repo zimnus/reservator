@@ -22,7 +22,7 @@ class Employee(models.Model):
     fired = models.BooleanField(default=False, help_text='Is fired')
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
-    service = models.ForeignKey(CategoryOfServices, help_text='Select category of services')
+    service = models.ForeignKey(CategoryOfServices, help_text='Select category of services', related_name='employee')
 
     def __str__(self):
         return "{} {}".format(self.enterprise.title, self.specialization)
