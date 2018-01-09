@@ -2,18 +2,21 @@ from rest_framework import serializers
 from rest_framework.reverse import reverse as api_reverse
 
 from enterprise.models import Enterprise, CategoryOfServices
+from account.api.serializers import UserPublicSerializer
 
 
 class EnterpriseSerializer(serializers.ModelSerializer):
     uri = serializers.SerializerMethodField(read_only=True)
     comment_count = serializers.SerializerMethodField(read_only=True)
     services = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    user = UserPublicSerializer(read_only=True)
 
     class Meta:
         model = Enterprise
         fields = (
             'uri',
             'id',
+            'user',
             'title',
             'short_descr',
             'logo',
@@ -28,6 +31,7 @@ class EnterpriseSerializer(serializers.ModelSerializer):
             'group_priority',
             'services',
         )
+        read_only_fields = ('user',)
 
     def get_comment_count(self, obj):
         return 0

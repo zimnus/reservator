@@ -12,8 +12,8 @@ class Profile extends React.Component {
     loadData() {
         let data_url = this.state.data_url;
         let user_request_id = this.state.user_request_id;
-        console.log(user_request_id);
-        fetch(data_url+user_request_id)
+        console.log('Full path: => ' + data_url + user_request_id);
+        fetch(data_url + user_request_id)
             .then(response => response.json())
             .then(data => {
                 this.setState({data: data, isLoading: false});
@@ -31,7 +31,7 @@ class Profile extends React.Component {
         let data_url = this.state.data_url;
         let user_request_id = this.state.user_request_id;
         if (this.state.isLoading) {
-            return <p>Loading...</p>
+            return <div className="alert alert-info">Loading...</div>
         }
         if (this.state.data === []) {
             return (
@@ -50,7 +50,7 @@ class Profile extends React.Component {
                             </h1>
                         </div>
                     </div>
-                    <EnterprisePost data_url={data_url} user_request_id={user_request_id} />
+                    <EnterprisePost data_url={data_url} user_request_id={user_request_id}/>
                 </div>
                 {
                     this.state.data.map((item, i) => {
@@ -60,14 +60,14 @@ class Profile extends React.Component {
                                     <div className="card-header">
                                         <h1 className='cart-title'>{item.title}</h1>
                                     </div>
-                                    <img src={item.logo} className='card-img-top' alt=""/>
+                                    <img src={item.logo} className='card-img-top' alt={item.title}/>
                                     <div className="card-body">
                                         <p className='card-text'>
                                             {item.short_descr}
                                         </p>
                                     </div>
                                     <div className="card-footer">
-                                        {item.comment_count}
+                                        <span>Services</span>
                                     </div>
                                 </div>
                             </div>
@@ -90,19 +90,7 @@ class EnterprisePost extends React.Component {
 
     addEnterprise = (e) => {
         e.preventDefault();
-        // let data_url = this.state.data_url;
-        // let user_request_id = this.state.user_request_id;
-        // fetch(data_url+user_request_id, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: {
-        //         title: 'Title'
-        //     }
-        // })
-        console.log(e.target.value);
+        console.log(e.target.input);
 
     };
     newEnterprise = () =>
@@ -115,13 +103,14 @@ class EnterprisePost extends React.Component {
                             <label htmlFor="">Title:</label>
                         </div>
                         <div className="col-sm-10">
-                            <input type="text" ref='title' />
+                            <input type="text" name="title" />
                         </div>
                     </div>
                     <button type="submit" className="btn btn-dark">Post</button>
                 </fieldset>
             </form>
         </div>;
+
     render() {
         return (
             <div>

@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse
-
+from django.contrib.auth.decorators import login_required
 from enterprise.models import Enterprise
 from .forms import RegisterForm, ProfileForm
 from .models import ClientProfile
@@ -13,7 +13,7 @@ User = get_user_model()
 
 
 # New code
-
+@login_required
 def profile(request):
     user = request.user
     profile = ClientProfile.objects.get(user=user)

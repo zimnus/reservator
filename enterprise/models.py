@@ -30,15 +30,16 @@ def upload_enterprise_image(instance, filename):
 
 
 ########### QuerySet ##################
-class EnterpriseQuerySet(models.query.QuerySet):
-    def search(self, query):
-        if query:
-            return self.filter(
-                Q(name__icontains=query) |
-                Q(employee__sex__iexact=query) |
-                Q(employee__sex__icontains=query)
-            ).distinct()
-        return self
+class EnterpriseQuerySet(models.QuerySet):
+    # def search(self, query):
+    #     if query:
+    #         return self.filter(
+    #             Q(name__icontains=query) |
+    #             Q(employee__sex__iexact=query) |
+    #             Q(employee__sex__icontains=query)
+    #         ).distinct()
+    #     return self
+    pass
 
 
 ########### MANAGERS ##################
@@ -92,12 +93,12 @@ class Enterprise(models.Model):
         ordering = ['-group_priority']
 
     def __str__(self):
-        return "Enterprise: {}".format(self.title)
+        return str(self.title)[:50]
 
     def get_absolute_url(self):
         return reverse("enterprise:detail", kwargs={'pk': self.pk})
 
-    '''
+    """
     def is_open_now(self):
         now = datetime.datetime.time(datetime.datetime.now())
         day = datetime.datetime.now().strftime("%A")
@@ -107,7 +108,7 @@ class Enterprise(models.Model):
             if self.open < self.close and self.open < now < self.close:
                 return True
         return False
-    '''
+    """
 
 
 class CategoryOfServices(models.Model):

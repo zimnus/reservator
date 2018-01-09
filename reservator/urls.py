@@ -10,5 +10,7 @@ urlpatterns = [
     url(r'^booking/', include('booking.urls', namespace='booking')),
     url(r'^api/enterprise/', include('enterprise.api.urls', namespace='api-enterprise')),
     url(r'^api/employee/', include('employee.api.urls', namespace='api-employee')),
+    url(r'^api/user/', include('account.api.user.urls', namespace='api-user')),
+    url(r'^api/auth/', include('account.api.urls', namespace='api-auth')),
     url(r'^area51/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -157,16 +157,4 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = (os.path.join(BASE_DIR, 'static_cdn', 'media'))
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-    ),
-}
-
-JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=14)
-}
+from reservator.rest_conf import *
