@@ -19,7 +19,3 @@ class ClientProfileTestCase(TestCase):
 
     def test_date_of_birth(self):
         pass
-
-    def test_one_plus_one_equals_two(self):
-        print("Method: test_one_plus_one_equals_two.")
-        self.assertEqual(1 + 1, 2)

@@ -10,12 +10,12 @@ User = get_user_model()
 
 class UserAPITestCase(APITestCase):
     def setUp(self):
-        user = User.objects.create(username='test', email='test@example.com')
-        user.set_password('passTest')
+        user = User.objects.create(username='john_doe', email='john_doe@example.com')
+        user.set_password('john_pass')
         user.save()
 
     def test_created_user(self):
-        qs = User.objects.filter(username='test')
+        qs = User.objects.filter(username='john_doe')
         self.assertEqual(qs.count(), 1)
 
     def test_register_user_api_fail(self):
@@ -34,7 +34,8 @@ class UserAPITestCase(APITestCase):
         data = {
             'username': 'john_doe',
             'email': 'john_doe@example.com',
-            'password': 'john_password'
+            'password': 'john_password',
+            'password2': 'john_password'
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -56,7 +57,7 @@ class UserAPITestCase(APITestCase):
         self.assertGreater(token_len, 0)
 
     def test_login_user_api_fail(self):
-        url = api_reverse('api-auth')
+        url = api_reverse('api-auth:login')
         data = {
             'username': 'john_doe',
             'password': 'john_password'
@@ -72,8 +73,8 @@ class UserAPITestCase(APITestCase):
     def test_token_login_api(self):
         url = api_reverse('api-auth:login')
         data = {
-            'username': 'cfe',
-            'password': 'yeahhhcfe',
+            'username': 'john_doe',
+            'password': 'john_password',
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)  # 400
@@ -85,8 +86,8 @@ class UserAPITestCase(APITestCase):
     def test_token_register_api(self):
         url = api_reverse('api-auth:login')
         data = {
-            'username': 'cfe',
-            'password': 'yeahhhcfe',
+            'username': 'john_doe',
+            'password': 'john_pass',
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)  # 400
@@ -95,10 +96,10 @@ class UserAPITestCase(APITestCase):
 
         url2 = api_reverse('api-auth:register')
         data2 = {
-            'username': 'cfe.doe',
-            'email': 'cfe.doe@gmail.com',
-            'password': 'learncode',
-            'password2': 'learncode'
+            'username': 'john_doe',
+            'email': 'john_doe@example.com',
+            'password': 'john_pass',
+            'password2': 'john_pass'
         }
         response = self.client.post(url2, data2, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)  # 403

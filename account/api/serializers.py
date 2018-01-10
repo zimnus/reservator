@@ -46,6 +46,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             'password2',
             'token',
             'expires',
+
             'message'
         )
         extra_kwargs = {'password': {'write_only': True}}
@@ -63,9 +64,10 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         return value
 
     def validate_username(self, value):
-        qs = User.objects.firlter(username__iexact=value)
+        qs = User.objects.filter(username__iexact=value)
         if qs.exists():
             raise serializers.ValidationError("User with this username already exists!")
+        return value
 
     def get_token(self, obj):
         user = obj
@@ -75,9 +77,9 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         pw = data.get('password')
-        pw2 = data.get('password2')
+        pw2 = data.pop('password2')
         if pw != pw2:
-            raise serializers.ValidationError("Password must mutch!")
+            raise serializers.ValidationError("Passwords must match")
         return data
 
     def create(self, validated_data):
@@ -86,5 +88,5 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             email=validated_data.get('email')
         )
         user_obj.set_password(validated_data.get('password'))
-        user_obj.save(True)
+        user_obj.save()
         return user_obj
