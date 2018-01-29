@@ -1,0 +1,82 @@
+{% url 'enterprise:dashboard' as dashboard %}
+{% url 'enterprise:enterprise' as enterprise %}
+{% url 'service:service' as service %}
+{% url 'employee:employee' as employee %}
+<!-- Navigation-->
+
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            {% if user.is_authenticated %}
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <span>
+                            <img alt="image" class="img-circle" src=""/>
+                         </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear">
+                                <span class="block m-t-xs">
+                                    <strong class="font-bold">
+                                        {% if user.first_name or user.last_name %}
+                                            {{ user.first_name }} {{ user.last_name }}
+                                        {% else %}
+                                            {{ user.username }}
+                                        {% endif %}
+                                    </strong>
+                                 </span>
+                                <span class="text-muted text-xs block">CEO
+                                    <b class="caret"></b>
+                                </span>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a href="/">Profile</a></li>
+                            <li><a href="/">Contacts</a></li>
+                            <li><a href="/">Mailbox</a></li>
+                            <li class="divider"></li>
+                            {% if user.is_authenticated %}
+                                <li><a href="{% url 'account:logout' %}">Logout</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        RS
+                    </div>
+                </li>
+            {% endif %}
+            <li>
+                <div id="side-calendar"></div>
+            </li>
+            <li class="{% if request.path == dashboard %}active{% endif %}">
+                <a href="{{ dashboard }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
+            </li>
+            <li class="{% if request.path == service or request.path == employee or request.path == enterprise %}active{% endif %}">
+                <a href="#"><i class="fa fa-pencil"></i>
+                    <span class="nav-label">Managers</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="{% if request.path == service %} active {% endif %}">
+                        <a href="{{ service }}">Services</a>
+                    </li>
+                    <li class="{% if request.path == employee %} active {% endif %}">
+                        <a href="{{ employee }}">Employee</a>
+                    </li>
+                    <li><a href="">Clients</a></li>
+                    <li class="{% if request.path == enterprise %} active {% endif %}"><a href="{{ enterprise }}">Enterprise</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="metrics.html"><i class="fa fa-pie-chart"></i> <span class="nav-label">Metrics</span> </a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">App Views</span> <span
+                        class="pull-right label label-primary">SPECIAL</span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="">Contacts</a></li>
+
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

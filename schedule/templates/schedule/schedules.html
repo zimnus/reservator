@@ -1,0 +1,71 @@
+{% extends 'base_index.html' %}
+
+{% block title %}
+  Schedules | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Project list</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{% url 'enterprise:dashboard' %}">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>Staff schedule</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="wrapper wrapper-content animated fadeInUp">
+      <h1>Staff schedules</h1>
+
+      <table class="table">
+
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block custom_script %}
+  <script>
+    $(document).ready(function() {
+      $.ajax({
+        url: '/api/schedules/1',
+        success: function(data){
+          console.log(JSON.stringify(data, undefined, 4));
+          // console.log(data);
+        },
+        error: function() {
+          alert('Fail load data')
+        }
+      })
+      $("#side-calendar").datepicker({
+
+        // onSelect: function() {
+        //   var date = $(this).datepicker('getDate');
+        //   var dateObject = $.datepicker.formatDate('yy-mm-dd', date)
+        //   console.log(dateObject);
+        //   $.ajax({
+        //     url: '/api/schedule',
+        //     success: function(data) {
+        //       $(".table").empty();
+        //       $(data.staff).each(function(key, value) {
+        //         $(".table").append('<td>'+value.is_work+'</td>')
+        //       })
+        //     },
+        //     error: function(error) {
+        //       alert("Error: ", error);
+        //     }
+        //   })
+        // }
+      });
+
+    })
+  </script>
+{% endblock %}

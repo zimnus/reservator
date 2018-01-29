@@ -7,4 +7,4 @@ class EnterpriseCreateForm(forms.ModelForm):
 
     class Meta:
         model = Enterprise
-        fields = ('__all__')
+        exclude = ('owner', 'active_stuff_count', )

@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'account',
     'enterprise',
     'employee',
-    'booking',
+    'service',
+    'schedule',
+    # API
+    'api',
     # Install apps
     'rest_framework',
     'phonenumber_field',

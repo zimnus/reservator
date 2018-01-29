@@ -1,11 +1,11 @@
 from django.contrib import admin
 from .models import Enterprise, City
-from employee.models import Employee, CategoryOfServices
+from employee.models import Employee
 
 
 # Register your models here.
 
-class EmployyInline(admin.StackedInline):
+class EmployeeInline(admin.StackedInline):
     model = Employee
     extra = 1
 
@@ -19,9 +19,4 @@ class CityAdmin(admin.ModelAdmin):
 class EnterpriseAdmin(admin.ModelAdmin):
     list_display = ('owner', 'title',)
     search_fields = ('title',)
-    inlines = [EmployyInline, ]
-
-
-@admin.register(CategoryOfServices)
-class CategoryOfServiceAdmin(admin.ModelAdmin):
-    list_display = ('title', 'weight', 'enterprise',)
+    inlines = [EmployeeInline, ]

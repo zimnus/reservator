@@ -1,0 +1,27 @@
+{% extends 'base_index.html' %}
+
+{% block title %}
+    New employee | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInUp">
+                <form action="" class="form-horizontal">
+                    {{ form.as_p }}
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block custom_script %}
+<script>
+    $(document).ready(function (){
+        $('input').addClass('form-control');
+        $('select').addClass('form-control');
+        $('textarea').addClass('form-control');
+    });
+    </script>
+{% endblock %}

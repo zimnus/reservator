@@ -14,6 +14,9 @@ class UserAPITestCase(APITestCase):
         user.set_password('john_pass')
         user.save()
 
+    def tearDown(self):
+        pass
+
     def test_created_user(self):
         qs = User.objects.filter(username='john_doe')
         self.assertEqual(qs.count(), 1)

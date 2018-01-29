@@ -18,11 +18,11 @@ User = get_user_model()
 class AuthAPIView(APIView):
     permission_classes = [AnonPermissionOnly]
 
-    def post(self, request, *args, **kwags):
+    def post(self, request, *args, **kwargs):
         if request.user.is_authenticated():
-            return Response({'detail': 'You already is authenticated'}, status=400)
+            return Response({'detail': 'You are already authenticated'}, status=400)
         data = request.data
-        username = data.get('username')
+        username = data.get('username')  # username or email address
         password = data.get('password')
         qs = User.objects.filter(
             Q(username__iexact=username) |
@@ -30,13 +30,13 @@ class AuthAPIView(APIView):
         ).distinct()
         if qs.count() == 1:
             user_obj = qs.first()
-            if user_obj.chech_password(password):
+            if user_obj.check_password(password):
                 user = user_obj
                 payload = jwt_payload_handler(user)
                 token = jwt_encode_handler(payload)
                 response = jwt_response_payload_handler(token, user, request=request)
                 return Response(response)
-        return Response({'detail': 'Invalid credentials'}, status=401)
+        return Response({"detail": "Invalid credentials"}, status=401)
 
 
 class RegisterAPIView(generics.CreateAPIView):

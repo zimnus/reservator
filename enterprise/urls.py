@@ -1,10 +1,15 @@
 from django.conf.urls import url
 
-from .views import enterprise_list, enterprise_detail, create_enterprise, register_employee
+from .views import (
+    dashboard,
+    enterprise,
+    detail,
+    create
+)
 
 urlpatterns = [
-    url(r'^$', enterprise_list, name='list'),
-    url(r'^enterprise/create/$', create_enterprise, name='create'),
-    url(r'^enterprise/new_employee/(?P<pk>[\w-]+)/$', register_employee, name='employees'),
-    url(r'^enterprise/detail/(?P<pk>[\w-]+)/$', enterprise_detail, name="detail"),
+    url(r'^$', dashboard, name='dashboard'),
+    url(r'^enterprise$', enterprise, name='enterprise'),
+    url(r'^enterprise/create/$', create, name='create'),
+    url(r'^enterprise/detail/(?P<pk>[\w-]+)/$', detail, name="detail"),
 ]

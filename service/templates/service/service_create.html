@@ -1,0 +1,18 @@
+{% extends 'base_index.html' %}
+{% load i18n %}
+{% block title %}
+    Create service | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <form action="" class="form-horizontall" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <input class="btn btn-success" type="submit" value="{% trans 'submit' %}">
+            </form>
+        </div>
+    </div>
+{% endblock %}
