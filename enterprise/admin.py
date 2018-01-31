@@ -17,6 +17,6 @@ class CityAdmin(admin.ModelAdmin):
 
 @admin.register(Enterprise)
 class EnterpriseAdmin(admin.ModelAdmin):
-    list_display = ('owner', 'title',)
+    list_display = ('owner', 'title', 'created_at', 'updated_at', )
     search_fields = ('title',)
     inlines = [EmployeeInline, ]

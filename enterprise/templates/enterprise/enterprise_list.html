@@ -1,19 +1,19 @@
 {% extends 'base_index.html' %}
 
 {% block title %}
-    Enterprise | {{ block.super }}
+    Управление компаниями | {{ block.super }}
 {% endblock %}
 
 {% block content %}
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
-            <h2>Enterprise list</h2>
+            <h2>Список компаний</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="{% url 'enterprise:dashboard' %}">Dashboard</a>
+                    <a href="{% url 'enterprise:dashboard' %}">Главная</a>
                 </li>
                 <li class="active">
-                    <strong>Enterprise list</strong>
+                    <strong>Список компаний</strong>
                 </li>
             </ol>
         </div>
@@ -24,17 +24,16 @@
 
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>All enterprise assigned to this account</h5>
+                        <h5>Все созданые компании</h5>
                         <div class="ibox-tools">
-                            <a href="{% url 'enterprise:create' %}" class="btn btn-primary btn-xs">Create new
-                                project</a>
+                            <a href="{% url 'enterprise:create' %}" class="btn btn-primary btn-xs">Добавить новую компанию</a>
                         </div>
                     </div>
                     <div class="ibox-content">
                         <div class="row m-b-sm m-t-sm">
                             <div class="col-md-1">
                                 <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i
-                                        class="fa fa-refresh"></i> Refresh
+                                        class="fa fa-refresh"></i> Обновить
                                 </button>
                             </div>
                             <div class="col-md-11">
@@ -55,12 +54,12 @@
                                 {% for item in enterprises %}
                                     <tr>
                                         <td class="project-status">
-                                            <span class="label label-primary">Active</span>
+                                            <span class="label label-primary">Активна</span>
                                         </td>
                                         <td class="project-title">
                                             <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
                                             <br/>
-                                            <small>Created {{ item.created_at }}</small>
+                                            <small>Создано {{ item.created_at }}</small>
                                         </td>
                                         <td class="project-completion">
                                             <small>Completion with: 48%</small>
@@ -76,8 +75,8 @@
                                         </td>
                                         <td class="project-actions">
                                             <a href="{{ item.get_absolute_url }}" class="btn btn-white btn-sm"><i
-                                                    class="fa fa-folder"></i> View </a>
-                                            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit
+                                                    class="fa fa-folder"></i> Просмотр </a>
+                                            <a href="{{ item.update_url }}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Редактировать
                                             </a>
                                         </td>
                                     </tr>

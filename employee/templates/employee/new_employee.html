@@ -5,11 +5,25 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="wrapper wrapper-content animated fadeInUp">
-                <form action="" class="form-horizontal">
-                    {{ form.as_p }}
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-lg-12">
+                <form action="" class="form-horizontal" enctype="multipart/form-data" method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label for="" class="control-label col-sm-2">
+                                {{ field.label_tag }}
+                            </label>
+                            <div class="col-sm-10">
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="alert alert-danger">{{ field.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <button class="btn btn-primary pull-right" type="submit">Save</button>
                 </form>
             </div>
         </div>

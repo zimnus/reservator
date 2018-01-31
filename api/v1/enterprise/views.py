@@ -1,8 +1,8 @@
 import json
 from rest_framework import generics, mixins, permissions
 
-from .serializer import EnterpriseSerializer, CategoryOfServicesSerializers
-from enterprise.models import Enterprise
+from .serializer import EnterpriseSerializer, CategoryOfServicesSerializers, CitySerializer
+from enterprise.models import Enterprise, City
 from service.models import Service
 
 
@@ -74,3 +74,7 @@ class CategoryOfServiceAPIDetailView(mixins.UpdateModelMixin, mixins.DestroyMode
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+class CityListView(generics.ListAPIView):
+    serializer_class = CitySerializer
+    queryset = City.objects.all()

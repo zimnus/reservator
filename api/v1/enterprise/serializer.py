@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.reverse import reverse as api_reverse
 
-from enterprise.models import Enterprise
+from enterprise.models import Enterprise, City
 from service.models import Service
 from account.api.serializers import UserPublicSerializer
 
@@ -62,3 +62,8 @@ class CategoryOfServicesSerializers(serializers.ModelSerializer):
     def get_uri(self, obj):
         request = self.context.get('request')
         return api_reverse('api:api-enterprise:service-detail', kwargs={'id': obj.id}, request=request)
+
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = '__all__'

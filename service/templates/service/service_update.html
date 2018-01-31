@@ -1,0 +1,70 @@
+{% extends 'base_index.html' %}
+
+{% block title %}
+	Update {{ service.name }} | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+		<div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Редактировать</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{% url 'enterprise:dashboard' %}">Главная</a>
+                </li>
+                <li>
+                    <a href="{% url 'enterprise:enterprise' %}">Компания</a>
+                </li>
+                <li class="active">
+                    <strong>Редактировать</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-1"> Основное</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                <div class="panel-body">
+									<form class="form-horizontal" method="POST" action="">
+										{% csrf_token %}
+										{% for field in form %}
+											<div class="form-group">
+												<label class="col-sm-2 control-label" for="">
+													{{ field.label_tag }}
+												</label>
+												<div class="col-sm-10">
+													{{ field }}
+												</div>
+											</div>
+										{% endfor %}
+										<div class="form-group">
+											<div class="col-sm-2 col-sm-offset-2">
+												<button class="btn btn-success btn-block">Сохранить!</button>
+											</div>
+										</div>
+									</form>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_script %}
+    <script>
+        $(document).ready(function() {
+            $('.dual_select').bootstrapDualListbox({
+                selectorMinimalHeight: 160
+            });
+        })
+    </script>
+{% endblock %}

@@ -8,6 +8,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 from multiselectfield import MultiSelectField
 from geoposition.fields import GeopositionField
 
+from jsonfield import JSONField
+
 from account.models import ClientProfile
 
 User = settings.AUTH_USER_MODEL
@@ -78,7 +80,7 @@ class Enterprise(models.Model):
     logo = models.ImageField(upload_to=upload_enterprise_image, help_text='Logo image')
     short_descr = models.TextField(help_text='Short descriptions')
     city = models.ForeignKey(City, help_text='Select city')
-    schedule = models.TextField(help_text='Schedule enterprise')
+    schedule = JSONField(blank=True, null=True, help_text='Schedule enterprise')
     address = models.CharField(max_length=255, help_text='Address enterprise')
     phone = PhoneNumberField(max_length=255, help_text='Contact phone')
     group_priority = models.PositiveIntegerField(help_text='Enterprise priority from filter')
@@ -97,6 +99,9 @@ class Enterprise(models.Model):
 
     def get_absolute_url(self):
         return reverse("enterprise:detail", kwargs={'pk': self.pk})
+
+    def update_url(self):
+        return reverse("enterprise:update", kwargs={'pk': self.pk})
 
     def get_employee(self):
         id = self.id

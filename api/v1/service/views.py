@@ -1,12 +1,23 @@
 from rest_framework import generics, permissions, mixins
 
-from .serializer import ServiceSerializer
-from service.models import Service
+from .serializer import CategorySerializer, ServiceSerializer
+from service.models import Category, Service
+
+
+class CategoryListView(generics.ListAPIView):
+    serializer_class = CategorySerializer
+
+    def get_queryset(self):
+        company_id = self.kwargs['company_id']
+        return Category.objects.filter(enterprise=company_id)
 
 
 class ServiceListView(generics.ListAPIView):
     serializer_class = ServiceSerializer
-    queryset = Service.objects.all()
+
+    def get_queryset(self):
+        category_id = self.kwargs['category_id']
+        return Service.objects.filter(service=category_id)
 
 
 class ServiceCreateView(generics.CreateAPIView, mixins.CreateModelMixin):

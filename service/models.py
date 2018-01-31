@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from enterprise.models import Enterprise
 from employee.models import Employee
@@ -21,17 +22,21 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse("service:category-detail", kwargs={'category_id': self.pk})
+
 
 class Service(models.Model):
     title = models.CharField(max_length=255, help_text='Name of service')
     service_desc = models.TextField(help_text='Short description', blank=True, null=True)
-    service_duration = models.DurationField()
+    service_duration = models.DurationField(blank=True, null=True)
     min_price = models.PositiveIntegerField(default=0)
     max_price = models.PositiveIntegerField(default=0)
     service = models.ForeignKey(Category, help_text='Select category', related_name='service')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     staff = models.ManyToManyField(Employee, blank=True, null=True)
+    access = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'Service'
@@ -44,3 +49,9 @@ class Service(models.Model):
 
     def get_employee(self):
         return Employee.objects.filter(service=self.id)
+
+    def get_absolute_url(self):
+        return reverse('service:service-detail', kwargs={'service_id': self.pk})
+
+    def get_update_url(self):
+        return reverse('service:service-update', kwargs={'service_id': self.pk})

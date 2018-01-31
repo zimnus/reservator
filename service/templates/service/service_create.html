@@ -5,14 +5,50 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-lg-12">
-            <form action="" class="form-horizontall" method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-
-                <input class="btn btn-success" type="submit" value="{% trans 'submit' %}">
-            </form>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Услуга</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{% url 'enterprise:dashboard' %}">Главная</a>
+                </li>
+                <li class="active">
+                    <strong>Добавить услугу</strong>
+                </li>
+            </ol>
         </div>
     </div>
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-lg-12">
+                <form action="" method="POST" class="form-horizontal wizard-big">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form-group">
+                        <label for="" class="control-label col-sm-2">
+                            {{ field.label_tag }}
+                        </label>
+                        <div class="col-sm-10">
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="alert alert-danger">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-success btn-sx pull-right">Добавить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_script %}
+    <script>
+        $(document).ready(function() {
+            $('.dual_select').bootstrapDualListbox({
+                selectorMinimalHeight: 160
+            });
+        })
+    </script>
 {% endblock %}
