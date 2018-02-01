@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'employee',
     'service',
     'schedule',
+    'settings',
     # API
     'api',
     # Install apps

@@ -1,0 +1,58 @@
+{% extends 'base_index.html' %}
+{% load static %}
+
+{% block title %}
+    Service group | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Настройка</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{% url 'enterprise:dashboard' %}">Главная</a>
+            </li>
+            <li class="active">
+                <strong>Група сервисов</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h2>Service group</h2>
+                    <div class="client-list">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <tbody>
+                                    {% for group in instance %}
+                                    <tr id="group" data-key={{group.id}}>
+                                        <td><span class="fa fa-folder"></span></td>
+                                        <td><span class="client-link">{{ group.title }}</span></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <a href="" class="btn btn-primary">New group</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="ibox ibox-content">
+                <div id="service-group"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block custom_script %}
+<script type="text/babel" src="{% static 'js/app/service_group.js' %}"></script>
+{% endblock %}

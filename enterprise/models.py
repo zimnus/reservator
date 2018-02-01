@@ -101,7 +101,7 @@ class Enterprise(models.Model):
         return reverse("enterprise:detail", kwargs={'pk': self.pk})
 
     def update_url(self):
-        return reverse("enterprise:update", kwargs={'pk': self.pk})
+        return reverse("settings:enterprise-settings-edit", kwargs={'pk': self.pk})
 
     def get_employee(self):
         id = self.id

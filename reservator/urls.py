@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^employee/', include('employee.urls', namespace='employee')),
     url(r'^service/', include('service.urls', namespace='service')),
     url(r'^schedule/', include('schedule.urls', namespace='schedule')),
+    url(r'^settings/', include('settings.urls', namespace='settings')),
     # api
     url(r'^api/', include('api.urls', namespace='api')),
     # url(r'^api/enterprise/', include('enterprise.api.urls', namespace='api-enterprise')),

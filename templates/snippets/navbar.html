@@ -67,14 +67,18 @@
                 </ul>
             </li>
             <li>
-                <a href="metrics.html"><i class="fa fa-pie-chart"></i> <span class="nav-label">Metrics</span> </a>
+                <a href=""><i class="fa fa-calendar"></i> <span class="nav-label"></span>Росписание</a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">App Views</span> <span
-                        class="pull-right label label-primary">SPECIAL</span></a>
+                <a href="">
+                    <i class="fa fa-cogs"></i>
+                    <span class="nav-label">Настройка</span>
+                    <span class="fa arrow"></span>
+                </a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="">Contacts</a></li>
-
+                    <li><a href="{% url 'settings:enterprise-settings' %}"><span class="fa fa-edit"></span> Основное</a></li>
+                    <li><a href="{% url 'settings:service-group' 1 %}"><span class="fa fa-tasks"></span> Сервисы</a></li>
+                    <li><a href=""><span class="fa fa-group"></span> Персонал</a></li>
                 </ul>
             </li>
         </ul>
