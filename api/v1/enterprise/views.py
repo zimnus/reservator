@@ -75,6 +75,7 @@ class CategoryOfServiceAPIDetailView(mixins.UpdateModelMixin, mixins.DestroyMode
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
 
+
 class CityListView(generics.ListAPIView):
     serializer_class = CitySerializer
     queryset = City.objects.all()

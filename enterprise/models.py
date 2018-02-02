@@ -1,7 +1,9 @@
 from django.db import models
 from django.db.models import Q
+from django.db.models.signals import post_save
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.dispatch import receiver
 import datetime
 
 from phonenumber_field.modelfields import PhoneNumberField
@@ -10,22 +12,10 @@ from geoposition.fields import GeopositionField
 
 from jsonfield import JSONField
 
-from account.models import ClientProfile
-
 User = settings.AUTH_USER_MODEL
 
+
 ########## CHOICE ############
-
-WORK_DAYS = (
-    ("Monday", "Monday"),
-    ("Tuesday", "Tuesday"),
-    ("Wednesday", "Wednesday"),
-    ("Thursday", "Thursday"),
-    ("Friday", "Friday"),
-    ("Saturday", "Saturday"),
-    ("Sunday", "Sunday"),
-)
-
 
 def upload_enterprise_image(instance, filename):
     return "enterprise/{title}/{filename}".format(title=instance.title, filename=filename)
@@ -46,10 +36,6 @@ class EnterpriseQuerySet(models.QuerySet):
 
 ########### MANAGERS ##################
 class EnterpriseManager(models.Manager):
-
-    def get_list(self, request_user):
-        return Enterprise.objects.filter(owner=request_user)
-
     def get_queryset(self):
         return EnterpriseQuerySet(self.model, using=self._db)
 
@@ -57,8 +43,8 @@ class EnterpriseManager(models.Manager):
         from employee.models import Employee
         return Employee.objects.filter(enterprise=enterprise)
 
-    # def search(self, query):
-    #     return self.get_queryset().search(query)
+        # def search(self, query):
+        #     return self.get_queryset().search(query)
 
 
 ########### Models ###############
@@ -75,15 +61,16 @@ class City(models.Model):
 
 
 class Enterprise(models.Model):
-    owner = models.ForeignKey(User, help_text='Owner field')
+    owner = models.OneToOneField(User, help_text='Owner field')
     title = models.CharField(max_length=255, help_text='Name enterprise')
-    logo = models.ImageField(upload_to=upload_enterprise_image, help_text='Logo image')
-    short_descr = models.TextField(help_text='Short descriptions')
-    city = models.ForeignKey(City, help_text='Select city')
+    logo = models.ImageField(upload_to=upload_enterprise_image, help_text='Logo image', blank=True)
+    category = models.CharField(max_length=200, blank=True, null=True, help_text='Category')
+    description = models.TextField(help_text='Short descriptions', blank=True)
     schedule = JSONField(blank=True, null=True, help_text='Schedule enterprise')
-    address = models.CharField(max_length=255, help_text='Address enterprise')
-    phone = PhoneNumberField(max_length=255, help_text='Contact phone')
-    group_priority = models.PositiveIntegerField(help_text='Enterprise priority from filter')
+    city = models.ForeignKey(City, help_text='Select city', blank=True, null=True)
+    address = models.CharField(max_length=255, help_text='Address enterprise', blank=True)
+    phone = PhoneNumberField(max_length=255, help_text='Contact phone', blank=True)
+    group_priority = models.PositiveIntegerField(help_text='Enterprise priority from filter', default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -92,6 +79,7 @@ class Enterprise(models.Model):
     class Meta:
         db_table = 'Enterprise'
         verbose_name = 'Enterprise'
+        verbose_name_plural = 'Enterprises'
         ordering = ['-group_priority']
 
     def __str__(self):
@@ -100,9 +88,15 @@ class Enterprise(models.Model):
     def get_absolute_url(self):
         return reverse("enterprise:detail", kwargs={'pk': self.pk})
 
-    def update_url(self):
+    def get_update_url(self):
         return reverse("settings:enterprise-settings-edit", kwargs={'pk': self.pk})
 
     def get_employee(self):
         id = self.id
         return Enterprise.objects.get_employee(id)
+
+
+@receiver(post_save, sender=User)
+def create_enterprise(sender, instance, created, **kwargs):
+    if created:
+        Enterprise.objects.get_or_create(owner=instance)

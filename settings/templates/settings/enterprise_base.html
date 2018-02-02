@@ -50,28 +50,28 @@
                         <div class="project-list">
                             <table class="table table-hover">
                                 <tbody>
-                                {% for item in enterprises %}
+
                                     <tr>
                                         <td class="project-status">
                                             <span class="label label-primary">Активна</span>
                                         </td>
                                         <td class="project-title">
-                                            <a href="{{ item.update_url }}">{{ item.title }}</a>
+                                            <a href="{{ item.update_url }}">{{ enterprises.title }}</a>
                                             <br/>
-                                            <small>Создано {{ item.created_at }}</small>
+                                            <small>Создано {{ enterprises.created_at }}</small>
                                         </td>
                                         <td class="project-people">
-                                            {% for emp in item.get_employee %}
+                                            {% for emp in enterprises.get_employee %}
                                                 <a href="#"><img alt="image" class="img-circle"
                                                                  src="{{ emp.avatar.url }}"></a>
                                             {% endfor %}
                                         </td>
                                         <td class="project-actions">
-                                            <a href="{{ item.update_url }}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Редактировать
+                                            <a href="{{ enterprises.get_update_url }}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Редактировать
                                             </a>
                                         </td>
                                     </tr>
-                                {% endfor %}
+
                                 </tbody>
                             </table>
                         </div>

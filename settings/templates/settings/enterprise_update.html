@@ -1,5 +1,5 @@
 {% extends "base_index.html" %}
-
+{% load static %}
 {% block title %}
 	Update | {{ block.super }}
 {% endblock %}
@@ -27,13 +27,65 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#tab-1"> Основное</a></li>
+                        <li class=""><a data-toggle="tab" href="#tab-2"> Описание</a></li>
+                        <li class=""><a data-toggle="tab" href="#tab-3"> Контакты</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="tab-1" class="tab-pane active">
                             <div class="panel-body">
-                                <form class="form-horizontal" method="POST" action="">
+                                <form class="form-horizontal" method="POST">
                                     {% csrf_token %}
                                     {% for field in form %}
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="">
+                                                {{ field.label_tag }}
+                                            </label>
+                                            <div class="col-sm-10">
+                                                {{ field }}
+                                                {% if field.errors %}
+                                                    <div class="alert alert danger">{{field.error}}</div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                            <button class="btn btn-success btn-block">Сохранить!</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="tab-2" class="tab-pane">
+                            <div class="panel-body">
+                                <form class="form-horizontal" method="POST">
+                                    {% csrf_token %}
+                                    {% for field in form_schedule %}
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="">
+                                                {{ field.label_tag }}
+                                            </label>
+                                            <div class="col-sm-10">
+                                                {{ field }}
+                                                {% if field.errors %}
+                                                    <div class="alert alert danger">{{field.error}}</div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    <div class="form-group">
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                            <button class="btn btn-success btn-block">Сохранить!</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="tab-3" class="tab-pane">
+                            <div class="panel-body">
+                                <form id="contact-post" class="form-horizontal" method="POST">
+                                    {% csrf_token %}
+                                    {% for field in form_contact %}
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="">
                                                 {{ field.label_tag }}
@@ -62,9 +114,29 @@
 {% endblock %}
 
 {% block custom_script %}
+    <script src="{% static 'js/utils/cookie_safe.js' %}"></script>
 	<script>
 		$(document).ready(function(){
+             function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                  var cookies = document.cookie.split(';');
+                  for (var i = 0; i < cookies.length; i++) {
+                      var cookie = jQuery.trim(cookies[i]);
+                      // Does this cookie string begin with the name we want?
+                      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                          break;
+                      }
+                  }
+                }
+                return cookieValue;
+                }
 			$(".summernote").summernote();
+
+            var URL = '/api/enterprises/detail/';
+            var ID = 1;
+            
 		});
 	</script>
 {% endblock %}

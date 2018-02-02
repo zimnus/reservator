@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from rest_framework.reverse import reverse as api_reverse
 
+from django.contrib.staticfiles.templatetags.staticfiles import static
+
 from enterprise.models import Enterprise, City
 from service.models import Service
 from account.api.serializers import UserPublicSerializer
@@ -19,7 +21,7 @@ class EnterpriseSerializer(serializers.ModelSerializer):
             'id',
             'user',
             'title',
-            'short_descr',
+            'description',
             'logo',
             'city',
             'schedule',
@@ -62,6 +64,7 @@ class CategoryOfServicesSerializers(serializers.ModelSerializer):
     def get_uri(self, obj):
         request = self.context.get('request')
         return api_reverse('api:api-enterprise:service-detail', kwargs={'id': obj.id}, request=request)
+
 
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
