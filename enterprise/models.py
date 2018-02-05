@@ -88,9 +88,6 @@ class Enterprise(models.Model):
     def get_absolute_url(self):
         return reverse("enterprise:detail", kwargs={'pk': self.pk})
 
-    def get_update_url(self):
-        return reverse("settings:enterprise-settings-edit", kwargs={'pk': self.pk})
-
     def get_employee(self):
         id = self.id
         return Enterprise.objects.get_employee(id)

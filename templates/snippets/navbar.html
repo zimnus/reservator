@@ -78,7 +78,7 @@
                 <ul class="nav nav-second-level collapse">
                     <li><a href="{% url 'settings:enterprise-settings' %}"><span class="fa fa-edit"></span> Основное</a></li>
                     <li><a href="{% url 'settings:service-group' 1 %}"><span class="fa fa-tasks"></span> Сервисы</a></li>
-                    <li><a href=""><span class="fa fa-group"></span> Персонал</a></li>
+                    <li><a href="{% url 'settings:personal-settings' %}"><span class="fa fa-group"></span> Персонал</a></li>
                 </ul>
             </li>
         </ul>

@@ -4,11 +4,20 @@ from .models import Enterprise, City
 
 
 class EnterpriseCreateForm(forms.ModelForm):
+    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label='Название')
+    category = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label='Категория')
+    phone = forms.CharField(widget=PhoneNumberInternationalFallbackWidget(attrs={
+        'class': 'form-control',
+        'data-mask': '+38 (999) 999-99-99'
+    }), label="Контактный телефон")
+    address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label="Адрес")
     description = forms.CharField(widget=forms.Textarea(attrs={'class': 'summernote'}), label='Описание')
-
+    city = forms.ModelChoiceField(City.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}),
+                                  label="Город")
     class Meta:
         model = Enterprise
-        exclude = ('owner', 'active_stuff_count',)
+        exclude = ('owner', 'active_stuff_count', 'group_priority', 'schedule', 'logo', )
 
 
 class EnterpriseUpdateScheduleForm(forms.ModelForm):

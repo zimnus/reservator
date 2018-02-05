@@ -1,5 +1,17 @@
 from django import forms
-from .models import Service
+from .models import Category, Service
+
+
+class CategoryCreateForm(forms.ModelForm):
+    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label='Название категории')
+    weight = forms.IntegerField(widget=forms.NumberInput(attrs={
+        'class': 'form-control',
+        'min': '0'
+    }), label='Приоритет')
+
+    class Meta:
+        model = Category
+        fields = ('title', 'weight', )
 
 
 class ServiceCreateForm(forms.ModelForm):
@@ -13,7 +25,6 @@ class ServiceCreateForm(forms.ModelForm):
             'min_price': 'Минимальная цена',
             'max_price': 'Максимальная цена',
             'service': 'Категория',
-            'staff': 'Сотрудники',
         }
 
     def __init__(self, *args, **kwargs):
@@ -42,7 +53,3 @@ class ServiceCreateForm(forms.ModelForm):
             'class': 'form-control'
         })
 
-        self.fields['staff'].widget.attrs.update({
-            'class': 'form-control dual_select',
-            'multiple': 'true'
-        })

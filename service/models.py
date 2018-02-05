@@ -35,7 +35,6 @@ class Service(models.Model):
     service = models.ForeignKey(Category, help_text='Select category', related_name='service')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    staff = models.ManyToManyField(Employee, blank=True, null=True)
     access = models.BooleanField(default=False)
 
     class Meta:

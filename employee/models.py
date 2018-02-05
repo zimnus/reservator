@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from enterprise.models import Enterprise
 
@@ -26,6 +27,9 @@ class Employee(models.Model):
 
     def __str__(self):
         return "{} {}".format(self.name, self.specialization)
+
+    def get_update_url(self):
+        return reverse('settings:staff-detail', kwargs={'pk': self.pk})
 
     class Meta:
         db_table = 'Employee'

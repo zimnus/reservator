@@ -67,7 +67,7 @@ def update(request, pk):
     instance = Enterprise.objects.get(pk=pk)
 
     if request.POST:
-        form = EnterpriseUpdateForm(request.POST or None)
+        form = EnterpriseUpdateForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             update_data = form.cleaned_data
             Enterprise.objects.filter(pk=instance.id).update(**update_data)

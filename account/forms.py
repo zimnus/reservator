@@ -8,13 +8,18 @@ User = get_user_model()
 
 
 class RegisterForm(forms.ModelForm):
-    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
-    password2 = forms.CharField(label="Confirm Password", widget=forms.PasswordInput)
-    group = forms.ModelChoiceField(queryset=Group.objects.all(), required=True)
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'login'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'email'}))
+    password1 = forms.CharField(label="Password", widget=forms.PasswordInput(attrs={
+        'class': 'form-control', 'placeholder': 'Password'
+    }))
+    password2 = forms.CharField(label="Confirm Password", widget=forms.PasswordInput(attrs={
+        'class': 'form-control', 'placeholder': 'Confirm Password'
+    }))
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'group',)
+        fields = ('username', 'email', )
 
     def clean_email(self):
         email = self.cleaned_data.get('email')

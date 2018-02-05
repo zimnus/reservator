@@ -1,0 +1,315 @@
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}
+	{{ instance.name }} | {{ block.super }}
+{% endblock  %}
+
+{% block content %}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Профиль {{ instance.name }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index-2.html">Главная</a>
+            </li>
+            <li>
+                <a>Сотрудник</a>
+            </li>
+            <li class="active">
+                <strong>Профиль</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+
+    <div class="row m-b-lg m-t-lg">
+        <div class="col-md-6">
+
+            <div class="profile-image">
+            	{% if instance.avatar %}
+                	<img src="{{instance.avatar.url}}" class="img-circle circle-border m-b-md" alt="{{instance.name}}">
+                {% else %}
+                	<img src="{% static 'image/avatar/avatar_man.png' %}" class="img-circle circle-border m-b-md" alt="{{instance.name}}">
+                {% endif %}
+            </div>
+            <div class="profile-info">
+                <div class="">
+                    <div>
+                        <h2 class="no-margins">
+                            {{ instance.name }}
+                        </h2>
+                        <h4>{{ instance.specialization }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <table class="table small m-b-xs">
+                <tbody>
+                <tr>
+                    <td>
+                        <strong>142</strong> Предоставлено услуг
+                    </td>
+                    <td>
+                        <strong>22</strong> Записи
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <strong>61</strong> Коментариев
+                    </td>
+                    <td>
+                        <strong>54</strong> Articles
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>154</strong> Tags
+                    </td>
+                    <td>
+                        <strong>32</strong> Friends
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3">
+            <small>Rating</small>
+            <div class="rating"></div>
+        </div>
+
+
+    </div>
+    <div class="row">
+
+        <div class="col-lg-3">
+
+            <div class="ibox">
+                <div class="ibox-content">
+                        <h3>About {{instance.name}}</h3>
+
+                    <p class="small">
+                        {{ instance.information|safe }}
+                    </p>
+
+                    <p class="small font-bold">
+                    	{% if instance.fired %}
+                    	<span><i class="fa fa-circle text-navy"></i> Fired</span>
+                    	{% else %}
+                        <span><i class="fa fa-circle text-navy"></i> Online status</span>
+                    	{% endif %}
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>Last clients</h3>
+                    <p class="small">
+                        If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't
+                        anything embarrassing
+                    </p>
+                    <div class="user-friends">
+                        <a href="#"><img alt="image" class="img-circle" src="{% static 'image/avatar/avatar_man.png' %}"></a>
+                        <a href="#"><img alt="image" class="img-circle" src="{% static 'image/avatar/avatar_man.png' %}"></a>
+                        <a href="#"><img alt="image" class="img-circle" src="{% static 'image/avatar/avatar_man.png' %}"></a>
+                        <a href="#"><img alt="image" class="img-circle" src="{% static 'image/avatar/avatar_man.png' %}"></a>
+                        <a href="#"><img alt="image" class="img-circle" src="{% static 'image/avatar/avatar_man.png' %}"></a>
+                        <a href="#"><img alt="image" class="img-circle" src="{% static 'image/avatar/avatar_man.png' %}"></a>
+                        <a href="#"><img alt="image" class="img-circle" src="{% static 'image/avatar/avatar_man.png' %}"></a>
+                        <a href="#"><img alt="image" class="img-circle" src="{% static 'image/avatar/avatar_man.png' %}"></a>
+                        <a href="#"><img alt="image" class="img-circle" src="{% static 'image/avatar/avatar_man.png' %}"></a>
+                        <a href="#"><img alt="image" class="img-circle" src="{% static 'image/avatar/avatar_man.png' %}"></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-5">
+
+            <div class="social-feed-box">
+
+                <div class="pull-right social-action dropdown">
+                    <button data-toggle="dropdown" class="dropdown-toggle btn-white">
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu m-t-xs">
+                        <li><a href="#">Config</a></li>
+                    </ul>
+                </div>
+                <div class="social-avatar">
+                    <a href="#" class="pull-left">
+                        <img alt="image" src="{% static 'image/avatar/avatar_man.png' %}">
+                    </a>
+                    <div class="media-body">
+                        <a href="#">
+                            Andrew Williams
+                        </a>
+                        <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                    </div>
+                </div>
+                <div class="social-body">
+                    <p>
+                        Many desktop publishing packages and web page editors now use Lorem Ipsum as their
+                        default model text, and a search for 'lorem ipsum' will uncover many web sites still
+                        in their infancy. Packages and web page editors now use Lorem Ipsum as their
+                        default model text.
+                    </p>
+
+                    <div class="btn-group">
+                        <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!</button>
+                        <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>
+                        <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>
+                    </div>
+                </div>
+                
+
+            </div>
+
+            <div class="social-feed-box">
+
+                <div class="pull-right social-action dropdown">
+                    <button data-toggle="dropdown" class="dropdown-toggle btn-white">
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu m-t-xs">
+                        <li><a href="#">Config</a></li>
+                    </ul>
+                </div>
+                <div class="social-avatar">
+                    <a href="#" class="pull-left">
+                        <img alt="image" src="{% static 'image/avatar/avatar_man.png' %}">
+                    </a>
+                    <div class="media-body">
+                        <a href="#">
+                            Andrew Williams
+                        </a>
+                        <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                    </div>
+                </div>
+                <div class="social-body">
+                    <p>
+                        Many desktop publishing packages and web page editors now use Lorem Ipsum as their
+                        default model text, and a search for 'lorem ipsum' will uncover many web sites still
+                        in their infancy. Packages and web page editors now use Lorem Ipsum as their
+                        default model text.
+                    </p>
+                    <p>
+                        Lorem Ipsum as their
+                        default model text, and a search for 'lorem ipsum' will uncover many web sites still
+                        in their infancy. Packages and web page editors now use Lorem Ipsum as their
+                        default model text.
+                    </p>
+                    <img src="{% static 'image/avatar/avatar_man.png' %}" class="img-responsive">
+                    <div class="btn-group">
+                        <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!</button>
+                        <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>
+                        <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>
+                    </div>
+                </div>
+                
+
+            </div>
+
+
+
+
+        </div>
+        <div class="col-lg-4 m-b-lg">
+            <div id="vertical-timeline" class="vertical-container light-timeline no-margins">
+                <div class="vertical-timeline-block">
+                    <div class="vertical-timeline-icon navy-bg">
+                        <i class="fa fa-briefcase"></i>
+                    </div>
+
+                    <div class="vertical-timeline-content">
+                        <h2>Meeting</h2>
+                        <p>Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the sale.
+                        </p>
+                        <a href="#" class="btn btn-sm btn-primary"> More info</a>
+                            <span class="vertical-date">
+                                Today <br>
+                                <small>Dec 24</small>
+                            </span>
+                    </div>
+                </div>
+
+                <div class="vertical-timeline-block">
+                    <div class="vertical-timeline-icon blue-bg">
+                        <i class="fa fa-file-text"></i>
+                    </div>
+
+                    <div class="vertical-timeline-content">
+                        <h2>Send documents to Mike</h2>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
+                        <a href="#" class="btn btn-sm btn-success"> Download document </a>
+                            <span class="vertical-date">
+                                Today <br>
+                                <small>Dec 24</small>
+                            </span>
+                    </div>
+                </div>
+
+                <div class="vertical-timeline-block">
+                    <div class="vertical-timeline-icon lazur-bg">
+                        <i class="fa fa-coffee"></i>
+                    </div>
+
+                    <div class="vertical-timeline-content">
+                        <h2>Coffee Break</h2>
+                        <p>Go to shop and find some products. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. </p>
+                        <a href="#" class="btn btn-sm btn-info">Read more</a>
+                        <span class="vertical-date"> Yesterday <br><small>Dec 23</small></span>
+                    </div>
+                </div>
+
+                <div class="vertical-timeline-block">
+                    <div class="vertical-timeline-icon yellow-bg">
+                        <i class="fa fa-phone"></i>
+                    </div>
+
+                    <div class="vertical-timeline-content">
+                        <h2>Phone with Jeronimo</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
+                        <span class="vertical-date">Yesterday <br><small>Dec 23</small></span>
+                    </div>
+                </div>
+
+                <div class="vertical-timeline-block">
+                    <div class="vertical-timeline-icon navy-bg">
+                        <i class="fa fa-comments"></i>
+                    </div>
+
+                    <div class="vertical-timeline-content">
+                        <h2>Chat with Monica and Sandra</h2>
+                        <p>Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). </p>
+                        <span class="vertical-date">Yesterday <br><small>Dec 23</small></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block custom_script %}
+<script>
+	option = {
+		max_value: 6,
+		step_size: 0.5
+	}
+	$('.rating').rate(option);
+</script>
+{% endblock %}

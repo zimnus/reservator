@@ -1,0 +1,105 @@
+{% extends 'base_index.html' %}
+{% load static %}
+
+{% block title %}
+    Service group | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Настройка</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{% url 'enterprise:dashboard' %}">Главная</a>
+            </li>
+            <li class="active">
+                <strong>Група сервисов</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Групы услуг</h5>
+                    <div class="ibox-tools">
+                        <a class="btn btn-primary btn-xs" href="{% url 'settings:new-category' user.pk %}">Добавить групу услуг</a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="clients-list">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                    {% for group in category %}
+                                        <tr>
+                                            <td><span class="fa fa-folder"></span></td>
+                                            <td class="client-link"><a onclick="loadService({{ group.pk }})" >{{ group.title }}</a></td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td class="alert alert-info">Нет созданых категорий услуг</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Услуги</h5>
+                    <div class="ibox-tools">
+                        <a href="{% url 'settings:new-service' %}" class="btn btn-primary btn-xs">Новая услуга</a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="project-list">
+                        <table class="table table-hover">
+                            <tbody>
+
+                                {% for item in service %}
+                                <tr>
+                                    <td>{{ item.active }}</td>
+                                    <td>{{ item.name }}</td>
+                                    <td>3</td>
+                                </tr>
+                                {% empty %}
+                                    <div class="alert alert-info">
+                                        В етой категории у вас нет услуг!
+                                    </div>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block custom_script %}
+<script>
+    function loadService(pk) {
+        console.log('You clicked group with ID => ' + pk);
+        $.ajax({
+            url: '/api/services/'+pk+'/',
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (error) {
+                alert(JSON.stringify(error, undefined, 4))
+            }
+        })
+    }
+</script>
+{% endblock %}

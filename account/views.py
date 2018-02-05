@@ -20,17 +20,12 @@ def register(request, *args, **kwargs):
         form = RegisterForm(request.POST or None)
         if form.is_valid():
             username = form.cleaned_data['username']
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
             email = form.cleaned_data['email']
             password1 = form.cleaned_data['password1']
             password2 = form.cleaned_data['password2']
-            group = form.cleaned_data['group']
-            user, created = User.objects.get_or_create(username=username, first_name=first_name, last_name=last_name,
-                                                       email=email)
+            user, created = User.objects.get_or_create(username=username, email=email)
             if created:
                 user.set_password(password1)
-                user.groups.add(group)
                 user.save()
             return HttpResponseRedirect('/')
     else:
