@@ -18,4 +18,4 @@ class CategoryOfServiceAdmin(admin.ModelAdmin):
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('title',)
+    list_display = ('title', 'service', 'enterprise', )

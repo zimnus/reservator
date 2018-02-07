@@ -23,5 +23,4 @@ class ServiceSerializer(serializers.ModelSerializer):
             'min_price',
             'max_price',
             'service',
-            'staff',
         )

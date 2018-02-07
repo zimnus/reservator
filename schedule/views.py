@@ -4,15 +4,17 @@ from django.contrib.auth.decorators import login_required
 
 from enterprise.models import Enterprise
 from employee.models import Employee
+from event.models import Event
 from .models import StaffSchedule
 
 
 # Create your views here.
 
 @login_required
-def schedule(request, company_id):
+def schedule(request):
+    enterprise = Enterprise.objects.get(owner=request.user)
     try:
-        schedules = StaffSchedule.objects.filter(staff__enterprise=company_id)
+        schedules = StaffSchedule.objects.filter(staff__enterprise=enterprise)
     except StaffSchedule.DoesNotExist:
         schedules = None
     template_name = 'schedule/schedules.html'
@@ -20,13 +22,16 @@ def schedule(request, company_id):
     return render(request, template_name, template_data)
 
 
-def get_schedule_list(request):
-    schedules = StaffSchedule.objects.filter()
-    for s in schedules:
-        print("Staff: \t{}\nWork date:\t{}\nIs work:\t{}\nSchedule:\t{}".format(s.staff.name, s.work_date, s.is_work, s.schedule))
-        print("*"*100)
+def get_schedule_list(request, date):
+    user = request.user
+    schedules = StaffSchedule.objects.filter(staff__enterprise__owner=user).filter(work_date=date)
+    employee = []
+    for staff in schedules:
+        employee.append(staff.staff.name)
+    events = Event.objects.filter(enterprise__owner=user).filter(start_date=date)
     template_data = {
         'staff': list(schedules.values()),
-        # 'schedules': schedules.schedule
+        'events': list(events.values()),
+        'employee': employee
     }
     return JsonResponse(template_data)

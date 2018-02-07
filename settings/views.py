@@ -96,12 +96,13 @@ def new_category(request, pk):
 
 @login_required
 def new_service(request):
+    enterprise = Enterprise.objects.get(owner=request.user)
     if request.POST:
         form = ServiceCreateForm(request.POST or None)
         if form.is_valid():
             post_data = form.cleaned_data
-            Service.objects.create(**post_data)
-            return HttpResponseRedirect('/')
+            Service.objects.create(enterprise=enterprise, **post_data)
+            return HttpResponseRedirect(reverse("settings:service-group", kwargs={'pk': enterprise.pk}))
     else:
         form = ServiceCreateForm()
     template_name = 'settings/service/new_service.html'

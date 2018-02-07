@@ -11,45 +11,22 @@ class CategoryCreateForm(forms.ModelForm):
 
     class Meta:
         model = Category
-        fields = ('title', 'weight', )
+        fields = ('title', 'weight',)
 
 
 class ServiceCreateForm(forms.ModelForm):
+    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label='Услуга')
+    service_desc = forms.CharField(widget=forms.Textarea(
+        attrs={'class': 'form-control'}), label='Короткое описание')
+    service_duration = forms.DurationField(widget=forms.TimeInput(attrs={'class': 'timepicker'}))
+    min_price = forms.IntegerField(widget=forms.NumberInput(
+        attrs={'class': 'form-control'}
+    ), label='Минимальная цена')
+    max_price = forms.IntegerField(widget=forms.NumberInput(
+        attrs={'class': 'form-control'}
+    ), label='Максимальная цена')
+    access = forms.BooleanField(widget=forms.CheckboxInput, label='Доступен для записи')
+
     class Meta:
         model = Service
-        fields = '__all__'
-        labels = {
-            'title': 'Услуга',
-            'service_desc': 'Короткое описание',
-            'service_duration': 'Длительность услуги',
-            'min_price': 'Минимальная цена',
-            'max_price': 'Максимальная цена',
-            'service': 'Категория',
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(ServiceCreateForm, self).__init__(*args, **kwargs)
-        self.fields['title'].widget.attrs.update({
-            'class': 'form-control'
-        })
-
-        self.fields['service_desc'].widget.attrs.update({
-            'class': 'form-control'
-        })
-
-        self.fields['service_duration'].widget.attrs.update({
-            'class': 'form-control'
-        })
-
-        self.fields['min_price'].widget.attrs.update({
-            'class': 'form-control'
-        })
-
-        self.fields['max_price'].widget.attrs.update({
-            'class': 'form-control'
-        })
-
-        self.fields['service'].widget.attrs.update({
-            'class': 'form-control'
-        })
-
+        fields = ('title', 'service_desc', 'service_duration', 'min_price', 'max_price', 'access', 'service')

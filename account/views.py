@@ -13,6 +13,12 @@ User = get_user_model()
 
 
 # New code
+def profile(request):
+    user = request.user
+    profile = ClientProfile.objects.get(user=user)
+    template_name = 'account/profile.html'
+    template_data = {'profile': profile}
+    return render(request, template_name, template_data)
 
 
 def register(request, *args, **kwargs):

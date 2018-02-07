@@ -2,7 +2,6 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from enterprise.models import Enterprise
-from employee.models import Employee
 
 
 # Create your models here.
@@ -27,6 +26,7 @@ class Category(models.Model):
 
 
 class Service(models.Model):
+    enterprise = models.ForeignKey(Enterprise, related_name='Owner')
     title = models.CharField(max_length=255, help_text='Name of service')
     service_desc = models.TextField(help_text='Short description', blank=True, null=True)
     service_duration = models.DurationField(blank=True, null=True)
@@ -45,9 +45,6 @@ class Service(models.Model):
 
     def __str__(self):
         return self.title
-
-    def get_employee(self):
-        return Employee.objects.filter(service=self.id)
 
     def get_absolute_url(self):
         return reverse('service:service-detail', kwargs={'service_id': self.pk})

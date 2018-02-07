@@ -67,8 +67,12 @@
 
                                 {% for item in service %}
                                 <tr>
-                                    <td>{{ item.active }}</td>
-                                    <td>{{ item.name }}</td>
+                                {% if item.access %}
+                                    <td><span class="label label-primary">Active</span></td>
+                                {% else %}
+                                    <td><span class="label label-danger">Hide</span></td>
+                                {% endif %}
+                                    <td>{{ item.title }}</td>
                                     <td>3</td>
                                 </tr>
                                 {% empty %}
@@ -90,16 +94,15 @@
 {% block custom_script %}
 <script>
     function loadService(pk) {
-        console.log('You clicked group with ID => ' + pk);
         $.ajax({
             url: '/api/services/'+pk+'/',
             success: function (data) {
-                console.log(data)
+                console.log(JSON.stringify(data, undefined, 4))
             },
             error: function (error) {
                 alert(JSON.stringify(error, undefined, 4))
             }
-        })
+        });
     }
 </script>
 {% endblock %}

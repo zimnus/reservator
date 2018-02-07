@@ -2,6 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from enterprise.models import Enterprise
+from service.models import Service
 
 
 # Write you code here
@@ -24,6 +25,7 @@ class Employee(models.Model):
     fired = models.BooleanField(default=False, help_text='Is fired')
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+    staff = models.ForeignKey(Service, related_name='staff', blank=True, null=True)
 
     def __str__(self):
         return "{} {}".format(self.name, self.specialization)
