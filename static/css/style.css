@@ -2093,9 +2093,11 @@ div.dt-button-info {
   font-weight: bold;
   color: #676a6c;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  border-radius: 40%;
+  text-align: center;
 }
 .ui-widget-content {
-  box-sizing: content-box;
+  box-sizing: inherit;
 }
 .ui-icon-triangle-1-n {
   background-position: 1px -16px;
@@ -2122,9 +2124,9 @@ div.dt-button-info {
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
   border: 1px solid #dddddd;
-  background: #ffffff;
+  background: #1ab394;
   font-weight: normal;
-  color: #212121;
+  color: #ffffff;
 }
 .ui-jqgrid .ui-pg-input {
   font-size: inherit;

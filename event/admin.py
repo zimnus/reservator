@@ -8,4 +8,4 @@ from .models import Event
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('staff', 'client', 'start_date', 'start_time',)
+    list_display = ('staff', 'client', 'start_event', 'end_event', 'complete', )

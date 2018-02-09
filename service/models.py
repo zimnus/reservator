@@ -5,6 +5,11 @@ from enterprise.models import Enterprise
 
 
 # Create your models here.
+price = (
+    ('UAH', 'UAH'),
+    ('RUB', 'RUB')
+)
+
 
 class Category(models.Model):
     title = models.CharField(max_length=255, help_text='Name category of cervices')
@@ -30,6 +35,7 @@ class Service(models.Model):
     title = models.CharField(max_length=255, help_text='Name of service')
     service_desc = models.TextField(help_text='Short description', blank=True, null=True)
     service_duration = models.DurationField(blank=True, null=True)
+    price = models.CharField(max_length=50, choices=price, help_text='Select currency', default='uah')
     min_price = models.PositiveIntegerField(default=0)
     max_price = models.PositiveIntegerField(default=0)
     service = models.ForeignKey(Category, help_text='Select category', related_name='service')

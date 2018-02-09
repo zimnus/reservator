@@ -1,4 +1,7 @@
 from django.db import models
+
+from django.core.exceptions import ValidationError
+
 from jsonfield import JSONField
 from employee.models import Employee
 
@@ -18,3 +21,11 @@ class StaffSchedule(models.Model):
         verbose_name = 'Staff schedule'
         verbose_name_plural = 'Staff schedules'
         db_table = 'Staff schedule'
+
+    # Validation exists schedule date
+    def clean_fields(self, exclude=None):
+        new_date = self.work_date
+        schedule = StaffSchedule.objects.filter(staff=self.staff).filter(work_date=new_date)
+        if schedule.exists():
+            raise ValidationError('This schedule already exists')
+        return new_date

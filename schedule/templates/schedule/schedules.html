@@ -1,5 +1,5 @@
 {% extends 'base_index.html' %}
-
+{% load static %}
 {% block title %}
     Schedules | {{ block.super }}
 {% endblock %}
@@ -27,86 +27,31 @@
         <div class="col-lg-12">
             <div class="wrapper wrapper-content animated fadeInUp">
                 <div class="timetable"></div>
+                <div class="div-lg-10">
+                    <div class="event-form">
+                        <form action="#" class="form-horizontal">
+                            {% for field in event_form %}
+                                <div class="form-group">
+                                    <label class="control-label" for="">{{ field.label_tag }}</label>
+                                    {{ field }}
+                                </div>
+                            {% endfor %}
+                        </form>
+                    </div>
+                </div>
+                <!--
+                <div id="skeduler-container">
+                </div>
+                -->
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block custom_script %}
-    <script>
-        $(document).ready(function () {
-            $("#side-calendar").datepicker({
-                dateFormat: 'yy-mm-dd',
-                onSelect: function (date) {
-                    $.ajax({
-                        url: '/schedule/get_schedule_list/'+date+"/",
-                        success: function (data) {
-                            if (data.staff.length === 0 || data.employee.length === 0){
-                                $('.timetable').html('<div class="alert alert-danger">Not staff</div>')
-                            } else {
-                                var location = [];
-                                var event = [];
-                                 $.each(data.employee, function (key, value) {
-                                     location.push(value)
-                                 });
-                                 $.each(data.events, function (key, value) {
-                                     event.push(value)
-                                 });
-                                 getTimetable(location, event);
-                            }
-                        },
-                        error: function (error) {
-                            console.log(error)
-                        }
-                    })
-                }
-            });
-            var date_now = Date.now();
-            $.ajax({
-                url: '/schedule/get_schedule_list/'+ moment(date_now).format('YYYY-MM-DD') +'/',
-                success: function (data) {
-                    if (data.staff.length === 0 || data.employee.length === 0){
-                        $('.timetable').append('<div class="alert alert-danger">Not staff</div>')
-                    } else {
-                        var location = [];
-                        var event = [];
-                         $.each(data.employee, function (key, value) {
-                             location.push(value)
-                         });
-                         $.each(data.events, function (key, value) {
-                             event.push(value)
-                         });
-                         getTimetable(location, event);
-                    }
-                },
-                error: function (error) {
-                    console.log(error)
-                }
-            });
-        });
+    <script src="{% static 'js/utils/string_to_date.js' %}"></script>
+    <script src="{% static 'js/skeduler.js' %}"></script>
 
-        function getTimetable(location, event) {
-            var timetable = new Timetable(location);
-            timetable.setScope(8, 21);
-            timetable.addLocations(location);
-            $.each(event, function (key, value) {
-               //timetable.addEvent('Test event', 'John Doe', new Date(2018, 2, 7, 16, 0), new Date(2018, 2, 7, 18, 0))
-                var date = value.start_date.split('-');
-                var time = value.start_time.split(':');
-                var get_year = parseInt(date['0']);
-                var get_month = parseInt(date['1']);
-                var get_day = parseInt(date['2']);
-                var get_hour = parseInt(time['0']);
-                var get_minute = parseInt(time['1']);
-                console.log("Time: " + get_hour, get_minute);
-                console.log(get_year, get_month, get_day);
-                console.log(location[key]);
-                timetable.addEvent('Стрижка уточок', location[key], new Date(get_year, get_month, get_day, get_hour, get_minute), new Date(get_year, get_month, get_day, get_hour+2, 0));
-            });
-            //timetable.addEvent('Fly', 'Jeni Doe', new Date(2018, 2, 7, 12, 0), new Date(2018, 2, 7, 13, 0));
-            var renderer = new Timetable.Renderer(timetable);
-            renderer.draw(".timetable")
-        }
+    <script src="{% static 'js/timetable.renderer.js' %}"></script>
 
-    </script>
 {% endblock %}
