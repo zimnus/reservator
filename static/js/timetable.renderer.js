@@ -87,7 +87,7 @@ $(document).ready(function () {
         */
         timetable.addEvent('Стрижка уточок', location[key], new Date(get_year, get_month, get_day, get_hour+2, get_minute), new Date(end_year, end_month, end_day, end_hour+2, end_minute));
     });
-    timetable.addEvent('Fly', 'Elon Musk', new Date(2018, 2, 7, 12, 30), new Date(2018, 2, 7, 14, 0));
+    // timetable.addEvent('Fly', 'Elon Musk', new Date(2018, 2, 7, 12, 30), new Date(2018, 2, 7, 14, 0));
     var renderer = new Timetable.Renderer(timetable);
     renderer.draw(".timetable")
     }

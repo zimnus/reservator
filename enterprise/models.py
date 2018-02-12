@@ -88,12 +88,16 @@ class Enterprise(models.Model):
     def get_absolute_url(self):
         return reverse("enterprise:detail", kwargs={'pk': self.pk})
 
+    def get_services(self):
+        from service.models import Service
+        return Service.objects.filter(enterprise__owner=self.pk)
+
     def get_employee(self):
         id = self.id
         return Enterprise.objects.get_employee(id)
 
 
-@receiver(post_save, sender=User)
-def create_enterprise(sender, instance, created, **kwargs):
-    if created:
-        Enterprise.objects.get_or_create(owner=instance)
+# @receiver(post_save, sender=User)
+# def create_enterprise(sender, instance, created, **kwargs):
+#     if created:
+#         Enterprise.objects.get_or_create(owner=instance)

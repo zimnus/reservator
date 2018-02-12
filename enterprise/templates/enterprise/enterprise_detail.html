@@ -49,9 +49,13 @@
                                 <dl class="dl-horizontal">
 
                                     <dt>Администратор:</dt>
-                                    <dd>{{ instance.owner }}</dd>
+                                    {% if instance.owner.full_name %}
+                                        <dd>{{ instance.owner }}</dd>
+                                    {% else %}
+                                        <dd>{{ instance.owner.username }}</dd>
+                                    {% endif %}
                                     <dt>Количество услуг:</dt>
-                                    <dd> 12</dd>
+                                    <dd> {{ instance.get_services.count }}</dd>
                                     <dt>Client:</dt>
                                     <dd><a href="#" class="text-navy"> Zender Company</a></dd>
                                     <dt>Version:</dt>
@@ -68,7 +72,10 @@
                                     <dt>Сотрудники:</dt>
                                     <dd class="project-people">
                                         {% for emp in instance.get_employee %}
-                                        <a href="#"><img alt="image" class="img-circle" src="{{ emp.avatar.url }}"></a>
+                                            {% if emp.avatar %}
+                                                <a href="#"><img alt="image" class="img-circle" src="{{ emp.avatar.url }}"></a>
+                                            {% else %}
+                                            {% endif %}
                                         {% empty %}
                                         <span class="label">Not active employee</span>
                                         {% endfor %}
@@ -158,7 +165,7 @@
                                                             <strong>{{ staff.name }}</strong> специализация <strong>{{ staff.specialization }}</strong> <br>
                                                             <small class="text-muted">Добавлен {{ staff.created_at }}</small>
                                                             <div class="well">
-                                                                {{ staff.information }}
+                                                                {{ staff.information|safe }}
                                                             </div>
                                                             <div class="actions">
                                                                 <a class="btn btn-xs btn-white"><i
@@ -184,7 +191,9 @@
         <div class="col-lg-3">
             <div class="wrapper wrapper-content project-manager">
                 <h4>{{ instance.title }} description</h4>
-                <img src="{{ instance.logo.url }}" class="img-responsive">
+                {% if instance.logo %}
+                    <img src="{{ instance.logo.url }}" class="img-responsive">
+                {% endif %}
                 <p class="small">
                     {{ instance.short_descr|safe }}
                 </p>

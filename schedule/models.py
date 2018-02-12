@@ -1,7 +1,7 @@
 from django.db import models
 
 from django.core.exceptions import ValidationError
-
+from django.utils.translation import ugettext_lazy as _
 from jsonfield import JSONField
 from employee.models import Employee
 
@@ -18,14 +18,14 @@ class StaffSchedule(models.Model):
         return "Staff: {}, date: {}".format(self.staff.name, self.work_date)
 
     class Meta:
-        verbose_name = 'Staff schedule'
-        verbose_name_plural = 'Staff schedules'
-        db_table = 'Staff schedule'
+        verbose_name = _('Staff schedule')
+        verbose_name_plural = _('Staff schedules')
+        db_table = 'staff_schedule'
 
     # Validation exists schedule date
     def clean_fields(self, exclude=None):
         new_date = self.work_date
         schedule = StaffSchedule.objects.filter(staff=self.staff).filter(work_date=new_date)
         if schedule.exists():
-            raise ValidationError('This schedule already exists')
+            raise ValidationError(_('This schedule already exists.'))
         return new_date

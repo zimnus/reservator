@@ -1,5 +1,8 @@
 from django import forms
 from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
+
+from django.core.exceptions import ValidationError
+from django.contrib.auth import get_user_model
 from .models import Enterprise, City
 
 
@@ -15,15 +18,16 @@ class EnterpriseCreateForm(forms.ModelForm):
     description = forms.CharField(widget=forms.Textarea(attrs={'class': 'summernote'}), label='Описание')
     city = forms.ModelChoiceField(City.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}),
                                   label="Город")
+
     class Meta:
         model = Enterprise
-        exclude = ('owner', 'active_stuff_count', 'group_priority', 'schedule', 'logo', )
+        exclude = ('owner', 'active_stuff_count', 'group_priority', 'schedule', 'logo',)
 
 
 class EnterpriseUpdateScheduleForm(forms.ModelForm):
     class Meta:
         model = Enterprise
-        fields = ('schedule', )
+        fields = ('schedule',)
 
 
 class EnterpriseUpdateForm(forms.Form):
@@ -47,3 +51,5 @@ class EnterpriseUpdateContactForm(forms.Form):
 
 class EnterpriseUpdateLogoForm(forms.Form):
     logo = forms.ImageField()
+
+

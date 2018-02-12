@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # create apps
+    'reservator',
     'account',
     'enterprise',
     'employee',
@@ -74,7 +75,14 @@ LOGIN_URL = "/account/login/"
 LOGOUT_REDIRECT_URL = '/account/login/'
 LOGIN_REDIRECT_URL = '/'
 
+AUTH_USER_MODEL = 'reservator.User'
 AUTH_PROFILE_MODULE = 'account.ClientProfile'
+
+AUTHENTICATION_BACKENDS = [
+    'reservator.auth_backends.AdminBackend',
+    'reservator.auth_backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend'
+]
 
 TEMPLATES = [
     {
@@ -138,6 +146,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOCALE_PATHs = (
+    os.path.join(BASE_DIR, 'static', 'locale'),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
