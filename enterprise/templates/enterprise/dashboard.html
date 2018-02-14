@@ -1,7 +1,7 @@
 {% extends 'base_index.html' %}
-
+{% load enterprise_tags %}
 {% block title %}
-    Dashboard | {{ block.super }}
+    Dashboard {{ user|user_ent }} | {{ block.super }}
 {% endblock %}
 
 {% block content %}

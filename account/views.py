@@ -15,9 +15,15 @@ User = get_user_model()
 
 
 # New code
+@login_required
 def profile(request):
     user = request.user
-    profile = ClientProfile.objects.get(user=user)
+    if user.client:
+        profile = ClientProfile.objects.get(user=user)
+    elif user.manager:
+        profile = Enterprise.objects.get(owner=user)
+    else:
+        profile = user
     template_name = 'account/profile.html'
     template_data = {'profile': profile}
     return render(request, template_name, template_data)
@@ -46,6 +52,7 @@ def register(request, *args, **kwargs):
 class CreateClientView(FormView):
     template_name = 'account/client_create.html'
     form_class = ClientCreateForm
+    success_url = '/'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -57,9 +64,6 @@ class CreateClientView(FormView):
     def get_context_data(self, **kwargs):
         context = super(CreateClientView, self).get_context_data(**kwargs)
         return context
-
-    def get_success_url(self):
-        return HttpResponseRedirect('/')
 
 
 class CreateManagerView(FormView):

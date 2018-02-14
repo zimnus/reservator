@@ -13,6 +13,8 @@ def _profile_upload_to(object, filename):
 class User(AbstractUser):
     image = models.ImageField('Photo', blank=True, upload_to=_profile_upload_to, max_length=255)
     phone = models.CharField(max_length=255, blank=True)
+    manager = models.BooleanField(default=False)
+    client = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'auth_user'

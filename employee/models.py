@@ -34,7 +34,7 @@ class Employee(models.Model):
         return reverse('settings:staff-detail', kwargs={'pk': self.pk})
 
     class Meta:
-        db_table = 'Employee'
+        db_table = 'employee'
         ordering = ['-weight']
         verbose_name = 'Employee'
         verbose_name_plural = 'Employees'

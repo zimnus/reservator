@@ -9,23 +9,16 @@ from employee.models import Employee
 # Create your models here.
 
 class StaffSchedule(models.Model):
-    staff = models.ForeignKey(Employee, related_name='Employee')
-    work_date = models.DateField(help_text='Date work')
-    is_work = models.BooleanField(default=True, help_text='Is employee work!')
-    schedule = JSONField(blank=True, null=True, help_text='Schedule employee')
+    staff = models.ForeignKey(Employee, related_name='Сотрудник', verbose_name="Сотрудник")
+    work_date = models.DateField("День", help_text='День')
+    is_work = models.BooleanField("Доступен", default=True, help_text='Доступен для записи')
+    schedule = JSONField("График работы", blank=True, null=True, help_text='Распорядок дня')
 
     def __str__(self):
         return "Staff: {}, date: {}".format(self.staff.name, self.work_date)
 
     class Meta:
-        verbose_name = _('Staff schedule')
-        verbose_name_plural = _('Staff schedules')
+        verbose_name = _('График сотрудника')
+        verbose_name_plural = _('График сотрудников')
         db_table = 'staff_schedule'
-
-    # Validation exists schedule date
-    def clean_fields(self, exclude=None):
-        new_date = self.work_date
-        schedule = StaffSchedule.objects.filter(staff=self.staff).filter(work_date=new_date)
-        if schedule.exists():
-            raise ValidationError(_('This schedule already exists.'))
-        return new_date
+        unique_together = (('staff', 'work_date'), )

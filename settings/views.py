@@ -2,9 +2,10 @@ from django.forms import model_to_dict
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from reservator.decorators import manager_required
 
+from event.models import Event
 from enterprise.models import Enterprise
 from enterprise.forms import (
     EnterpriseCreateForm,
@@ -22,9 +23,9 @@ from service.forms import CategoryCreateForm, ServiceCreateForm
 
 # Write you views here
 
-@login_required
-def enterprise_update(request):
-    instance = Enterprise.objects.get(owner=request.user)
+@manager_required
+def enterprise_update(request, pk):
+    instance = Enterprise.objects.get(pk=pk)
     if request.POST:
         form = EnterpriseCreateForm(request.POST or None, request.FILES or None)
         if form.is_valid():
@@ -41,10 +42,10 @@ def enterprise_update(request):
     return render(request, template_name, template_data)
 
 
-@login_required
-def personal(request):
+@manager_required
+def personal(request, pk):
     user = request.user
-    enterprise = Enterprise.objects.get(owner=request.user)
+    enterprise = Enterprise.objects.get(pk=pk)
     employee = Employee.objects.filter(enterprise=enterprise)
     if request.POST:
         form = EmployeeForm(request.POST or None, request.FILES or None)
@@ -60,15 +61,16 @@ def personal(request):
     return render(request, template_name, template_data)
 
 
-@login_required
+@manager_required
 def personal_detail(request, pk):
     instance = Employee.objects.get(pk=pk)
+    events = Event.objects.filter(staff=instance)
     template_name = 'settings/staff/staff-detail.html'
-    template_data = {'instance': instance}
+    template_data = {'instance': instance, 'events': events}
     return render(request, template_name, template_data)
 
 
-@login_required
+@manager_required
 def service(request, pk):
     user = request.user
     category = Category.objects.filter(enterprise__owner=user)
@@ -78,9 +80,10 @@ def service(request, pk):
     return render(request, template_name, template_data)
 
 
-@login_required
+@manager_required
 def new_category(request, pk):
-    instance = Enterprise.objects.get(pk=pk)
+    user = request.user
+    instance = Enterprise.objects.get(owner=user)
     if request.POST:
         form = CategoryCreateForm(request.POST or None)
         if form.is_valid():
@@ -94,7 +97,7 @@ def new_category(request, pk):
     return render(request, template_name, template_data)
 
 
-@login_required
+@manager_required
 def new_service(request):
     enterprise = Enterprise.objects.get(owner=request.user)
     if request.POST:

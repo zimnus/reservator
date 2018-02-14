@@ -28,7 +28,7 @@ class ClientProfile(models.Model):
     about = models.TextField(help_text=_('Say something about yourself'), blank=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.email
 
     @staticmethod
     def get(user: settings.AUTH_USER_MODEL):

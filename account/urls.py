@@ -8,7 +8,8 @@ urlpatterns = [
     # auth
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
-    url(r'^register/$', register, name='register'),
+    # OLD
+    # url(r'^register/$', register, name='register'),
     # Create Client (test)
     url(r'^client_register', CreateClientView.as_view(), name='create-client'),
     url(r'^manager_register', CreateManagerView.as_view(), name='create-manager'),

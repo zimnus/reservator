@@ -32,17 +32,17 @@
                         <form action="#" class="form-horizontal">
                             {% for field in event_form %}
                                 <div class="form-group">
-                                    <label class="control-label" for="">{{ field.label_tag }}</label>
-                                    {{ field }}
+                                    <div class="col-sm-2">
+                                        <label class="control-label" for="">{{ field.label_tag }}</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        {{ field }}
+                                    </div>
                                 </div>
                             {% endfor %}
                         </form>
                     </div>
                 </div>
-                <!--
-                <div id="skeduler-container">
-                </div>
-                -->
             </div>
         </div>
     </div>
@@ -53,5 +53,12 @@
     <script src="{% static 'js/skeduler.js' %}"></script>
 
     <script src="{% static 'js/timetable.renderer.js' %}"></script>
-
+    <script>
+        function InitialComponent() {
+            $('.chosen-select').chosen();
+        }
+        $(document).ready(function () {
+            InitialComponent();
+        })
+    </script>
 {% endblock %}

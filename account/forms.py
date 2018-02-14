@@ -66,9 +66,11 @@ class ClientCreateForm(forms.Form):
                 password=password,
                 first_name=self.cleaned_data.get('name', ''),
                 last_name=self.cleaned_data.get('last_name', ''),
-                email=self.cleaned_data.get('email', '')
+                email=self.cleaned_data.get('email', ''),
+                client=True
             )
-
+        print("User login: \t", new_user.username)
+        print("User generate password: \t", password)
         ClientProfile.create(
             new_user,
             password
@@ -121,7 +123,8 @@ class EnterpriseManagerForm(forms.Form):
         email = self.cleaned_data.get('email', '')
         phone = self.cleaned_data.get('phone', '')
         password = self.cleaned_data.get('password', '')
-        new_user = get_user_model().objects.create_user(username=username, phone=phone, email=email)
+        manager = True
+        new_user = get_user_model().objects.create_user(username=username, phone=phone, email=email, manager=manager)
         new_user.set_password(password)
         new_user.save()
         Enterprise.objects.create(owner=new_user)

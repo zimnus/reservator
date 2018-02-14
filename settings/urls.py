@@ -10,8 +10,8 @@ from .views import (
 )
 
 urlpatterns = [
-    url(r'^change/update/$', enterprise_update, name='enterprise-settings'),
-    url(r'^change/personal/$', personal, name='personal-settings'),
+    url(r'^change/update/(?P<pk>[\w-]+)/$', enterprise_update, name='enterprise-settings'),
+    url(r'^change/personal/(?P<pk>[\w-]+)/$', personal, name='personal-settings'),
     url(r'service/create-serivce', new_service, name='new-service'),
     url(r'^personal/update(?P<pk>[\w-]+)/$', personal_detail, name='staff-detail'),
     url(r'^group/company-(?P<pk>[\w-]+)/$', service, name='service-group'),
