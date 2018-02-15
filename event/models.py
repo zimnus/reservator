@@ -11,8 +11,8 @@ import datetime
 # Create your models here.
 class Event(models.Model):
     enterprise = models.ForeignKey(Enterprise, help_text='Компания', related_name="Компания")
-    service = models.ForeignKey(Service, help_text='Тип услуги', related_name="Сервис")
-    staff = models.ForeignKey(Employee, help_text='Исполнитель')
+    service = models.ForeignKey(Service, help_text='Тип услуги', related_name="services")
+    staff = models.ForeignKey(Employee, related_name='staff_event', help_text='Исполнитель')
     client = models.ForeignKey(ClientProfile, help_text='Профиль клиента', related_name="Слиент")
     start_event = models.DateTimeField(help_text='Дата и время начала сеанса')
     end_event = models.DateTimeField(blank=True, help_text='Дата и время окончания услуги')

@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.forms.models import model_to_dict
 from django.views.generic import FormView
-
+from reservator.decorators import manager_required
 from .models import Enterprise
 from .forms import EnterpriseCreateForm, EnterpriseUpdateForm
 from service.models import Category, Service
@@ -16,14 +16,14 @@ from django.contrib.auth.decorators import permission_required
 
 ########### NEW CODE #################
 
-@login_required
+@manager_required
 def dashboard(request):
     template_name = 'enterprise/dashboard.html'
     template_data = {}
     return render(request, template_name, template_data)
 
 
-@login_required
+@manager_required
 def detail(request, pk):
     instance = Enterprise.objects.get(owner=request.user)
     category = Category.objects.filter(enterprise=instance)
@@ -39,7 +39,7 @@ def detail(request, pk):
     return render(request, template_name, template_data)
 
 
-@login_required
+@manager_required
 def update(request, pk):
     instance = Enterprise.objects.get(pk=pk)
 
@@ -54,4 +54,3 @@ def update(request, pk):
     template_name = 'enterprise/enterprise_update.html'
     template_data = {'instance': instance, 'form': form}
     return render(request, template_name, template_data)
-

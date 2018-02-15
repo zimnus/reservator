@@ -1,5 +1,5 @@
 {% extends 'base_index.html' %}
-{% load static %}
+{% load static enterprise_tags %}
 {% block title %}
     Schedules | {{ block.super }}
 {% endblock %}
@@ -52,13 +52,52 @@
     <script src="{% static 'js/utils/string_to_date.js' %}"></script>
     <script src="{% static 'js/skeduler.js' %}"></script>
 
-    <script src="{% static 'js/timetable.renderer.js' %}"></script>
+{#    <script src="{% static 'js/timetable.renderer.js' %}"></script>#}
     <script>
         function InitialComponent() {
             $('.chosen-select').chosen();
         }
         $(document).ready(function () {
             InitialComponent();
-        })
+            var dateToday = new Date();
+            console.log(moment(dateToday).format('YYYY-MM-DD'));
+            $.ajax({
+                url: '/api/schedules/{{ user|ent_id }}/',
+                data: {
+                    'Content-Type': 'application/json'
+                },
+                success: function (data) {
+                    var location = [];
+                    $.each(data, function (key, value) {
+                        if (value.work_date === moment(dateToday).format("YYYY-MM-DD")) {
+                            location.push(value);
+                        }
+                    });
+                    getTimetable(location);
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            });
+            function getTimetable(location) {
+                var timetable = new Timetable();
+                var location_name = [];
+                $.each(location, function (key, value) {
+                    location_name.push(value.staff)
+                });
+                console.log(location_name);
+                timetable.addLocations(location_name);
+                $.map(location, function (value, key) {
+                    $.map(value.event, function (v, k) {
+                        if (v.length > 0) {
+                            console.log(v.staff);
+                            {#timetable.addEvent(v[k].staff, v[k].staff, new Date(2018, 2, 15, 9+k, 0), new Date(2018, 2, 15, 10+k, 0))#}
+                        }
+                    })
+                });
+                var renderer = new Timetable.Renderer(timetable);
+                renderer.draw('.timetable')
+            }
+        });
     </script>
 {% endblock %}
