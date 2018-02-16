@@ -41,7 +41,7 @@ class EnterpriseManager(models.Manager):
 
     def get_employee(self, enterprise):
         from employee.models import Employee
-        return Employee.objects.filter(enterprise=enterprise)
+        return Employee.objects.filter(enterprise=enterprise).filter(fired=False)
 
         # def search(self, query):
         #     return self.get_queryset().search(query)

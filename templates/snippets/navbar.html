@@ -72,6 +72,23 @@
                 </ul>
             </li>
             <li>
+                <a href="">
+                    <i class="fa fa-user-circle"></i>
+                    <span class="nav-label">Сотрудники</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse">
+                    {% for staff in user|ent_id|staff_list %}
+                        <li>
+                            <a href="{% url 'employee:employee' %}">
+                                <img src="{{ staff.avatar.url }}" width="20px" class="img-circle pull-left" alt=""> {{ staff }}
+                                <span class="fa fa-calendar pull-right"></span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li>
                 <a href="{% url 'schedule:schedule' %}"><i class="fa fa-calendar"></i> <span class="nav-label"> Росписание</span></a>
             </li>
             <li>

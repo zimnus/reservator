@@ -1,6 +1,7 @@
 from django import template
 
 from enterprise.models import Enterprise
+from employee.models import Employee
 
 register = template.Library()
 
@@ -16,5 +17,11 @@ def ent_id(user):
     return r_id.pk
 
 
+def staff_list(ent):
+    staff = Employee.objects.filter(enterprise=ent)
+    return staff
+
+
 register.filter('user_ent', user_ent)
 register.filter('ent_id', ent_id)
+register.filter('staff_list', staff_list)

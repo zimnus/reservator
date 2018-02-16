@@ -28,6 +28,9 @@
             <div class="wrapper wrapper-content animated fadeInUp">
                 <div class="timetable"></div>
                 <div class="div-lg-10">
+                    <div id="calendar">
+
+                    </div>
                     <div class="event-form">
                         <form action="#" class="form-horizontal">
                             {% for field in event_form %}
@@ -57,6 +60,7 @@
         function InitialComponent() {
             $('.chosen-select').chosen();
         }
+
         $(document).ready(function () {
             InitialComponent();
             var dateToday = new Date();
@@ -99,5 +103,6 @@
                 renderer.draw('.timetable')
             }
         });
+
     </script>
 {% endblock %}
