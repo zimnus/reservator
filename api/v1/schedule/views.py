@@ -10,4 +10,4 @@ class StaffScheduleListView(generics.ListAPIView):
 
     # queryset = StaffSchedule.objects.all()
     def get_queryset(self):
-        return StaffSchedule.objects.filter(staff__enterprise=self.kwargs['company_id'])
+        return StaffSchedule.objects.filter(staff__enterprise=self.kwargs['company_id']).filter(work_date=self.kwargs['select_date'])

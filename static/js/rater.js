@@ -544,7 +544,7 @@
         only_select_one_symbol: false, // If set to true, only selects the hovered/selected symbol and nothing prior to it
         ajax_method: 'POST',
         additional_data: {}, // Additional data to send to the server
-        //update_input_field_name = some input field set by the user
+        //update_input_field_name = some input field set by the accounts
     };
 
 }(jQuery, window));

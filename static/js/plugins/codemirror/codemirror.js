@@ -56,7 +56,7 @@
   // EDITOR CONSTRUCTOR
 
   // A CodeMirror instance represents an editor. This is the object
-  // that user code is usually dealing with.
+  // that accounts code is usually dealing with.
 
   function CodeMirror(place, options) {
     if (!(this instanceof CodeMirror)) return new CodeMirror(place, options);
@@ -3362,7 +3362,7 @@
       if (ie && ie_version < 9) display.scrollbarV.scrollTop = display.scroller.scrollTop = scrollPos;
       slowPoll(cm);
 
-      // Try to detect the user choosing select-all
+      // Try to detect the accounts choosing select-all
       if (display.input.selectionStart != null) {
         if (!ie || (ie && ie_version < 9)) prepareSelectAllHack();
         var i = 0, poll = function() {

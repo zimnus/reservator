@@ -3297,7 +3297,7 @@ var SVGExtraState = (function SVGExtraStateClosure() {
     this.fontMatrix = FONT_IDENTITY_MATRIX;
     this.leading = 0;
 
-    // Current point (in user coordinates)
+    // Current point (in accounts coordinates)
     this.x = 0;
     this.y = 0;
 
@@ -6639,7 +6639,7 @@ var CanvasExtraState = (function CanvasExtraStateClosure() {
     this.textMatrixScale = 1;
     this.fontMatrix = FONT_IDENTITY_MATRIX;
     this.leading = 0;
-    // Current point (in user coordinates)
+    // Current point (in accounts coordinates)
     this.x = 0;
     this.y = 0;
     // Start of text line (in text coordinates)
@@ -7428,7 +7428,7 @@ var CanvasGraphics = (function CanvasGraphicsClosure() {
       if (strokeColor && strokeColor.hasOwnProperty('type') &&
           strokeColor.type === 'Pattern') {
         // for patterns, we transform to pattern space, calculate
-        // the pattern, call stroke, and restore to user space
+        // the pattern, call stroke, and restore to accounts space
         ctx.save();
         ctx.strokeStyle = strokeColor.getPattern(ctx, this);
         ctx.stroke();
@@ -9262,7 +9262,7 @@ var PDFPageProxy = (function PDFPageProxyClosure() {
     },
     /**
      * @return {Array} An array of the visible portion of the PDF page in the
-     * user space units - [x1, y1, x2, y2].
+     * accounts space units - [x1, y1, x2, y2].
      */
     get view() {
       return this.pageInfo.view;
@@ -10326,7 +10326,7 @@ var PDFObjects = (function PDFObjectsClosure() {
         return null;
       }
 
-      // If there isn't a callback, the user expects to get the resolved data
+      // If there isn't a callback, the accounts expects to get the resolved data
       // directly.
       var obj = this.objs[objId];
 

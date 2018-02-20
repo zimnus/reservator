@@ -51,7 +51,7 @@ class ClientProfile(models.Model):
         db_table = "client_profile"
         verbose_name = _('Profile')
         verbose_name_plural = _('Profiles')
-        unique_together = ('user', 'address', 'contact_email',)
+        unique_together = ('contact_email',)
 
 
 # def post_save_user_receiver(sender, instance, created, *args, **kwargs):

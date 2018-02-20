@@ -261,7 +261,7 @@
             this.el = el;
             this.options = options;
 
-            // merge user options into default options
+            // merge accounts options into default options
             for (var i in defaultOptions) {
                 if (defaultOptions.hasOwnProperty(i)) {
                     options[i] = opts && typeof(opts[i]) !== 'undefined' ? opts[i] : defaultOptions[i];

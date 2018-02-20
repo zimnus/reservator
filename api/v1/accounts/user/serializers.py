@@ -21,4 +21,4 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     def get_uri(self, obj):
         request = self.context.get('request')
-        return api_reverse('api-user:detail', kwargs={"id": obj.id}, request=request)
+        return api_reverse('api:api-user:detail', kwargs={"id": obj.id}, request=request)

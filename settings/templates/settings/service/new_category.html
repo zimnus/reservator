@@ -1,5 +1,5 @@
 {% extends 'base_index.html' %}
-
+{% load enterprise_tags %}
 {% block title %}
     Добавить категорию услуг услуг | {{ block.super }}
 {% endblock %}
@@ -13,7 +13,7 @@
                     <a href="/">Главная</a>
                 </li>
                 <li>
-                    <a href="{% url 'settings:enterprise-settings' %}">Услуги</a>
+                    <a href="{% url 'settings:enterprise-settings' user|ent_id %}">Услуги</a>
                 </li>
                 <li class="active">
                     <strong>Добавить категорию услуг</strong>

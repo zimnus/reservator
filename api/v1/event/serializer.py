@@ -6,6 +6,7 @@ from event.models import Event
 class EventSerializer(serializers.ModelSerializer):
     staff = serializers.SerializerMethodField(read_only=True)
     staff_id = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Event
         exclude = ('created_at', 'updated_at')
@@ -15,3 +16,9 @@ class EventSerializer(serializers.ModelSerializer):
 
     def get_staff_id(self, obj):
         return obj.staff.pk
+
+
+class EventDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = '__all__'

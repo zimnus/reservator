@@ -1,8 +1,8 @@
+{% load static enterprise_tags %}
 {% url 'enterprise:dashboard' as dashboard %}
-{% url 'enterprise:enterprise' as enterprise %}
+{% url 'enterprise:detail' user|ent_id as enterprise %}
 {% url 'service:service' as service %}
 {% url 'employee:employee' as employee %}
-{% load static enterprise_tags %}
 <!-- Navigation-->
 
 <nav class="navbar-default navbar-static-side" role="navigation">
@@ -80,7 +80,7 @@
                 <ul class="nav nav-second-level collapse">
                     {% for staff in user|ent_id|staff_list %}
                         <li>
-                            <a href="{% url 'employee:employee' %}">
+                            <a href="{% url 'settings:staff-detail' staff.pk %}">
                                 <img src="{{ staff.avatar.url }}" width="20px" class="img-circle pull-left" alt=""> {{ staff }}
                                 <span class="fa fa-calendar pull-right"></span>
                             </a>

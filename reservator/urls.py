@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^api/', include('api.urls', namespace='api')),
     # url(r'^api/enterprise/', include('enterprise.api.urls', namespace='api-enterprise')),
     # url(r'^api/employee/', include('employee.api.urls', namespace='api-employee')),
-    # url(r'^api/user/', include('account.api.user.urls', namespace='api-user')),
+    # url(r'^api/accounts/', include('account.api.accounts.urls', namespace='api-accounts')),
     # url(r'^api/auth/', include('account.api.urls', namespace='api-auth')),
     # admin
     url(r'^area51/', admin.site.urls),

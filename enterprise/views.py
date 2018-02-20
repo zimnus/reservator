@@ -25,7 +25,7 @@ def dashboard(request):
 
 @manager_required
 def detail(request, pk):
-    instance = Enterprise.objects.get(owner=request.user)
+    instance = Enterprise.objects.get(pk=pk)
     category = Category.objects.filter(enterprise=instance)
     service = Service.objects.filter(service__enterprise=instance)
     employees = Employee.objects.filter(enterprise=pk)

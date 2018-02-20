@@ -2,12 +2,13 @@ import json
 from rest_framework import generics, mixins, permissions
 
 from .serializer import EnterpriseSerializer, CategoryOfServicesSerializers, CitySerializer
+from .permissions import IsOwner
 from enterprise.models import Enterprise, City
 from service.models import Service
 
 
 class EnterpriseAPIListView(generics.ListAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     # passed_id = 'id'
     search_fields = ('title', 'short_descr',)
     serializer_class = EnterpriseSerializer
@@ -15,21 +16,21 @@ class EnterpriseAPIListView(generics.ListAPIView):
 
 
 class EnterpriseAPIUserView(mixins.UpdateModelMixin, mixins.CreateModelMixin, generics.ListAPIView):
-    permissions_class = [permissions.IsAuthenticatedOrReadOnly]
+    permissions_class = [permissions.IsAdminUser]
     serializer_class = EnterpriseSerializer
 
     def get_queryset(self):
-        return Enterprise.objects.filter(owner=self.kwargs['id'])
+        return Enterprise.objects.filter()
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+    # def post(self, request, *args, **kwargs):
+    #     return self.create(request, *args, **kwargs)
+    #
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
 
 
 class EnterpriseAPIDetailView(mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.RetrieveAPIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [IsOwner]
     serializer_class = EnterpriseSerializer
     lookup_field = 'id'
     queryset = Enterprise.objects.all()

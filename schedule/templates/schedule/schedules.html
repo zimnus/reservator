@@ -5,7 +5,11 @@
 {% endblock %}
 
 {% block custom_style %}
-
+    <style>
+    .event-form {
+        padding-top: 20px;
+    }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -31,7 +35,8 @@
                     <div id="calendar">
 
                     </div>
-                    <div class="event-form">
+                    <div class="event-form row">
+                        <h1>New event</h1>
                         <form action="#" class="form-horizontal">
                             {% for field in event_form %}
                                 <div class="form-group">
@@ -57,6 +62,7 @@
 
 {#    <script src="{% static 'js/timetable.renderer.js' %}"></script>#}
     <script>
+        // Function chosen input
         function InitialComponent() {
             $('.chosen-select').chosen();
         }
@@ -64,45 +70,90 @@
         $(document).ready(function () {
             InitialComponent();
             var dateToday = new Date();
-            console.log(moment(dateToday).format('YYYY-MM-DD'));
+            console.log("Date today: "+moment(dateToday).format('YYYY-MM-DD'));
+            // Initial sidebar calendar
+            $('#side-calendar').datepicker({
+                dateFormat: 'yy-mm-dd',
+                onSelect: function (date) {
+                    console.log(date);
+                    // Load schedule with select date
+                    $.ajax({
+                        url: '/api/schedules/{{ user|ent_id }}/'+date,
+                        success: function (data) {
+                            var location = [];
+                            if (data.length == 0) {
+                                $(".timetable").html('<div class="alert alert-info">У сотрудников нет назначеного графика на сегодня</div>')
+                            } else {
+                                $.each(data, function (key, value) {
+                                    if (value.work_date === date) {
+                                        location.push(value);
+                                    }
+                                });
+                                getTimetable(location);
+                            }
+                        },
+                        error: function (error) {
+                            console.log(error)
+                        }
+                    })
+                }
+            });
+            // Load initial data
             $.ajax({
-                url: '/api/schedules/{{ user|ent_id }}/',
-                data: {
-                    'Content-Type': 'application/json'
-                },
+                url: '/api/schedules/{{ user|ent_id }}/'+moment(dateToday).format('YYYY-MM-DD'),
                 success: function (data) {
                     var location = [];
-                    $.each(data, function (key, value) {
-                        if (value.work_date === moment(dateToday).format("YYYY-MM-DD")) {
-                            location.push(value);
-                        }
-                    });
-                    getTimetable(location);
+                    if (data.length == 0) {
+                        $(".timetable").html('<div class="alert alert-info">У сотрудников нет назначеного графика на сегодня</div>')
+                    } else {
+                        $.each(data, function (key, value) {
+                            if (value.work_date === moment(dateToday).format("YYYY-MM-DD")) {
+                                location.push(value);
+                            }
+                        });
+                        // Call Timetable function
+                        getTimetable(location);
+                    }
                 },
                 error: function (error) {
                     console.log(error)
                 }
             });
-            function getTimetable(location) {
-                var timetable = new Timetable();
-                var location_name = [];
-                $.each(location, function (key, value) {
-                    location_name.push(value.staff)
-                });
-                console.log(location_name);
-                timetable.addLocations(location_name);
-                $.map(location, function (value, key) {
-                    $.map(value.event, function (v, k) {
-                        if (v.length > 0) {
-                            console.log(v.staff);
-                            {#timetable.addEvent(v[k].staff, v[k].staff, new Date(2018, 2, 15, 9+k, 0), new Date(2018, 2, 15, 10+k, 0))#}
-                        }
-                    })
-                });
-                var renderer = new Timetable.Renderer(timetable);
-                renderer.draw('.timetable')
-            }
-        });
 
+        });
+        // Load timetable
+        function getTimetable(location) {
+            // Initial array
+            var location_name = [];
+            // Push location name
+            $.each(location, function (key, value) {
+                location_name.push(value.staff)
+            });
+            // Initial timetable
+            var timetable = new Timetable(location_name);
+            // Add location to timetable
+            timetable.addLocations(location_name);
+            timetable.setScope(8, 21);
+            //Iteration event
+            $.map(location, function (value, key) {
+                $.each(value.event, function (v, k) {
+                    if (k.length > 0) {
+                        $.each(k, function (i, item) {
+                            // Initial Start date with String
+                            var start_date = new Date(item.start_event);
+                            var end_date = new Date(item.end_event);
+                            // Add event
+                            timetable.addEvent(item.staff, item.staff,
+                                new Date(start_date.getFullYear(), start_date.getMonth()+1, start_date.getDate(), start_date.getHours(), start_date.getMinutes()),
+                                new Date(end_date.getFullYear(), end_date.getMonth()+1, end_date.getDate(), end_date.getHours(), end_date.getMinutes()))
+                        });
+                        {#timetable.addEvent(v[k].staff, v[k].staff, new Date(2018, 2, 15, 9+k, 0), new Date(2018, 2, 15, 10+k, 0))#}
+                    }
+                })
+            });
+            // Render timetable
+            var renderer = new Timetable.Renderer(timetable);
+            renderer.draw('.timetable')
+        }
     </script>
 {% endblock %}

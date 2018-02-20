@@ -1,25 +1,22 @@
 from rest_framework import serializers
 from rest_framework.reverse import reverse as api_reverse
 
-from django.contrib.staticfiles.templatetags.staticfiles import static
-
 from enterprise.models import Enterprise, City
 from service.models import Service
-from account.api.serializers import UserPublicSerializer
+from api.v1.accounts.serializers import UserPublicSerializer
 
 
 class EnterpriseSerializer(serializers.ModelSerializer):
     uri = serializers.SerializerMethodField(read_only=True)
     comment_count = serializers.SerializerMethodField(read_only=True)
     services = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    user = UserPublicSerializer(read_only=True)
+    # user = UserPublicSerializer(read_only=True)
 
     class Meta:
         model = Enterprise
         fields = (
             'uri',
             'id',
-            'user',
             'title',
             'description',
             'logo',
@@ -31,7 +28,7 @@ class EnterpriseSerializer(serializers.ModelSerializer):
             'group_priority',
             'services',
         )
-        read_only_fields = ('user',)
+        read_only_fields = ('accounts',)
 
     def get_comment_count(self, obj):
         return 0
@@ -45,6 +42,10 @@ class EnterpriseSerializer(serializers.ModelSerializer):
         if logo is None:
             serializers.ValidationError('Image is required!')
         return data
+
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        return instance
 
 
 class CategoryOfServicesSerializers(serializers.ModelSerializer):

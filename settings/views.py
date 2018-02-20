@@ -83,7 +83,7 @@ def service(request, pk):
 @manager_required
 def new_category(request, pk):
     user = request.user
-    instance = Enterprise.objects.get(owner=user)
+    instance = Enterprise.objects.get(pk=pk)
     if request.POST:
         form = CategoryCreateForm(request.POST or None)
         if form.is_valid():
