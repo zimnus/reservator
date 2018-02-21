@@ -70,6 +70,7 @@ class Enterprise(models.Model):
     city = models.ForeignKey(City, help_text='Select city', blank=True, null=True)
     address = models.CharField(max_length=255, help_text='Address enterprise', blank=True)
     phone = PhoneNumberField(max_length=255, help_text='Contact phone', blank=True)
+    active = models.BooleanField(default=True, help_text='Is active')
     group_priority = models.PositiveIntegerField(help_text='Enterprise priority from filter', default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -77,7 +78,7 @@ class Enterprise(models.Model):
     objects = EnterpriseManager()
 
     class Meta:
-        db_table = 'Enterprise'
+        db_table = 'enterprise'
         verbose_name = 'Enterprise'
         verbose_name_plural = 'Enterprises'
         ordering = ['-group_priority']

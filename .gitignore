@@ -2,10 +2,11 @@
 *.sqlite3
 .DS_Store
 .idea
-/__pycache__/
+.svcode
+__pycache__/*
 node_modules
 media/
-
+static_cdn/
 *.pyc
 
 # Migrations

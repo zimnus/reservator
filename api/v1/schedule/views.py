@@ -5,7 +5,7 @@ from schedule.models import StaffSchedule
 
 
 class StaffScheduleListView(generics.ListAPIView):
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = StaffScheduleSerializer
 
     # queryset = StaffSchedule.objects.all()

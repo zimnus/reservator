@@ -81,9 +81,19 @@
                     {% for staff in user|ent_id|staff_list %}
                         <li>
                             <a href="{% url 'settings:staff-detail' staff.pk %}">
-                                <img src="{{ staff.avatar.url }}" width="20px" class="img-circle pull-left" alt=""> {{ staff }}
+                                {% if staff.avatar %}
+                                    <img src="{{ staff.avatar.url }}" width="20px" class="img-circle pull-left" alt="">
+                                    <span> {{ staff.name }}</span>
+                                {% else %}
+                                    <img src="{% static 'image/avatar/avatar_man.png' %}" width="20px" class="img-circle pull-left" alt="{{ staff.name }}">
+                                    <span> {{ staff.name }}</span>
+                                {% endif %}
                                 <span class="fa fa-calendar pull-right"></span>
                             </a>
+                        </li>
+                    {% empty %}
+                        <li>
+                            <a href="{% url 'settings:personal-settings' user|ent_id %}">Добавить сотрудников</a>
                         </li>
                     {% endfor %}
                 </ul>

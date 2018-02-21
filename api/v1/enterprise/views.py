@@ -29,7 +29,7 @@ class EnterpriseAPIUserView(mixins.UpdateModelMixin, mixins.CreateModelMixin, ge
     #     serializer.save(owner=self.request.user)
 
 
-class EnterpriseAPIDetailView(mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.RetrieveAPIView):
+class EnterpriseAPIDetailView(mixins.UpdateModelMixin, generics.RetrieveAPIView):
     permission_classes = [IsOwner]
     serializer_class = EnterpriseSerializer
     lookup_field = 'id'
@@ -40,9 +40,6 @@ class EnterpriseAPIDetailView(mixins.UpdateModelMixin, mixins.DestroyModelMixin,
 
     def patch(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
 
 
 class CategoryOfServicesAPIListView(mixins.UpdateModelMixin, generics.ListAPIView):
