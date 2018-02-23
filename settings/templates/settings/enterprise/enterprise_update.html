@@ -66,11 +66,15 @@
                     <div class="tab-content">
                         <div class="tab-pane active">
                             <div class="panel-body">
-                                <form action="" class="form-horizontal">
+                                <form action="{% url 'settings:enterprise-logo' instance.pk %}" method="post" class="form-horizontal" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {% if instance.logo %}
+                                        <img class="img-responsive" src="{{ instance.logo.url }}" alt="">
+                                    {% endif %}
                                     <div class="">
-                                        <label for=""></label>
-                                        <input type="text">
+                                        {{ logo_form.as_p }}
                                     </div>
+                                    <button class="btn btn-primary" type="submit">Update image</button>
                                 </form>
                             </div>
                         </div>
@@ -104,7 +108,9 @@
 			$(".summernote").summernote();
 
             var URL = '/api/enterprises/detail/';
-            var ID = '{{instance.pk}}';
+            var ID = '{{instance.pk}}/';
+
+            
 		});
 	</script>
 {% endblock %}

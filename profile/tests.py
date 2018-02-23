@@ -14,7 +14,7 @@ class ClientProfileTestCase(TestCase):
     def test_foreign(self):
         user = User.objects.get(id=1)
         profile = ClientProfile.objects.get(id=user.id)
-        field_label = profile._meta.get_field('accounts').verbose_name
+        field_label = profile._meta.get_field('profile').verbose_name
         self.assertEqual(field_label, _('User'))
 
     def test_date_of_birth(self):

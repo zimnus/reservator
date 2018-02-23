@@ -13,7 +13,6 @@ class EnterpriseCreateForm(forms.ModelForm):
         'class': 'form-control',
         'data-mask': '+38 (999) 999-99-99'
     }), label="Контактный телефон")
-    address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label="Адрес")
     description = forms.CharField(widget=forms.Textarea(attrs={'class': 'summernote'}), label='Описание')
     city = forms.ModelChoiceField(City.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}),
@@ -21,7 +20,7 @@ class EnterpriseCreateForm(forms.ModelForm):
 
     class Meta:
         model = Enterprise
-        exclude = ('owner', 'active_stuff_count', 'group_priority', 'schedule', 'logo',)
+        exclude = ('owner', 'active_stuff_count', 'group_priority', 'schedule', 'logo', 'active', )
 
 
 class EnterpriseUpdateScheduleForm(forms.ModelForm):

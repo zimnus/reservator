@@ -1,6 +1,6 @@
 from django import forms
 
-from account.models import ClientProfile
+from profile.models import ClientProfile
 from service.models import Service
 from employee.models import Employee
 from .models import Event

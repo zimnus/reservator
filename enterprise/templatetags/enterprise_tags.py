@@ -8,12 +8,18 @@ register = template.Library()
 
 # @register.simple_tag
 def user_ent(user):
-    ent = Enterprise.objects.get(owner=user)
+    try:
+        ent = Enterprise.objects.get(owner=user)
+    except Enterprise.DoesNotExist:
+        ent = None
     return ent
 
 
 def ent_id(user):
-    r_id = Enterprise.objects.get(owner=user)
+    try:
+        r_id = Enterprise.objects.get(owner=user)
+    except Enterprise.DoesNotExist:
+        r_id = None
     return r_id.pk
 
 

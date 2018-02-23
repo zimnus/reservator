@@ -7,7 +7,6 @@ urlpatterns = [
     url(r'^profile', profile, name='profile'),
     # auth
     url(r'^login/$', LoginView.as_view(), name='login'),
-    url(r'^logout/$', LogoutView.as_view(), name='logout'),
     # OLD
     # url(r'^register/$', register, name='register'),
     # Create Client (test)

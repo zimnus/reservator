@@ -10,10 +10,11 @@
     <link href="{% static 'css/plugins/iCheck/custom.css' %}" rel="stylesheet">
     <link href="{% static 'css/animate.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/plugins/bootstrapSocial/bootstrap-social.css' %}">
 </head>
 <body class="gray-bg">
 
-    <div class="middle-box text-center loginscreen   animated fadeInDown">
+    <div class="middle-box text-center loginscreen animated fadeInDown">
         <div>
             {% block content %}
             {% endblock %}
@@ -29,7 +30,7 @@
         $(document).ready(function(){
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green',
+                radioClass: 'iradio_square-green'
             });
         });
     </script>

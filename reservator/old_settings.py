@@ -74,12 +74,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'reservator.urls'
 
-LOGIN_URL = "/account/login/"
+LOGIN_URL = "/profile/login/"
 
-LOGOUT_REDIRECT_URL = '/account/login/'
+LOGOUT_REDIRECT_URL = '/profile/login/'
 LOGIN_REDIRECT_URL = '/'
 
-AUTH_PROFILE_MODULE = 'account.ClientProfile'
+AUTH_PROFILE_MODULE = 'profile.ClientProfile'
 
 TEMPLATES = [
     {

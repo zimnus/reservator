@@ -24,7 +24,7 @@ def profile(request):
         profile = Enterprise.objects.get(owner=user)
     else:
         profile = user
-    template_name = 'account/profile.html'
+    template_name = 'profile/profile.html'
     template_data = {'profile': profile}
     return render(request, template_name, template_data)
 
@@ -44,7 +44,7 @@ def register(request, *args, **kwargs):
             return HttpResponseRedirect('/')
     else:
         form = RegisterForm()
-    template_name = 'account/register.html'
+    template_name = 'profile/register.html'
     template_data = {'form': form}
     return render(request, template_name, template_data)
 

@@ -12,14 +12,14 @@ price = (
 
 
 class Category(models.Model):
+    enterprise = models.ForeignKey(Enterprise, help_text='Select enterprise', related_name='services')
     title = models.CharField(max_length=255, help_text='Name category of cervices')
     weight = models.PositiveIntegerField(default=1, help_text='Priority')
-    enterprise = models.ForeignKey(Enterprise, help_text='Select enterprise', related_name='services')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'Category_of_services'
+        db_table = 'category_of_services'
         verbose_name = 'Category of service'
         verbose_name_plural = 'Category of services'
 

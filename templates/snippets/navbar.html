@@ -8,47 +8,6 @@
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
-            {% if user.is_authenticated %}
-                <li class="nav-header">
-                    <div class="dropdown profile-element">
-                        <span>
-                            {% if user.image %}
-                                <img alt="image" class="img-circle" width="50%" height="48"  src="{{ user.image.url }}"/>
-                            {% else %}
-                                <img width="48" height="48" src="{% static 'image/avatar/avatar_man.png' %}" alt="" class="img-circle">
-                            {% endif %}
-                         </span>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear">
-                                <span class="block m-t-xs">
-                                    <strong class="font-bold">
-                                        {% if user.first_name or user.last_name %}
-                                            {{ user.first_name }} {{ user.last_name }}
-                                        {% else %}
-                                            {{ user.username }}
-                                        {% endif %}
-                                    </strong>
-                                 </span>
-                                <span class="text-muted text-xs block">CEO
-                                    <b class="caret"></b>
-                                </span>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="{% url 'account:profile' %}">Profile</a></li>
-                            <li><a href="/">Contacts</a></li>
-                            <li><a href="/">Mailbox</a></li>
-                            <li class="divider"></li>
-                            {% if user.is_authenticated %}
-                                <li><a href="{% url 'account:logout' %}">Logout</a></li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                    <div class="logo-element">
-                        RS
-                    </div>
-                </li>
-            {% endif %}
             <li>
                 <div id="side-calendar"></div>
             </li>

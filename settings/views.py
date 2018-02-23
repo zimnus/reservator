@@ -10,6 +10,7 @@ from enterprise.models import Enterprise
 from enterprise.forms import (
     EnterpriseCreateForm,
     EnterpriseUpdateForm,
+    EnterpriseUpdateLogoForm,
     EnterpriseUpdateContactForm,
     EnterpriseUpdateScheduleForm
 )
@@ -26,6 +27,7 @@ from service.forms import CategoryCreateForm, ServiceCreateForm
 @manager_required
 def enterprise_update(request, pk):
     instance = Enterprise.objects.get(pk=pk)
+    logo_form = EnterpriseUpdateLogoForm(initial=model_to_dict(instance))
     if request.POST:
         form = EnterpriseCreateForm(request.POST or None, request.FILES or None)
         if form.is_valid():
@@ -38,8 +40,19 @@ def enterprise_update(request, pk):
     template_data = {
         'instance': instance,
         'form': form,
+        'logo_form': logo_form,
     }
     return render(request, template_name, template_data)
+
+
+@require_POST
+def update_logo(request, pk):
+    form = EnterpriseUpdateLogoForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        update_data = form.cleaned_data
+        print('Form data \n', update_data)
+        Enterprise.objects.filter(pk=pk).update(**update_data)
+        return HttpResponseRedirect('/')
 
 
 @manager_required

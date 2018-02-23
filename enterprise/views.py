@@ -8,7 +8,7 @@ from .models import Enterprise
 from .forms import EnterpriseCreateForm, EnterpriseUpdateForm
 from service.models import Category, Service
 from employee.models import Employee
-from account.models import ClientProfile
+from profile.models import ClientProfile
 from django.contrib.auth.decorators import permission_required
 
 

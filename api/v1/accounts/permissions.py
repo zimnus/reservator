@@ -4,7 +4,7 @@ from rest_framework import permissions
 class AnonPermissionOnly(permissions.BasePermission):
     message = 'You are already authenticated. Please log out to try again'
     """
-    Non authenticated accounts only
+    Non authenticated profile only
     """
 
     def has_permission(self, request, view):

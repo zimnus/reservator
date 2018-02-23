@@ -25,10 +25,9 @@ class EnterpriseSerializer(serializers.ModelSerializer):
             'address',
             'phone',
             'comment_count',
-            'group_priority',
             'services',
         )
-        read_only_fields = ('accounts',)
+        read_only_fields = ('profile',)
 
     def get_comment_count(self, obj):
         return 0

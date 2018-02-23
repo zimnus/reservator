@@ -19,11 +19,11 @@ SEX = (
 
 class ClientProfile(models.Model):
     user = models.OneToOneField(User, unique=True, verbose_name=_('User'))
-    sex = models.CharField(choices=SEX, max_length=50, help_text=_(u"Gender"), verbose_name=_(u'Gender'))
+    sex = models.CharField(choices=SEX, max_length=50, help_text=_("Gender"), verbose_name=_('Gender'))
     birth = models.DateField(blank=True,
                              help_text=_('You date of birth'), null=True)
-    address = models.CharField(max_length=255, help_text=_(u'Contact address: City, Str, apt'),
-                               verbose_name=_(u'Address'))
+    address = models.CharField(max_length=255, help_text=_('Contact address: City, Str, apt'),
+                               verbose_name=_('Address'))
     contact_email = models.EmailField(help_text='example@provider.com', blank=True)
     about = models.TextField(help_text=_('Say something about yourself'), blank=True)
 
@@ -45,7 +45,7 @@ class ClientProfile(models.Model):
         self.user.save()
 
     def get_client_url(self):
-        return reverse('account:client', kwargs={'pk': self.pk})
+        return reverse('profile:client', kwargs={'pk': self.pk})
 
     class Meta:
         db_table = "client_profile"

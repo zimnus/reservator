@@ -37,9 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     # create apps
     'reservator',
-    'account',
+    'profile',
     'enterprise',
     'employee',
     'service',
@@ -49,10 +50,18 @@ INSTALLED_APPS = [
     # API
     'api',
     # Install apps
+    # REST API
     'rest_framework',
+    # Widget
     'phonenumber_field',
     'multiselectfield',
     'geoposition',
+
+    # social account
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
 ]
 
 GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyB7fZ3Dj0swiXjvBJD-MMe0FkhyaIMvoOo'
@@ -70,18 +79,19 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'reservator.urls'
 
-LOGIN_URL = "/account/login/"
+LOGIN_URL = "/accounts/login/"
 
-LOGOUT_REDIRECT_URL = '/account/login/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'reservator.User'
-AUTH_PROFILE_MODULE = 'account.ClientProfile'
+AUTH_PROFILE_MODULE = 'profile.ClientProfile'
 
 AUTHENTICATION_BACKENDS = [
     'reservator.auth_backends.AdminBackend',
     'reservator.auth_backends.EmailBackend',
-    'django.contrib.auth.backends.ModelBackend'
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
 TEMPLATES = [
@@ -146,7 +156,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOCALE_PATHs = (
+LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'static', 'locale'),
 )
 
@@ -159,5 +169,7 @@ STATIC_ROOT = (os.path.join(BASE_DIR, 'static_cdn', 'static'))
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = (os.path.join(BASE_DIR, 'static_cdn', 'media'))
+
+SITE_ID = 1
 
 from reservator.rest_conf import *

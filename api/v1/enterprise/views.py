@@ -1,4 +1,3 @@
-import json
 from rest_framework import generics, mixins, permissions
 
 from .serializer import EnterpriseSerializer, CategoryOfServicesSerializers, CitySerializer
@@ -10,7 +9,7 @@ from service.models import Service
 class EnterpriseAPIListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     # passed_id = 'id'
-    search_fields = ('title', 'short_descr',)
+    search_fields = ('title', 'description',)
     serializer_class = EnterpriseSerializer
     queryset = Enterprise.objects.all()
 
@@ -22,11 +21,11 @@ class EnterpriseAPIUserView(mixins.UpdateModelMixin, mixins.CreateModelMixin, ge
     def get_queryset(self):
         return Enterprise.objects.filter()
 
-    # def post(self, request, *args, **kwargs):
-    #     return self.create(request, *args, **kwargs)
-    #
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class EnterpriseAPIDetailView(mixins.UpdateModelMixin, generics.RetrieveAPIView):
@@ -40,6 +39,9 @@ class EnterpriseAPIDetailView(mixins.UpdateModelMixin, generics.RetrieveAPIView)
 
     def patch(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
+
+    def perform_update(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class CategoryOfServicesAPIListView(mixins.UpdateModelMixin, generics.ListAPIView):
