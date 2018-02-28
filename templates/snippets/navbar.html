@@ -1,6 +1,6 @@
-{% load static enterprise_tags %}
+{% load static i18n %}
 {% url 'enterprise:dashboard' as dashboard %}
-{% url 'enterprise:detail' user|ent_id as enterprise %}
+{% url 'enterprise:detail' enterprise.pk as enterprise_detail %}
 {% url 'service:service' as service %}
 {% url 'employee:employee' as employee %}
 <!-- Navigation-->
@@ -8,6 +8,7 @@
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
+            {% if enterprise %}
             <li>
                 <div id="side-calendar"></div>
             </li>
@@ -16,18 +17,20 @@
             </li>
             <li class="{% if request.path == service or request.path == employee or request.path == enterprise %}active{% endif %}">
                 <a href="#"><i class="fa fa-pencil"></i>
-                    <span class="nav-label">Managers</span>
+                    <span class="nav-label">{% trans 'Managers' %}</span>
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{% if request.path == service %} active {% endif %}">
-                        <a href="{{ service }}">Services</a>
+                        <a href="{{ service }}">{% trans 'Services' %}</a>
                     </li>
                     <li class="{% if request.path == employee %} active {% endif %}">
                         <a href="{{ employee }}">Employee</a>
                     </li>
                     <li><a href="">Clients</a></li>
-                    <li class="{% if request.path == enterprise %} active {% endif %}"><a href="{{ enterprise }}">Enterprise</a></li>
+                    <li class="{% if request.path == enterprise %} active {% endif %}">
+                        <a href="{{ enterprise_detail }}">Enterprise</a>
+                    </li>
                 </ul>
             </li>
             <li>
@@ -37,7 +40,7 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
-                    {% for staff in user|ent_id|staff_list %}
+                    {% for staff in enterprise.get_employee %}
                         <li>
                             <a href="{% url 'settings:staff-detail' staff.pk %}">
                                 {% if staff.avatar %}
@@ -52,7 +55,7 @@
                         </li>
                     {% empty %}
                         <li>
-                            <a href="{% url 'settings:personal-settings' user|ent_id %}">Добавить сотрудников</a>
+                            <a href="{% url 'settings:personal-settings' enterprise.id %}">Добавить сотрудников</a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -67,11 +70,23 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="{% url 'settings:enterprise-settings' user|ent_id %}"><span class="fa fa-edit"></span> Основное</a></li>
-                    <li><a href="{% url 'settings:service-group' user|ent_id %}"><span class="fa fa-tasks"></span> Сервисы</a></li>
-                    <li><a href="{% url 'settings:personal-settings' user|ent_id %}"><span class="fa fa-group"></span> Персонал</a></li>
+                    <li><a href="{% url 'settings:enterprise-settings' enterprise.pk %}"><span class="fa fa-edit"></span> Основное</a></li>
+                    <li><a href="{% url 'settings:service-group' enterprise.pk %}"><span class="fa fa-tasks"></span> Сервисы</a></li>
+                    <li><a href="{% url 'settings:personal-settings' enterprise.pk %}"><span class="fa fa-group"></span> Персонал</a></li>
                 </ul>
             </li>
+            <li>
+            {% else %}
+                <li>
+                    <a href="{% url 'enterprise:create' user.pk %}"><i class="fa fa-newspaper-o"></i><span class="nav-label">{% trans 'Include enterprise' %}</span></a>
+                </li>
+
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li>
+                <a href=""><i class="fa fa-sign-out"></i><span class="nav-label">{% trans 'Exit' %}</span></a>
+            </li>
+            {% endif %}
         </ul>
     </div>
 </nav>

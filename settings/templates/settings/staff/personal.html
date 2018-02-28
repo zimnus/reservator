@@ -1,5 +1,5 @@
 {% extends "base_index.html" %}
-{% load static enterprise_tags %}
+{% load static %}
 {% block title %}
     Personal {{ instance.title }} | {{ block.super }}
 {% endblock %}
@@ -13,7 +13,7 @@
                     <a href="/">Главная</a>
                 </li>
                 <li>
-                    <a href="{% url 'settings:enterprise-settings' user|ent_id %}">Настройка</a>
+                    <a href="{% url 'settings:enterprise-settings' enterprise.pk %}">Настройка</a>
                 </li>
                 <li class="active">
                     <strong>Сотрудники</strong>

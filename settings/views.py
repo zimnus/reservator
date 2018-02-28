@@ -57,7 +57,6 @@ def update_logo(request, pk):
 
 @manager_required
 def personal(request, pk):
-    user = request.user
     enterprise = Enterprise.objects.get(pk=pk)
     employee = Employee.objects.filter(enterprise=enterprise)
     if request.POST:

@@ -1,5 +1,5 @@
 {% extends 'base_index.html' %}
-{% load static enterprise_tags %}
+{% load static %}
 
 {% block title %}
     Service group | {{ block.super }}
@@ -27,7 +27,7 @@
                 <div class="ibox-title">
                     <h5>Групы услуг</h5>
                     <div class="ibox-tools">
-                        <a class="btn btn-primary btn-xs" href="{% url 'settings:new-category' user|ent_id %}">Добавить групу услуг</a>
+                        <a class="btn btn-primary btn-xs" href="{% url 'settings:new-category' enterprise.pk %}">Добавить групу услуг</a>
                     </div>
                 </div>
                 <div class="ibox-content">

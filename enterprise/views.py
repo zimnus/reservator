@@ -16,11 +16,18 @@ from django.contrib.auth.decorators import permission_required
 
 ########### NEW CODE #################
 
-@manager_required
+
 def dashboard(request):
     template_name = 'enterprise/dashboard.html'
     template_data = {}
     return render(request, template_name, template_data)
+
+
+def create(request, pk):
+    form = EnterpriseCreateForm(request.POST or None, request.FILES or None)
+    template_data = {'form': form}
+    return render(request, 'enterprise/enterprise_create.html', template_data)
+
 
 
 @manager_required

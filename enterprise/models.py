@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.dispatch import receiver
+from django.utils.translation import gettext_lazy as _
 import datetime
 
 from phonenumber_field.modelfields import PhoneNumberField
@@ -15,8 +16,7 @@ from jsonfield import JSONField
 User = settings.AUTH_USER_MODEL
 
 
-########## CHOICE ############
-
+# Upload path
 def upload_enterprise_image(instance, filename):
     return "enterprise/{title}/{filename}".format(title=instance.title, filename=filename)
 
@@ -55,24 +55,25 @@ class City(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'City'
-        verbose_name_plural = 'Cities'
+        verbose_name = _('City')
+        verbose_name_plural = _('Cities')
         ordering = ('-name',)
 
 
 class Enterprise(models.Model):
-    owner = models.OneToOneField(User, help_text='Owner field')
-    title = models.CharField(max_length=255, help_text='Name enterprise')
-    logo = models.ImageField(upload_to=upload_enterprise_image, help_text='Logo image', blank=True)
-    category = models.CharField(max_length=200, blank=True, null=True, help_text='Category')
-    description = models.TextField(help_text='Short descriptions', blank=True)
-    schedule = JSONField(blank=True, null=True, help_text='Schedule enterprise')
-    city = models.ForeignKey(City, help_text='Select city', blank=True, null=True)
-    address = models.CharField(max_length=255, help_text='Address enterprise', blank=True)
-    phone = PhoneNumberField(max_length=255, help_text='Contact phone', blank=True)
-    index = models.IntegerField(help_text='Index', blank=True, default=0)
+    owner = models.OneToOneField(User, help_text=_('Owner field'), verbose_name=_('Owner'))
+    title = models.CharField(max_length=255, help_text=_('Name enterprise'), verbose_name=_('Title'))
+    logo = models.ImageField(upload_to=upload_enterprise_image, help_text='Logo image', blank=True,
+                             verbose_name=_('Logo'))
+    category = models.CharField(max_length=200, blank=True, null=True, help_text='Category', verbose_name=_('Category'))
+    description = models.TextField(help_text=_('Short descriptions'), blank=True, verbose_name=_('Description'))
+    schedule = JSONField(blank=True, null=True, help_text=_('Schedule enterprise'), verbose_name=_('Schedule'))
+    city = models.ForeignKey(City, help_text=_('Select city'), verbose_name=_('City'), blank=True, null=True)
+    address = models.CharField(max_length=255, help_text=_('Address enterprise'), blank=True, verbose_name=_('Address'))
+    phone = PhoneNumberField(max_length=255, help_text=_('Contact phone'), blank=True, verbose_name=_('Phone'))
+    index = models.IntegerField(help_text=_('Index'), verbose_name=_('Index'), blank=True, default=0)
     site = models.URLField(help_text='www.example.com', blank=True)
-    active = models.BooleanField(default=True, help_text='Is active')
+    active = models.BooleanField(default=True, help_text=_('Is active'))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -80,8 +81,8 @@ class Enterprise(models.Model):
 
     class Meta:
         db_table = 'db_enterprise'
-        verbose_name = 'Enterprise'
-        verbose_name_plural = 'Enterprises'
+        verbose_name = _('Enterprise')
+        verbose_name_plural = _('Enterprises')
         ordering = ['-pk']
 
     def __str__(self):
@@ -97,7 +98,6 @@ class Enterprise(models.Model):
     def get_employee(self):
         id = self.id
         return Enterprise.objects.get_employee(id)
-
 
 # @receiver(post_save, sender=User)
 # def create_enterprise(sender, instance, created, **kwargs):

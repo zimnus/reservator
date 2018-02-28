@@ -1,0 +1,179 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-02-28 16:52+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: enterprise/models.py:59 enterprise/models.py:71
+msgid "City"
+msgstr "Город"
+
+#: enterprise/models.py:60
+msgid "Cities"
+msgstr ""
+
+#: enterprise/models.py:65
+msgid "Owner field"
+msgstr "Менеджер компании"
+
+#: enterprise/models.py:65
+msgid "Owner"
+msgstr "Владелец"
+
+#: enterprise/models.py:66
+#, fuzzy
+#| msgid "Enterprise"
+msgid "Name enterprise"
+msgstr "Компания"
+
+#: enterprise/models.py:66
+msgid "Title"
+msgstr ""
+
+#: enterprise/models.py:67
+msgid "Logo"
+msgstr ""
+
+#: enterprise/models.py:68
+msgid "Category"
+msgstr ""
+
+#: enterprise/models.py:69
+msgid "Short descriptions"
+msgstr "Короткое описание"
+
+#: enterprise/models.py:69
+#, fuzzy
+#| msgid "Short descriptions"
+msgid "Description"
+msgstr "Короткое описание"
+
+#: enterprise/models.py:70
+#, fuzzy
+#| msgid "Enterprise"
+msgid "Schedule enterprise"
+msgstr "График работы компании"
+
+#: enterprise/models.py:70
+msgid "Schedule"
+msgstr "График"
+
+#: enterprise/models.py:71
+msgid "Select city"
+msgstr "Выберите город"
+
+#: enterprise/models.py:72
+#, fuzzy
+#| msgid "Enterprise"
+msgid "Address enterprise"
+msgstr "Компания"
+
+#: enterprise/models.py:72 profile/models.py:26
+msgid "Address"
+msgstr "Адрес"
+
+#: enterprise/models.py:73
+msgid "Contact phone"
+msgstr ""
+
+#: enterprise/models.py:73
+msgid "Phone"
+msgstr ""
+
+#: enterprise/models.py:74
+msgid "Index"
+msgstr ""
+
+#: enterprise/models.py:76
+msgid "Is active"
+msgstr ""
+
+#: enterprise/models.py:84
+msgid "Enterprise"
+msgstr "Компания"
+
+#: enterprise/models.py:85
+msgid "Enterprises"
+msgstr "Компанию"
+
+#: enterprise/templates/enterprise/dashboard.html:14
+msgid "Русский"
+msgstr ""
+
+#: enterprise/templates/enterprise/dashboard.html:15
+msgid "Английский"
+msgstr ""
+
+#: profile/models.py:21 profile/tests.py:18
+msgid "User"
+msgstr "Пользыватель"
+
+#: profile/models.py:22
+msgid "Gender"
+msgstr "Пол"
+
+#: profile/models.py:24
+msgid "You date of birth"
+msgstr "Ваша дата рождения"
+
+#: profile/models.py:25
+msgid "Contact address: City, Str, apt"
+msgstr "Контактный адрес: Город, Улица, Квартира"
+
+#: profile/models.py:28
+msgid "Say something about yourself"
+msgstr "Несколько слов о себе"
+
+#: profile/models.py:52
+msgid "Profile"
+msgstr "Профиль"
+
+#: profile/models.py:53
+msgid "Profiles"
+msgstr "Профили"
+
+#: schedule/models.py:21
+msgid "График сотрудника"
+msgstr ""
+
+#: schedule/models.py:22
+msgid "График сотрудников"
+msgstr ""
+
+#: templates/admin/user_form.html:5
+msgid "History"
+msgstr "История"
+
+#: templates/snippets/navbar.html:20
+msgid "Managers"
+msgstr "Управление"
+
+#: templates/snippets/navbar.html:25
+msgid "Services"
+msgstr "Сервисы"
+
+#: templates/snippets/navbar.html:81
+#, fuzzy
+#| msgid "Enterprise"
+msgid "Include enterprise"
+msgstr "График работы компании"
+
+#: templates/snippets/navbar.html:85
+msgid "Exit"
+msgstr "Выход"

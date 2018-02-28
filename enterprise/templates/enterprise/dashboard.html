@@ -1,7 +1,9 @@
 {% extends 'base_index.html' %}
-{% load enterprise_tags %}
+{% load i18n %}
+{% load get_current_language from i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 {% block title %}
-    Dashboard {{ user|user_ent }} | {{ block.super }}
+    Dashboard {{ enterprise.title }} | {{ block.super }}
 {% endblock %}
 
 {% block content %}
@@ -9,6 +11,9 @@
         <div class="col-lg-12">
             <div class="wrapper">
                 <h1>Dashboard!</h1>
+                <a href="{% url 'lang' 'ru' %}">{% trans "Русский" %}</a>
+                <a href="{% url 'lang' 'en' %}">{% trans "Английский" %}</a>
+                {{ enterprise }}
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 {% extends 'base_index.html' %}
-{% load static enterprise_tags %}
+{% load static %}
 {% block title %}
     Schedules | {{ block.super }}
 {% endblock %}
@@ -78,7 +78,7 @@
                     console.log(date);
                     // Load schedule with select date
                     $.ajax({
-                        url: '/api/schedules/{{ user|ent_id }}/'+date,
+                        url: '/api/schedules/{{ enterprise.pk }}/'+date,
                         success: function (data) {
                             var location = [];
                             if (data.length == 0) {
@@ -100,7 +100,7 @@
             });
             // Load initial data
             $.ajax({
-                url: '/api/schedules/{{ user|ent_id }}/'+moment(dateToday).format('YYYY-MM-DD'),
+                url: '/api/schedules/{{ enterprise.pk }}/'+moment(dateToday).format('YYYY-MM-DD'),
                 success: function (data) {
                     var location = [];
                     if (data.length == 0) {
