@@ -10,7 +10,8 @@ from . import views
 
 urlpatterns = i18n_patterns(
     # apps urls
-    url(r'', include('enterprise.urls', namespace='enterprise')),
+    url(r'^$', include('django.contrib.flatpages.urls')),
+    url(r'^enterprise/', include('enterprise.urls', namespace='enterprise')),
     url(r'^profile/', include('profile.urls', namespace='profile')),
     url(r'^employee/', include('employee.urls', namespace='employee')),
     url(r'^service/', include('service.urls', namespace='service')),
@@ -28,6 +29,8 @@ urlpatterns = i18n_patterns(
     # url(r'^api/auth/', include('account.api.urls', namespace='api-auth')),
     # Languages
     url(r'^lang/(?P<lang_code>[a-z]{2})/$', views.lang, name='lang'),
+    # ckeditor
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     # admin
     url(r'^area51/', admin.site.urls),
 )

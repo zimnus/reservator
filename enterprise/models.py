@@ -11,7 +11,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from multiselectfield import MultiSelectField
 from geoposition.fields import GeopositionField
 
-from jsonfield import JSONField
+from jsonfield import JSONField  # Only develop
 
 User = settings.AUTH_USER_MODEL
 
@@ -23,14 +23,14 @@ def upload_enterprise_image(instance, filename):
 
 ########### QuerySet ##################
 class EnterpriseQuerySet(models.QuerySet):
-    # def search(self, query):
-    #     if query:
-    #         return self.filter(
-    #             Q(name__icontains=query) |
-    #             Q(employee__sex__iexact=query) |
-    #             Q(employee__sex__icontains=query)
-    #         ).distinct()
-    #     return self
+    def search(self, query):
+        if query:
+            return self.filter(
+                Q(name__icontains=query) |
+                Q(employee__sex__iexact=query) |
+                Q(employee__sex__icontains=query)
+            ).distinct()
+        return self
     pass
 
 

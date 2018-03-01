@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.flatpages',
     # create apps
     'reservator',
     'profile',
@@ -56,6 +57,8 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'multiselectfield',
     'geoposition',
+    'ckeditor',
+    'ckeditor_uploader',
 
     # social account
     'allauth',
@@ -183,5 +186,21 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = (os.path.join(BASE_DIR, 'static_cdn', 'media'))
 
 SITE_ID = 1
+
+####################################
+    ##  CKEDITOR CONFIGURATION ##
+####################################
+
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
+}
+
 
 from reservator.rest_conf import *

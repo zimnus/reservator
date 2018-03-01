@@ -17,6 +17,7 @@ from django.contrib.auth.decorators import permission_required
 ########### NEW CODE #################
 
 
+@login_required
 def dashboard(request):
     template_name = 'enterprise/dashboard.html'
     template_data = {}
