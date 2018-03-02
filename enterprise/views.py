@@ -14,8 +14,6 @@ from django.contrib.auth.decorators import permission_required
 
 # Create your views here.
 
-########### NEW CODE #################
-
 
 @login_required
 def dashboard(request):
@@ -28,7 +26,6 @@ def create(request, pk):
     form = EnterpriseCreateForm(request.POST or None, request.FILES or None)
     template_data = {'form': form}
     return render(request, 'enterprise/enterprise_create.html', template_data)
-
 
 
 @manager_required

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-28 16:52+0200\n"
+"POT-Creation-Date: 2018-03-02 10:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,29 +20,29 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: enterprise/models.py:59 enterprise/models.py:71
+#: enterprise/models.py:58 enterprise/models.py:71
 msgid "City"
 msgstr "Город"
 
-#: enterprise/models.py:60
+#: enterprise/models.py:59
 msgid "Cities"
 msgstr ""
 
-#: enterprise/models.py:65
+#: enterprise/models.py:64
 msgid "Owner field"
 msgstr "Менеджер компании"
 
-#: enterprise/models.py:65
+#: enterprise/models.py:64
 msgid "Owner"
 msgstr "Владелец"
 
-#: enterprise/models.py:66
+#: enterprise/models.py:65
 #, fuzzy
 #| msgid "Enterprise"
 msgid "Name enterprise"
 msgstr "Компания"
 
-#: enterprise/models.py:66
+#: enterprise/models.py:65
 msgid "Title"
 msgstr ""
 
@@ -90,19 +90,19 @@ msgstr "Адрес"
 
 #: enterprise/models.py:73
 msgid "Contact phone"
-msgstr ""
+msgstr "Контактный телефон"
 
 #: enterprise/models.py:73
 msgid "Phone"
-msgstr ""
+msgstr "Телефон"
 
 #: enterprise/models.py:74
 msgid "Index"
-msgstr ""
+msgstr "Индекс"
 
 #: enterprise/models.py:76
 msgid "Is active"
-msgstr ""
+msgstr "Активный"
 
 #: enterprise/models.py:84
 msgid "Enterprise"
@@ -120,7 +120,7 @@ msgstr ""
 msgid "Английский"
 msgstr ""
 
-#: profile/models.py:21 profile/tests.py:18
+#: profile/models.py:21 profile/tests.py:18 reservator/models.py:33
 msgid "User"
 msgstr "Пользыватель"
 
@@ -148,6 +148,34 @@ msgstr "Профиль"
 msgid "Profiles"
 msgstr "Профили"
 
+#: reservator/admin.py:39
+msgid "Advanced options"
+msgstr ""
+
+#: reservator/models.py:26
+#, fuzzy
+#| msgid "Managers"
+msgid "Manager"
+msgstr "Управление"
+
+#: reservator/models.py:27
+msgid "Note if the user can enter the manager part of the site."
+msgstr ""
+
+#: reservator/models.py:28
+msgid "Client"
+msgstr "Клиент"
+
+#: reservator/models.py:29
+msgid "Note if the user can enter the client part of the site."
+msgstr ""
+
+#: reservator/models.py:34
+#, fuzzy
+#| msgid "User"
+msgid "Users"
+msgstr "Пользыватель"
+
 #: schedule/models.py:21
 msgid "График сотрудника"
 msgstr ""
@@ -174,6 +202,6 @@ msgstr "Сервисы"
 msgid "Include enterprise"
 msgstr "График работы компании"
 
-#: templates/snippets/navbar.html:85
+#: templates/snippets/navbar.html:86
 msgid "Exit"
 msgstr "Выход"

@@ -1,10 +1,11 @@
 from rest_framework import generics, permissions, mixins
 
-from .serializer import CategorySerializer, ServiceSerializer
+from .serializer import CategorySerializer, CategoryDetailSerialize, ServiceSerializer
 from service.models import Category, Service
 
 
 class CategoryListView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = CategorySerializer
 
     def get_queryset(self):
@@ -12,7 +13,14 @@ class CategoryListView(generics.ListAPIView):
         return Category.objects.filter(enterprise=company_id)
 
 
+class CategoryDetailView(generics.RetrieveAPIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    serializer_class = CategoryDetailSerialize
+    queryset = Category
+
+
 class ServiceListView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = ServiceSerializer
 
     def get_queryset(self):

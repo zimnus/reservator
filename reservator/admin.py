@@ -16,8 +16,9 @@ class CustomUserAdmin(UserAdmin):
     # readonly_fields = ('ga_uid', 'ga_cid')
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'email', 'image', 'phone', 'manager', 'client')}),
-        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'email', 'image', 'phone')}),
+        ('Permissions',
+         {'fields': ('is_active', 'is_staff', 'manager', 'client', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
     # change_form_template = 'admin/user_form.html'
@@ -32,7 +33,7 @@ class FlatPageAdminForm(FlatpageForm):
         fields = "__all__"
 
 
-class FlatPageAdmin(FlatPageAdmin):
+class FlatPageAdminNew(FlatPageAdmin):
     form = FlatPageAdminForm
     fieldsets = (
         (None, {'fields': ('url', 'title', 'content', 'sites')}),
@@ -49,4 +50,4 @@ class FlatPageAdmin(FlatPageAdmin):
 
 admin.site.register(User, CustomUserAdmin)
 admin.site.unregister(FlatPage)
-admin.site.register(FlatPage, FlatPageAdmin)
+admin.site.register(FlatPage, FlatPageAdminNew)

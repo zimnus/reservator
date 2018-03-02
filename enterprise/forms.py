@@ -7,14 +7,18 @@ from .models import Enterprise, City
 
 
 class EnterpriseCreateForm(forms.ModelForm):
-    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label='Название')
-    category = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label='Категория')
+    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}),
+                            label='Название')
+    category = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}),
+                               label='Категория')
     phone = forms.CharField(widget=PhoneNumberInternationalFallbackWidget(attrs={
         'class': 'form-control',
         'data-mask': '+38 (999) 999-99-99'
     }), label="Контактный телефон")
-    address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label="Адрес")
-    description = forms.CharField(widget=forms.Textarea(attrs={'class': 'summernote'}), label='Описание')
+    address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}),
+                              label="Адрес")
+    description = forms.CharField(widget=forms.Textarea(attrs={'class': 'summernote'}),
+                                  label='Описание')
     city = forms.ModelChoiceField(City.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}),
                                   label="Город")
 
@@ -30,8 +34,10 @@ class EnterpriseUpdateScheduleForm(forms.ModelForm):
 
 
 class EnterpriseUpdateForm(forms.Form):
-    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label='Название')
-    description = forms.CharField(widget=forms.Textarea(attrs={'class': 'summernote'}), label='Описание')
+    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}),
+                            label='Название')
+    description = forms.CharField(widget=forms.Textarea(attrs={'class': 'summernote'}),
+                                  label='Описание')
 
     # def __init__(self, *args, **kwargs):
     #     super(EnterpriseUpdateForm, self).__init__(*args, **kwargs)
@@ -39,9 +45,11 @@ class EnterpriseUpdateForm(forms.Form):
 
 
 class EnterpriseUpdateContactForm(forms.Form):
-    city = forms.ModelChoiceField(City.objects.all(), widget=forms.Select(attrs={'class': 'form-control'}),
+    city = forms.ModelChoiceField(City.objects.all(),
+                                  widget=forms.Select(attrs={'class': 'form-control'}),
                                   label="Город")
-    address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label="Адрес")
+    address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}),
+                              label="Адрес")
     phone = forms.CharField(widget=PhoneNumberInternationalFallbackWidget(attrs={
         'class': 'form-control',
         'data-mask': '+38 (999) 999-99-99'

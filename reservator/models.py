@@ -2,6 +2,7 @@ from django.utils import timezone
 from datetime import timedelta
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
@@ -21,16 +22,20 @@ def _profile_upload_to(object, filename):
 class User(AbstractUser):
     image = models.ImageField('Photo', blank=True, upload_to=_profile_upload_to, max_length=255)
     phone = models.CharField(max_length=255, blank=True)
-    manager = models.BooleanField(default=False)
-    client = models.BooleanField(default=False)
+    manager = models.BooleanField(default=False,
+                                  verbose_name=_('Manager'),
+                                  help_text=_('Note if the user can enter the manager part of the site.'))
+    client = models.BooleanField(default=False, verbose_name=_('Client'),
+                                 help_text=_('Note if the user can enter the client part of the site.'))
 
     class Meta:
         db_table = 'auth_user'
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
         unique_together = ('email',)
 
     def __str__(self):
         return self.get_full_name()
-
 
 # class EmailActivationQuerySet(models.query.QuerySet):
 #     def confirmable(self):

@@ -10,8 +10,10 @@ from . import views
 
 urlpatterns = i18n_patterns(
     # apps urls
+    # flatpages
     url(r'^$', include('django.contrib.flatpages.urls')),
-    url(r'^enterprise/', include('enterprise.urls', namespace='enterprise')),
+    # admin dashboard
+    url(r'^dashboard/', include('enterprise.urls', namespace='enterprise')),
     url(r'^profile/', include('profile.urls', namespace='profile')),
     url(r'^employee/', include('employee.urls', namespace='employee')),
     url(r'^service/', include('service.urls', namespace='service')),
@@ -21,18 +23,21 @@ urlpatterns = i18n_patterns(
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
     # Social
     url(r'^accounts/', include('allauth.urls')),
-    # api
-    url(r'^api/', include('api.urls', namespace='api')),
     # url(r'^api/enterprise/', include('enterprise.api.urls', namespace='api-enterprise')),
     # url(r'^api/employee/', include('employee.api.urls', namespace='api-employee')),
     # url(r'^api/profile/', include('account.api.profile.urls', namespace='api-profile')),
     # url(r'^api/auth/', include('account.api.urls', namespace='api-auth')),
     # Languages
     url(r'^lang/(?P<lang_code>[a-z]{2})/$', views.lang, name='lang'),
-    # ckeditor
+    # Ckeditor
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     # admin
     url(r'^area51/', admin.site.urls),
 )
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += [
+    url(r'^api/', include('api.urls', namespace='api')),
+
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+]

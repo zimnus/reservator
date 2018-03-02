@@ -65,13 +65,18 @@ class Enterprise(models.Model):
     title = models.CharField(max_length=255, help_text=_('Name enterprise'), verbose_name=_('Title'))
     logo = models.ImageField(upload_to=upload_enterprise_image, help_text='Logo image', blank=True,
                              verbose_name=_('Logo'))
-    category = models.CharField(max_length=200, blank=True, null=True, help_text='Category', verbose_name=_('Category'))
+    category = models.CharField(max_length=200, blank=True, null=True,
+                                help_text='Category', verbose_name=_('Category'))
     description = models.TextField(help_text=_('Short descriptions'), blank=True, verbose_name=_('Description'))
-    schedule = JSONField(blank=True, null=True, help_text=_('Schedule enterprise'), verbose_name=_('Schedule'))
-    city = models.ForeignKey(City, help_text=_('Select city'), verbose_name=_('City'), blank=True, null=True)
-    address = models.CharField(max_length=255, help_text=_('Address enterprise'), blank=True, verbose_name=_('Address'))
+    schedule = JSONField(blank=True, null=True,
+                         help_text=_('Schedule enterprise'), verbose_name=_('Schedule'))
+    city = models.ForeignKey(City, help_text=_('Select city'),
+                             verbose_name=_('City'), blank=True, null=True)
+    address = models.CharField(max_length=255, help_text=_('Address enterprise'),
+                               null=True, blank=True, verbose_name=_('Address'))
     phone = PhoneNumberField(max_length=255, help_text=_('Contact phone'), blank=True, verbose_name=_('Phone'))
-    index = models.IntegerField(help_text=_('Index'), verbose_name=_('Index'), blank=True, default=0)
+    index = models.IntegerField(help_text=_('Index'), verbose_name=_('Index'),
+                                blank=True, default=0)
     site = models.URLField(help_text='www.example.com', blank=True)
     active = models.BooleanField(default=True, help_text=_('Is active'))
     created_at = models.DateTimeField(auto_now_add=True)
