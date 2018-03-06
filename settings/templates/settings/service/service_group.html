@@ -25,67 +25,91 @@
         <div class="col-sm-4">
             <div class="ibox">
                 <div class="ibox-title">
-                    <h5>Групы услуг</h5>
-                    <div class="ibox-tools">
-                        <a class="btn btn-primary btn-xs" href="{% url 'settings:new-category' enterprise.pk %}">Добавить групу услуг</a>
-                    </div>
+                    <h3>
+                        Група категорий
+                    </h3>
+                    <a href="{% url 'settings:new-category' enterprise.pk %}" class="btn btn-primary btn-xs">Добавить групу</a>
                 </div>
                 <div class="ibox-content">
-                    <div class="clients-list">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <tbody>
-                                    {% for group in category %}
-                                        <tr>
-                                            <td><span class="fa fa-folder"></span></td>
-                                            <td class="client-link"><a onclick="loadService({{ group.pk }})" >{{ group.title }}</a></td>
-                                        </tr>
-                                    {% empty %}
-                                        <tr>
-                                            <td class="alert alert-info">Нет созданых категорий услуг</td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <ul class="sortable-list connectList agile-list ui-sortable" id="service_group"></ul>
                 </div>
             </div>
+
+{#            <div class="ibox">#}
+{#                <div class="ibox-title">#}
+{#                    <h5>Групы услуг</h5>#}
+{#                    <div class="ibox-tools">#}
+{#                        <a class="btn btn-primary btn-xs" href="{% url 'settings:new-category' enterprise.pk %}">Добавить групу услуг</a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="ibox-content">#}
+{#                    <div class="clients-list">#}
+{#                        <div class="table-responsive">#}
+{#                            <table class="table table-hover">#}
+{#                                <tbody>#}
+{#                                    {% for group in category %}#}
+{#                                        <tr>#}
+{#                                            <td><span class="fa fa-folder"></span></td>#}
+{#                                            <td class="client-link"><a onclick="loadService({{ group.pk }})" >{{ group.title }}</a></td>#}
+{#                                        </tr>#}
+{#                                    {% empty %}#}
+{#                                        <tr>#}
+{#                                            <td class="alert alert-info">Нет созданых категорий услуг</td>#}
+{#                                        </tr>#}
+{#                                    {% endfor %}#}
+{#                                </tbody>#}
+{#                            </table>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
         </div>
         <div class="col-sm-8">
             <div class="ibox">
                 <div class="ibox-title">
-                    <h5>Услуги</h5>
-                    <div class="ibox-tools">
-                        <a href="{% url 'settings:new-service' %}" class="btn btn-primary btn-xs">Новая услуга</a>
-                    </div>
+                    <h3>
+                        Сервисы
+                    </h3>
+                    <a href="{% url 'settings:new-service' %}" class="btn btn-primary btn-xs">Добавить услугу</a>
                 </div>
                 <div class="ibox-content">
-                    <div class="project-list">
-                        <table class="table table-hover">
-                            <tbody>
-
-                                {% for item in service %}
-                                <tr>
-                                {% if item.access %}
-                                    <td><span class="label label-primary">Active</span></td>
-                                {% else %}
-                                    <td><span class="label label-danger">Hide</span></td>
-                                {% endif %}
-                                    <td>{{ item.title }}</td>
-                                    <td>3</td>
-                                </tr>
-                                {% empty %}
-                                    <div class="alert alert-info">
-                                        В етой категории у вас нет услуг!
-                                    </div>
-                                {% endfor %}
-
-                            </tbody>
-                        </table>
-                    </div>
+                    <ul class="sortable-list connectList agile-list ui-sortable" id="services"></ul>
                 </div>
             </div>
+
+{#            <div class="ibox">#}
+{#                <div class="ibox-title">#}
+{#                    <h5>Услуги</h5>#}
+{#                    <div class="ibox-tools">#}
+{#                        <a href="{% url 'settings:new-service' %}" class="btn btn-primary btn-xs">Новая услуга</a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="ibox-content">#}
+{#                    <div class="project-list">#}
+{#                        <table class="table table-hover">#}
+{#                            <tbody>#}
+{##}
+{#                                {% for item in service %}#}
+{#                                <tr>#}
+{#                                {% if item.access %}#}
+{#                                    <td><span class="label label-primary">Active</span></td>#}
+{#                                {% else %}#}
+{#                                    <td><span class="label label-danger">Hide</span></td>#}
+{#                                {% endif %}#}
+{#                                    <td>{{ item.title }}</td>#}
+{#                                    <td>3</td>#}
+{#                                </tr>#}
+{#                                {% empty %}#}
+{#                                    <div class="alert alert-info">#}
+{#                                        В етой категории у вас нет услуг!#}
+{#                                    </div>#}
+{#                                {% endfor %}#}
+{##}
+{#                            </tbody>#}
+{#                        </table>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
         </div>
     </div>
 </div>
@@ -93,16 +117,36 @@
 
 {% block custom_script %}
 <script>
-    function loadService(pk) {
+    function loadGroup() {
         $.ajax({
-            url: '/api/services/'+pk+'/',
-            success: function (data) {
-                console.log(JSON.stringify(data, undefined, 4))
+            url: '/api/services/category/{{ enterprise.id }}/',
+            success: function(data) {
+                console.log(JSON.stringify(data, undefined, 4));
+
+                $.each(data, function (key, value) {
+                    $('#services').html('<div class="alert alert-info">Выберете групу сервисов</div');
+                    $('#service_group').append('<li class="success-element ui-sortable-handle" data-id="'+value.id+'" onClick="loadService('+value.id+')">'+ value.title +'</li>');
+                });
+
             },
-            error: function (error) {
-                alert(JSON.stringify(error, undefined, 4))
+            error: function(data) {
+                console.log(data);
             }
         });
     }
+    function loadService(pk) {
+        $('#services').html('');
+        $.ajax({
+            url: '/api/services/filter/'+ pk + '/',
+            success: function(data) {
+                $.each(data, function (key, value) {
+                    $("#services").append('<li class="info-element ui-sortable-handle">' + value.title + '</li>')
+                })
+            }
+        })
+    }
+    $(document).ready(function () {
+        loadGroup();
+    })
 </script>
 {% endblock %}

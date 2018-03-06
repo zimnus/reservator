@@ -89,28 +89,36 @@
 {% block custom_script %}
     <script src="{% static 'js/utils/cookie_safe.js' %}"></script>
 	<script>
-		$(document).ready(function(){
-             function getCookie(name) {
+        $(document).ready(function () {
+            function getCookie(name) {
                 var cookieValue = null;
                 if (document.cookie && document.cookie !== '') {
-                  var cookies = document.cookie.split(';');
-                  for (var i = 0; i < cookies.length; i++) {
-                      var cookie = jQuery.trim(cookies[i]);
-                      // Does this cookie string begin with the name we want?
-                      if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                          break;
-                      }
-                  }
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
                 }
                 return cookieValue;
+            }
+            $.ajax({
+                url: '/api/enterprises/detail/{{ enterprise.id }}/',
+                method: 'PUT',
+                data: {
+                    title: 'SpaceX Ink.'
+                },
+                success: function (data) {
+                    alert('Success');
+                    $('#id_title').val(data.title);
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error.undefined, 4))
                 }
-			$(".summernote").summernote();
-
-            var URL = '/api/enterprises/detail/';
-            var ID = '{{instance.pk}}/';
-
-            
-		});
+            })
+        });
 	</script>
 {% endblock %}

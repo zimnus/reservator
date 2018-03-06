@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-02 10:27+0200\n"
+"POT-Creation-Date: 2018-03-06 17:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: enterprise/models.py:58 enterprise/models.py:71
+#: employee/models.py:14 enterprise/models.py:96
+msgid "Enterprise"
+msgstr ""
+
+#: employee/models.py:15
+msgid "Name"
+msgstr ""
+
+#: employee/models.py:16 enterprise/models.py:74
+msgid "Description"
+msgstr ""
+
+#: employee/models.py:20
+msgid "Position"
+msgstr ""
+
+#: employee/models.py:21
+msgid "Positions"
+msgstr ""
+
+#: employee/models.py:54
+msgid "Employee"
+msgstr ""
+
+#: employee/models.py:55
+msgid "Employees"
+msgstr ""
+
+#: enterprise/models.py:58 enterprise/models.py:79
 msgid "City"
 msgstr ""
 
@@ -29,75 +57,71 @@ msgstr ""
 msgid "Owner field"
 msgstr ""
 
-#: enterprise/models.py:64
+#: enterprise/models.py:65
 msgid "Owner"
 msgstr ""
 
-#: enterprise/models.py:65
+#: enterprise/models.py:66
 msgid "Name enterprise"
 msgstr ""
 
-#: enterprise/models.py:65
+#: enterprise/models.py:67
 msgid "Title"
 msgstr ""
 
-#: enterprise/models.py:67
+#: enterprise/models.py:70
 msgid "Logo"
 msgstr ""
 
-#: enterprise/models.py:68
+#: enterprise/models.py:72 service/models.py:24
 msgid "Category"
 msgstr ""
 
-#: enterprise/models.py:69
+#: enterprise/models.py:73
 msgid "Short descriptions"
 msgstr ""
 
-#: enterprise/models.py:69
-msgid "Description"
-msgstr ""
-
-#: enterprise/models.py:70
+#: enterprise/models.py:76
 msgid "Schedule enterprise"
 msgstr ""
 
-#: enterprise/models.py:70
+#: enterprise/models.py:77
 msgid "Schedule"
 msgstr ""
 
-#: enterprise/models.py:71
+#: enterprise/models.py:78
 msgid "Select city"
 msgstr ""
 
-#: enterprise/models.py:72
+#: enterprise/models.py:80
 msgid "Address enterprise"
 msgstr ""
 
-#: enterprise/models.py:72 profile/models.py:26
+#: enterprise/models.py:81 profile/models.py:26
 msgid "Address"
 msgstr ""
 
-#: enterprise/models.py:73
+#: enterprise/models.py:82
 msgid "Contact phone"
 msgstr ""
 
-#: enterprise/models.py:73
+#: enterprise/models.py:83
 msgid "Phone"
 msgstr ""
 
-#: enterprise/models.py:74
+#: enterprise/models.py:84
 msgid "Index"
 msgstr ""
 
-#: enterprise/models.py:76
+#: enterprise/models.py:87
+msgid "Site"
+msgstr ""
+
+#: enterprise/models.py:88
 msgid "Is active"
 msgstr ""
 
-#: enterprise/models.py:84
-msgid "Enterprise"
-msgstr ""
-
-#: enterprise/models.py:85
+#: enterprise/models.py:97
 msgid "Enterprises"
 msgstr ""
 
@@ -106,6 +130,10 @@ msgid "Русский"
 msgstr ""
 
 #: enterprise/templates/enterprise/dashboard.html:15
+msgid "Українська"
+msgstr ""
+
+#: enterprise/templates/enterprise/dashboard.html:16
 msgid "Английский"
 msgstr ""
 
@@ -137,7 +165,7 @@ msgstr ""
 msgid "Profiles"
 msgstr ""
 
-#: reservator/admin.py:39
+#: reservator/admin.py:40
 msgid "Advanced options"
 msgstr ""
 
@@ -169,16 +197,79 @@ msgstr ""
 msgid "График сотрудников"
 msgstr ""
 
+#: service/models.py:25
+msgid "Categories"
+msgstr ""
+
+#: service/models.py:38
+msgid "Service duration"
+msgstr ""
+
+#: service/models.py:40
+msgid "Min price"
+msgstr ""
+
+#: service/models.py:41
+msgid "Max price"
+msgstr ""
+
+#: service/models.py:49
+msgid "Service"
+msgstr ""
+
+#: service/models.py:50 templates/snippets/navbar.html:25
+msgid "Services"
+msgstr ""
+
+#: templates/account/login.html:6 templates/account/login.html:10
+#: templates/account/login.html:48
+msgid "Sign In"
+msgstr ""
+
+#: templates/account/login.html:15
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"            of your existing third party accounts. Or, <a href="
+"\"%(signup_url)s\">sign up</a>\n"
+"            for a %(site_name)s account and sign in below:"
+msgstr ""
+
+#: templates/account/login.html:25
+msgid "or"
+msgstr ""
+
+#: templates/account/login.html:32
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"            <a href=\"%(signup_url)s\">sign up</a> first."
+msgstr ""
+
+#: templates/account/login.html:47
+msgid "Forgot Password?"
+msgstr ""
+
+#: templates/account/signup.html:5
+msgid "Signup"
+msgstr ""
+
+#: templates/account/signup.html:8 templates/account/signup.html:32
+msgid "Sign Up"
+msgstr ""
+
+#: templates/account/signup.html:10
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+
 #: templates/admin/user_form.html:5
 msgid "History"
 msgstr ""
 
 #: templates/snippets/navbar.html:20
 msgid "Managers"
-msgstr ""
-
-#: templates/snippets/navbar.html:25
-msgid "Services"
 msgstr ""
 
 #: templates/snippets/navbar.html:81

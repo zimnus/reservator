@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-02 10:27+0200\n"
+"POT-Creation-Date: 2018-03-06 17:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,95 +20,123 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: enterprise/models.py:58 enterprise/models.py:71
+#: employee/models.py:14 enterprise/models.py:96
+msgid "Enterprise"
+msgstr "Компания"
+
+#: employee/models.py:15
+msgid "Name"
+msgstr "Имя"
+
+#: employee/models.py:16 enterprise/models.py:74
+#, fuzzy
+#| msgid "Short descriptions"
+msgid "Description"
+msgstr "Описание"
+
+#: employee/models.py:20
+#, fuzzy
+#| msgid "Short descriptions"
+msgid "Position"
+msgstr "Описание"
+
+#: employee/models.py:21
+#, fuzzy
+#| msgid "Short descriptions"
+msgid "Positions"
+msgstr "Описание"
+
+#: employee/models.py:54
+msgid "Employee"
+msgstr ""
+
+#: employee/models.py:55
+msgid "Employees"
+msgstr ""
+
+#: enterprise/models.py:58 enterprise/models.py:79
 msgid "City"
 msgstr "Город"
 
 #: enterprise/models.py:59
 msgid "Cities"
-msgstr ""
+msgstr "Города"
 
 #: enterprise/models.py:64
 msgid "Owner field"
 msgstr "Менеджер компании"
 
-#: enterprise/models.py:64
+#: enterprise/models.py:65
 msgid "Owner"
 msgstr "Владелец"
 
-#: enterprise/models.py:65
+#: enterprise/models.py:66
 #, fuzzy
 #| msgid "Enterprise"
 msgid "Name enterprise"
-msgstr "Компания"
-
-#: enterprise/models.py:65
-msgid "Title"
-msgstr ""
+msgstr "Имя Компании"
 
 #: enterprise/models.py:67
+msgid "Title"
+msgstr "Заголовок"
+
+#: enterprise/models.py:70
 msgid "Logo"
-msgstr ""
+msgstr "Логотип"
 
-#: enterprise/models.py:68
+#: enterprise/models.py:72 service/models.py:24
 msgid "Category"
-msgstr ""
+msgstr "Категория"
 
-#: enterprise/models.py:69
+#: enterprise/models.py:73
 msgid "Short descriptions"
 msgstr "Короткое описание"
 
-#: enterprise/models.py:69
-#, fuzzy
-#| msgid "Short descriptions"
-msgid "Description"
-msgstr "Короткое описание"
-
-#: enterprise/models.py:70
+#: enterprise/models.py:76
 #, fuzzy
 #| msgid "Enterprise"
 msgid "Schedule enterprise"
 msgstr "График работы компании"
 
-#: enterprise/models.py:70
+#: enterprise/models.py:77
 msgid "Schedule"
 msgstr "График"
 
-#: enterprise/models.py:71
+#: enterprise/models.py:78
 msgid "Select city"
 msgstr "Выберите город"
 
-#: enterprise/models.py:72
+#: enterprise/models.py:80
 #, fuzzy
 #| msgid "Enterprise"
 msgid "Address enterprise"
-msgstr "Компания"
+msgstr "Адрес компании"
 
-#: enterprise/models.py:72 profile/models.py:26
+#: enterprise/models.py:81 profile/models.py:26
 msgid "Address"
 msgstr "Адрес"
 
-#: enterprise/models.py:73
+#: enterprise/models.py:82
 msgid "Contact phone"
 msgstr "Контактный телефон"
 
-#: enterprise/models.py:73
+#: enterprise/models.py:83
 msgid "Phone"
 msgstr "Телефон"
 
-#: enterprise/models.py:74
+#: enterprise/models.py:84
 msgid "Index"
 msgstr "Индекс"
 
-#: enterprise/models.py:76
+#: enterprise/models.py:87
+msgid "Site"
+msgstr "Сайт"
+
+#: enterprise/models.py:88
 msgid "Is active"
 msgstr "Активный"
 
-#: enterprise/models.py:84
-msgid "Enterprise"
-msgstr "Компания"
-
-#: enterprise/models.py:85
+#: enterprise/models.py:97
 msgid "Enterprises"
 msgstr "Компанию"
 
@@ -117,6 +145,10 @@ msgid "Русский"
 msgstr ""
 
 #: enterprise/templates/enterprise/dashboard.html:15
+msgid "Українська"
+msgstr ""
+
+#: enterprise/templates/enterprise/dashboard.html:16
 msgid "Английский"
 msgstr ""
 
@@ -138,7 +170,7 @@ msgstr "Контактный адрес: Город, Улица, Квартир�
 
 #: profile/models.py:28
 msgid "Say something about yourself"
-msgstr "Несколько слов о себе"
+msgstr "Роскажите о себе"
 
 #: profile/models.py:52
 msgid "Profile"
@@ -148,7 +180,7 @@ msgstr "Профиль"
 msgid "Profiles"
 msgstr "Профили"
 
-#: reservator/admin.py:39
+#: reservator/admin.py:40
 msgid "Advanced options"
 msgstr ""
 
@@ -184,6 +216,77 @@ msgstr ""
 msgid "График сотрудников"
 msgstr ""
 
+#: service/models.py:25
+#, fuzzy
+#| msgid "Category"
+msgid "Categories"
+msgstr "Категория"
+
+#: service/models.py:38
+msgid "Service duration"
+msgstr ""
+
+#: service/models.py:40
+msgid "Min price"
+msgstr ""
+
+#: service/models.py:41
+msgid "Max price"
+msgstr ""
+
+#: service/models.py:49
+#, fuzzy
+#| msgid "Services"
+msgid "Service"
+msgstr "Сервисы"
+
+#: service/models.py:50 templates/snippets/navbar.html:25
+msgid "Services"
+msgstr "Сервисы"
+
+#: templates/account/login.html:6 templates/account/login.html:10
+#: templates/account/login.html:48
+msgid "Sign In"
+msgstr "Реестрация"
+
+#: templates/account/login.html:15
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"            of your existing third party accounts. Or, <a href="
+"\"%(signup_url)s\">sign up</a>\n"
+"            for a %(site_name)s account and sign in below:"
+msgstr ""
+
+#: templates/account/login.html:25
+msgid "or"
+msgstr "или"
+
+#: templates/account/login.html:32
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"            <a href=\"%(signup_url)s\">sign up</a> first."
+msgstr ""
+
+#: templates/account/login.html:47
+msgid "Forgot Password?"
+msgstr "Забыли пароль?"
+
+#: templates/account/signup.html:5
+msgid "Signup"
+msgstr "Вход"
+
+#: templates/account/signup.html:8 templates/account/signup.html:32
+msgid "Sign Up"
+msgstr ""
+
+#: templates/account/signup.html:10
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+
 #: templates/admin/user_form.html:5
 msgid "History"
 msgstr "История"
@@ -192,15 +295,11 @@ msgstr "История"
 msgid "Managers"
 msgstr "Управление"
 
-#: templates/snippets/navbar.html:25
-msgid "Services"
-msgstr "Сервисы"
-
 #: templates/snippets/navbar.html:81
 #, fuzzy
 #| msgid "Enterprise"
 msgid "Include enterprise"
-msgstr "График работы компании"
+msgstr "Добавить компанию"
 
 #: templates/snippets/navbar.html:86
 msgid "Exit"

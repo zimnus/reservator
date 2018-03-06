@@ -1,4 +1,7 @@
 from rest_framework import generics, permissions, mixins
+from rest_framework.decorators import api_view
+from rest_framework.reverse import reverse
+from rest_framework.response import Response
 
 from .serializer import CategorySerializer, CategoryDetailSerialize, ServiceSerializer
 from service.models import Category, Service
@@ -21,6 +24,14 @@ class CategoryDetailView(generics.RetrieveAPIView):
 
 class ServiceListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    serializer_class = ServiceSerializer
+
+    def get_queryset(self):
+        enterprise_id = self.kwargs['enterprise_id']
+        return Service.objects.filter(enterprise=enterprise_id)
+
+
+class ServiceFilterListView(generics.ListAPIView):
     serializer_class = ServiceSerializer
 
     def get_queryset(self):

@@ -4,12 +4,14 @@ from rest_framework.reverse import reverse as api_reverse
 from enterprise.models import Enterprise, City
 from service.models import Service
 from api.v1.accounts.serializers import UserPublicSerializer
+from api.v1.service.serializer import CategorySerializer
 
 
 class EnterpriseSerializer(serializers.ModelSerializer):
     uri = serializers.SerializerMethodField(read_only=True)
     comment_count = serializers.SerializerMethodField(read_only=True)
-    services = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    services = CategorySerializer(many=True, read_only=True)
+    # services = serializers.StringRelatedField(many=True, read_only=True)
     # user = UserPublicSerializer(read_only=True)
 
     class Meta:
@@ -49,7 +51,7 @@ class EnterpriseSerializer(serializers.ModelSerializer):
 
 class CategoryOfServicesSerializers(serializers.ModelSerializer):
     uri = serializers.SerializerMethodField(read_only=True)
-    employee = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    employee = serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Service

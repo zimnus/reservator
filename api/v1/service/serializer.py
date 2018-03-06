@@ -4,6 +4,22 @@ from rest_framework.reverse import reverse as api_reverse
 from service.models import Service, Category
 
 
+class ServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Service
+        fields = (
+            'id',
+            'title',
+            'service_desc',
+            'service_duration',
+            'price',
+            'min_price',
+            'max_price',
+            'access',
+            'service',
+        )
+
+
 class CategorySerializer(serializers.ModelSerializer):
     url = serializers.SerializerMethodField(read_only=True)
 
@@ -11,6 +27,7 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = (
             'url',
+            'id',
             'title',
             'weight',
             'enterprise',
@@ -22,26 +39,15 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class CategoryDetailSerialize(serializers.ModelSerializer):
-    service = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    # service = serializers.StringRelatedField(many=True, read_only=True)
+    service = ServiceSerializer(many=True, read_only=True)
 
     class Meta:
         model = Category
         fields = (
+            'id',
             'title',
             'weight',
             'enterprise',
             'service'
-        )
-
-
-class ServiceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Service
-        fields = (
-            'id',
-            'title',
-            'service_duration',
-            'min_price',
-            'max_price',
-            'service',
         )
