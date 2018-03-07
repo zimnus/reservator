@@ -1,5 +1,5 @@
 {% extends 'base_index.html' %}
-{% load i18n %}
+{% load static i18n %}
 {% block title %}
     {{ instance.title }} детально | {{ block.super }}
 {% endblock %}
@@ -158,7 +158,11 @@
                                                     {% for staff in employees %}
                                                     <div class="feed-element">
                                                         <a href="#" class="pull-left">
+                                                            {% if staff.avatar %}
                                                             <img alt="image" class="img-circle" src="{{ staff.avatar.url }}">
+                                                            {% else %}
+                                                            <img alt="{{ staff.name }}" class="img-circle" src="{% static 'image/avatar/avatar_man.png' %}" alt="">
+                                                            {% endif %}
                                                         </a>
                                                         <div class="media-body ">
                                                             <small class="pull-right">2h ago</small>

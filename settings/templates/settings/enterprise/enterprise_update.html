@@ -105,20 +105,6 @@
                 }
                 return cookieValue;
             }
-            $.ajax({
-                url: '/api/enterprises/detail/{{ enterprise.id }}/',
-                method: 'PUT',
-                data: {
-                    title: 'SpaceX Ink.'
-                },
-                success: function (data) {
-                    alert('Success');
-                    $('#id_title').val(data.title);
-                },
-                error: function (error) {
-                    console.log(JSON.stringify(error.undefined, 4))
-                }
-            })
         });
 	</script>
 {% endblock %}

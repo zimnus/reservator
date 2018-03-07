@@ -10,5 +10,5 @@ class PositionAdmin(admin.ModelAdmin):
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'specialization')
+    list_display = ('name', 'enterprise', 'specialization', 'hidden', 'fired')
     ordering = ['-weight', ]

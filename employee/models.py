@@ -35,11 +35,11 @@ class Employee(models.Model):
     email = models.EmailField(help_text='Contact email', blank=True, null=True)
     avatar = models.ImageField(upload_to=upload_employee_avatar_image, help_text='Avatar', blank=True)
     information = models.TextField(help_text='More info')
-    hidden = models.BooleanField(default=False, help_text='Hidden for booking')
-    fired = models.BooleanField(default=False, help_text='Is fired')
+    hidden = models.BooleanField(default=False, help_text='Hidden for booking', verbose_name=_('Hidden'))
+    fired = models.BooleanField(default=False, help_text='Is fired', verbose_name=_('Fired'))
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
-    staff = models.ForeignKey(Service, related_name='staff', blank=True, null=True)
+    staff = models.ManyToManyField(Service, related_name='staff', blank=True, null=True)
     position = models.ForeignKey(Position, verbose_name='Position', related_name='position', blank=True, null=True)
 
     def __str__(self):

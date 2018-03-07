@@ -1,5 +1,5 @@
 {% extends "base_index.html" %}
-{% load static %}
+{% load static i18n %}
 {% block title %}
     Personal {{ instance.title }} | {{ block.super }}
 {% endblock %}
@@ -24,74 +24,74 @@
     <div class="wrapper wrapper-content animated fadeInRight ecommerce">
         <div class="row">
             <div class="col-lg-12">
-                <div class="col-lg-4">
-                    {% for staff in employee %}
-                        <div class="social-feed-box">
-                            <div class="pull-right social-action dropdown">
-                                <button data-toggle="dropdown" class="dropdown-toggle btn-white">
-                                    <i class="fa fa-angle-down"></i>
-                                </button>
-                                <ul class="dropdown-menu m-t-xs">
-                                    <li><a href="{{ staff.get_update_url }}">Config</a></li>
-                                </ul>
-                            </div>
-                            <div class="social-avatar">
-                                <a href="{{ staff.get_update_url }}" class="pull-left">
-                                    {% if staff.avatar %}
-                                        <img alt="{{ staff.name }}" src="{{ staff.avatar.url }}">
-                                    {% else %}
-                                        <img src="{% static 'image/avatar/avatar_man.png' %}" alt="">
-                                    {% endif %}
-                                </a>
-                                <div class="media-body">
-                                    <a href="#">
-                                        {{ staff.name }}
-                                    </a>
-                                    <small class="text-muted">{{ staff.created_at }}</small>
-                                </div>
-                            </div>
-                            <div class="social-body">
-                                <p>
-                                    {{ staff.information|safe }}
-                                </p>
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <table class="footable table table-stripped toggle-arrow-tiny tablet breakpoint footable-loaded">
+                            <thead>
+                                <tr>
+                                    <th class="footable-visible footable-sortable">
 
-                                <div class="btn-group">
-                                    <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!
-                                    </button>
-                                    <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>
-                                    <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>
-                                </div>
-                            </div>
-                        </div>
-                        {% empty %}
-                        <div class="alert alert-info">
-                            У вас нет сотрудников
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="col-lg-8">
-                    <div class="panel-body">
-                        <form class="form-horizontal" method="POST" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {% for field in form %}
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="">
-                                        {{ field.label_tag }}
-                                    </label>
-                                    <div class="col-sm-10">
-                                        {{ field }}
-                                        {% if field.errors %}
-                                            <div class="alert alert danger">{{ field.error }}</div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            {% endfor %}
-                            <div class="form-group">
-                                <div class="col-sm-2 col-sm-offset-2">
-                                    <button class="btn btn-success btn-block">Сохранить!</button>
-                                </div>
-                            </div>
-                        </form>
+                                    </th>
+                                    <th class="footable-visible footable-sortable">
+                                        {% trans 'Name' %}
+                                        <span class="footable-sort-indicator"></span>
+                                    </th>
+                                    <th class="footable-visible footable-sortable">
+                                        {% trans 'Number of services' %}
+                                        <span class="footable-sort-indicator"></span>
+                                    </th>
+                                    <th class="footable-visible footable-sortable">
+                                        {% trans 'Status' %}
+                                        <span class="footable-sort-indicator"></span>
+                                    </th>
+                                    <th class="footable-visible footable-sortable">
+                                        <a class="btn btn-success pull-right" href="{% url 'employee:new-employee' %}"> <i class="fa fa-plus"></i> {% trans 'Add employee' %}</a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for staff in employee %}
+                                    <tr class="footable-even">
+                                        <td class="footable-visible footable-first-column">
+                                            {% if staff.avatar %}
+                                                <img class="img-sm img-circle" src="{{ staff.avatar.url }}" alt="{{ staff.name }}">
+                                            {% else %}
+                                                <img class="img-sm img-circle" src="{% static 'image/avatar/avatar_man.png' %}" alt="{{ staff.name }}">
+                                            {% endif %}
+                                        </td>
+                                        <td class="footable-visible">
+
+                                            <strong>{{ staff.name }}</strong><br>
+                                            <small>{{ staff.specialization }}</small>
+                                        </td>
+                                        <td class="footable-visible">
+                                            <span class="text-center">{{ staff.staff.count }}</span>
+                                        </td>
+                                        <td class="footable-visible">
+                                            {% if staff.fired %}
+                                                <span class="label label-danger">Уволен</span>
+                                            {% else %}
+                                                {% if staff.hidden %}
+                                                    <span class="label label-warning">Скрыт</span>
+                                                {% else %}
+                                                    <span class="label label-primary">Доступен</span>
+                                                {% endif %}
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-right footable-visible footable-last-column">
+                                            <div class="btn-group">
+                                                <a class="btn btn-default btn-xl" href=""><i class="fa fa-cog"></i></a>
+                                                <a class="btn btn-default btn-xl" href="{% url 'schedule:schedule' %}"><i class="fa fa-clock-o"></i></a>
+                                                <a class="btn btn-default btn-xl" href=""><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+
+                            </tfoot>
+                        </table>
                     </div>
                 </div>
             </div>

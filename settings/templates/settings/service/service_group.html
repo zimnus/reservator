@@ -140,7 +140,7 @@
             url: '/api/services/filter/'+ pk + '/',
             success: function(data) {
                 $.each(data, function (key, value) {
-                    $("#services").append('<li class="info-element ui-sortable-handle">' + value.title + '</li>')
+                    $("#services").append('<li class="info-element ui-sortable-handle">' + value.title + '<a href="" class="btn btn-default btn-xs"><i class="fa fa-heart pull-right"></i></a></li>')
                 })
             }
         })

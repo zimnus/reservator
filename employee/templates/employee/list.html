@@ -1,5 +1,5 @@
 {% extends 'base_index.html' %}
-
+{% load static %}
 {% block title %}
     Сотрудники | {{ block.super }}
 {% endblock %}
@@ -52,7 +52,11 @@
                                             <tbody>
                                             {% for emp in employees %}
                                             <tr>
-                                                <td class="client-avatar"><img alt="{{ emp.name }}" src="{{ emp.avatar.url }}"> </td>
+                                                {% if emp.avatar %}
+                                                    <td class="client-avatar"><img alt="{{ emp.name }}" src="{{ emp.avatar.url }}"> </td>
+                                                {% else %}
+                                                    <td class="client-avatar"><img src="{% static 'image/avatar/avatar_man.png' %}" alt=""></td>
+                                                {% endif %}
                                                 <td><a data-toggle="tab" href="#contact-{{ forloop.counter0 }}" class="client-link">{{ emp.name }}</a></td>
                                                 <td> {{ emp.enterprise }}</td>
                                                 <td class="contact-type"><i class="fa fa-envelope"> </i></td>
@@ -105,15 +109,18 @@
                                         <h2>{{ emp.name }}</h2>
 
                                         <div class="m-b-sm">
+                                            {% if emp.avatar %}
                                             <img alt="{{ emp.name }}" class="img-circle" src="{{ emp.avatar.url }}"
                                                  style="width: 62px">
+                                            {% else %}
+                                                <img class="img-circle" src="{% static 'image/avatar/avatar_man.png' %}" alt="" style="width: 62%">
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <div class="col-lg-8">
                                         <strong>
                                             About me
                                         </strong>
-
                                         <p>
                                             {{ emp.information|safe }}
                                         </p>
@@ -124,9 +131,7 @@
                                 </div>
                                 <div class="client-detail">
                                 <div class="full-height-scroll">
-
                                     <strong>Last activity</strong>
-
                                     <ul class="list-group clear-list">
                                         <li class="list-group-item fist-item">
                                             <span class="pull-right"> 09:00 pm </span>

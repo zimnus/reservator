@@ -1,5 +1,6 @@
 from django import forms
-from employee.models import Employee
+from employee.models import Employee, Position
+from service.models import Service
 
 
 class EmployeeForm(forms.ModelForm):
@@ -19,5 +20,9 @@ class EmployeeForm(forms.ModelForm):
             'votes_count',
             'hidden',
             'fired',
-            'staff',
         )
+
+    def __init__(self, enterprise, *args, **kwargs):
+        super(EmployeeForm, self).__init__(*args, **kwargs)
+        self.fields['staff'].queryset = Service.objects.filter(enterprise=enterprise)
+        self.fields['position'].queryset = Position.objects.filter(enterprise=enterprise)

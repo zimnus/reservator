@@ -74,6 +74,17 @@ def personal(request, pk):
 
 
 @manager_required
+def add_employee(request):
+    if request.POST:
+        form = EmployeeForm(request.POST or None, request.FILES or None)
+    else:
+        form = EmployeeForm()
+    template_data = {'form': form}
+    template_name = 'settings/staff/new-staff.html'
+    return render(request, template_name, template_data)
+
+
+@manager_required
 def personal_detail(request, pk):
     instance = Employee.objects.get(pk=pk)
     events = Event.objects.filter(staff=instance)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-06 17:39+0200\n"
+"POT-Creation-Date: 2018-03-07 15:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Enterprise"
 msgstr ""
 
-#: employee/models.py:15
+#: employee/models.py:15 settings/templates/settings/staff/personal.html:36
 msgid "Name"
 msgstr ""
 
@@ -37,6 +37,14 @@ msgstr ""
 
 #: employee/models.py:21
 msgid "Positions"
+msgstr ""
+
+#: employee/models.py:38
+msgid "Hidden"
+msgstr ""
+
+#: employee/models.py:39
+msgid "Fired"
 msgstr ""
 
 #: employee/models.py:54
@@ -221,6 +229,18 @@ msgstr ""
 
 #: service/models.py:50 templates/snippets/navbar.html:25
 msgid "Services"
+msgstr ""
+
+#: settings/templates/settings/staff/new-staff.html:5
+msgid "Add employee"
+msgstr ""
+
+#: settings/templates/settings/staff/personal.html:40
+msgid "Number of services"
+msgstr ""
+
+#: settings/templates/settings/staff/personal.html:44
+msgid "Status"
 msgstr ""
 
 #: templates/account/login.html:6 templates/account/login.html:10
