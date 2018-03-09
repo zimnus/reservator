@@ -25,18 +25,18 @@
                         <a href="{{ service }}">{% trans 'Services' %}</a>
                     </li>
                     <li class="{% if request.path == employee %} active {% endif %}">
-                        <a href="{{ employee }}">Employee</a>
+                        <a href="{{ employee }}">{% trans 'Employee' %}</a>
                     </li>
                     <li><a href="">Clients</a></li>
                     <li class="{% if request.path == enterprise %} active {% endif %}">
-                        <a href="{{ enterprise_detail }}">Enterprise</a>
+                        <a href="{{ enterprise_detail }}"> {% trans 'Enterprise' %}</a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="">
                     <i class="fa fa-user-circle"></i>
-                    <span class="nav-label">Сотрудники</span>
+                    <span class="nav-label">{% trans 'Employee' %}</span>
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse">
@@ -83,7 +83,7 @@
             {% endif %}
             {% if user.is_authenticated %}
             <li>
-                <a href=""><i class="fa fa-sign-out"></i><span class="nav-label">{% trans 'Exit' %}</span></a>
+                <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i><span class="nav-label">{% trans 'Exit' %}</span></a>
             </li>
             {% endif %}
         </ul>

@@ -15,6 +15,11 @@ class CategoryCreateForm(forms.ModelForm):
 
 
 class ServiceCreateForm(forms.ModelForm):
+        
+    def __init__(self, enterprise, *args, **kwargs):
+        super(ServiceCreateForm, self).__init__(*args, **kwargs)
+        self.fields['service'].queryset = Category.objects.filter(enterprise=enterprise)
+    
     title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label='Услуга')
     service_desc = forms.CharField(widget=forms.Textarea(
         attrs={'class': 'form-control'}), label='Короткое описание')

@@ -19,5 +19,68 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content animated fadeInUp">
+            <div class="col-lg-3">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h3>Действия</h3>
+                    </div>
+                    <div class="ibox-content">
+                        <a href="" class="btn btn-success btn-block">Add category</a>
+                    </div>
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <ul class="list-group">
+                                <a class="list-group-item">
+                                    <i class="fa fa-2x fa-folder-open"></i>
+                                    {{ category.title }}    
+                                </a>
+                                {% for category_list in categories %}
+                                <a href="{{ category_list.get_absolute_url }}" class="list-group-item">
+                                    <i class="fa fa-2x fa-folder"></i>
+                                    {{ category_list.title }}
+                                </a>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Access</th>
+                                    <th>Min price</th>
+                                    <th>Max price</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for service in services %}
+                                    <tr>
+                                        <th><i class="fa fa-bars fa-2x"></i></th>
+                                        <td>{{ service.title }}</td>
+                                        <td>{{ service.access }}</td>
+                                        <td>{{ service.min_price }}</td>
+                                        <td>{{ service.max_price }}</td>
+                                        <td><a href="{{ service.get_update_url }}" class="btn btn-default btn-xl"><i class="fa fa-cog"></i></a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

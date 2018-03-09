@@ -124,13 +124,13 @@ def new_category(request, pk):
 def new_service(request):
     enterprise = Enterprise.objects.get(owner=request.user)
     if request.POST:
-        form = ServiceCreateForm(request.POST or None)
+        form = ServiceCreateForm(enterprise, request.POST or None)
         if form.is_valid():
             post_data = form.cleaned_data
             Service.objects.create(enterprise=enterprise, **post_data)
             return HttpResponseRedirect(reverse("settings:service-group", kwargs={'pk': enterprise.pk}))
     else:
-        form = ServiceCreateForm()
+        form = ServiceCreateForm(enterprise)
     template_name = 'settings/service/new_service.html'
     template_data = {'form': form}
     return render(request, template_name, template_data)
