@@ -1,6 +1,8 @@
 from .base import *
 
+from reservator.rest_conf import *
+
 try:
-    from .local_settings import *
+    from reservator.settings.local_settings import *
 except:
     pass

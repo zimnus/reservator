@@ -206,6 +206,3 @@ CKEDITOR_CONFIGS = {
         'toolbar': None,
     },
 }
-
-
-from reservator.rest_conf import *
