@@ -8,6 +8,7 @@ node_modules
 media/
 static_cdn/
 *.pyc
+.py[*]
 
 # Migrations
 **/migrations/*
