@@ -25,7 +25,7 @@ SECRET_KEY = '%e(sv$t)!#anz=0c5*sy@l^8-!i10s)9a=^oc09owysyd6xla5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', ]
 
 
 # Application definition
