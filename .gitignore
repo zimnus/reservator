@@ -16,3 +16,6 @@ static_cdn/
 
 #Local data
 api_script/
+
+# Local Settings
+local_settings.py
