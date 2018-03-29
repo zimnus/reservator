@@ -64,7 +64,7 @@
                 <a href="{% url 'schedule:schedule' %}"><i class="fa fa-calendar"></i> <span class="nav-label"> Росписание</span></a>
             </li>
             <li>
-                <a href="">
+                <a id="settings-toggle" href="">
                     <i class="fa fa-cogs"></i>
                     <span class="nav-label">Настройка</span>
                     <span class="fa arrow"></span>
@@ -72,7 +72,7 @@
                 <ul class="nav nav-second-level collapse">
                     <li><a href="{% url 'settings:enterprise-settings' enterprise.pk %}"><span class="fa fa-edit"></span> Основное</a></li>
                     <li><a href="{% url 'settings:service-group' enterprise.pk %}"><span class="fa fa-tasks"></span> Сервисы</a></li>
-                    <li><a href="{% url 'settings:personal-settings' enterprise.pk %}"><span class="fa fa-group"></span> Персонал</a></li>
+                    <li><a id="change-staff" href="{% url 'settings:personal-settings' enterprise.pk %}"><span class="fa fa-group"></span> Персонал</a></li>
                 </ul>
             </li>
             <li>

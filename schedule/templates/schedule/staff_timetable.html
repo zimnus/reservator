@@ -1,0 +1,94 @@
+{% extends 'base_index.html' %}
+
+{% block title %}
+    {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Schedule {{ instance.name }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index-2.html">Главная</a>
+            </li>
+            <li>
+                <a>Сотрудник</a>
+            </li>
+            <li class="active">
+                <strong>Schedule</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="calendar"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block custom_script %}
+    <script>
+        $(document).ready(function(){
+            var dateToday = new Date();
+            function staff_event(){
+                var event;
+                $.ajax({
+                    url: '/api/schedules/{{ enterprise.pk }}/{{ instance.pk }}/'+moment(dateToday).format('YYYY-MM-DD')+'/',
+                    success: (data) => {
+                        event = $.map(data, function(value, key){
+                            return value.event.task
+                        })
+                        var schedule = $.map(event, function(value, key){
+                            return {
+                                start: value.start_event,
+                                end: value.end_event
+                            }
+                        })
+                        console.log(schedule)
+                        console.log(JSON.stringify(event, undefined, 2))
+                        $("#calendar").fullCalendar({
+                            nowIndicator: true,
+                            lang: 'ru',
+                            firstDay: 1,
+                            header: {
+                                left: 'prev, next, today',
+                                center: 'title',
+                                right: 'agendaWeek, agendaDay'
+                            },
+                            defaultView: 'agendaDay',
+                            events: schedule
+                            /*
+                            businessHours: [
+                                {
+                                    dow: [1,2,3,4,5],
+                                    start: '09:00',
+                                    end: "13:00"
+                                },
+                                {
+                                    dow: [1,2,3,4,5],
+                                    start: '14:00',
+                                    end: "18:00"
+                                },
+                            ]
+                            */
+                        })
+                    },
+                    error: (error) => {
+                        console.log("Error")
+                    }
+                })
+            };
+            staff_event();
+        })
+    </script>
+{% endblock custom_script %}
+    

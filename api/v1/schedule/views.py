@@ -10,4 +10,15 @@ class StaffScheduleListView(generics.ListAPIView):
 
     # queryset = StaffSchedule.objects.all()
     def get_queryset(self):
-        return StaffSchedule.objects.filter(staff__enterprise=self.kwargs['company_id']).filter(work_date=self.kwargs['select_date'])
+        return StaffSchedule.objects.filter(staff__enterprise=self.kwargs['company_id'])\
+            .filter(work_date=self.kwargs['select_date'])
+
+
+class StaffScheduleDetailView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    serializer_class = StaffScheduleSerializer
+
+    def get_queryset(self):
+        return StaffSchedule.objects.filter(staff__enterprise=self.kwargs['company_id'])\
+            .filter(staff_id=self.kwargs['staff_id'])\
+            .filter(work_date=self.kwargs['select_date'])

@@ -24,6 +24,7 @@ class StaffScheduleSerializer(serializers.ModelSerializer):
             'event'
         )
 
+    @classmethod
     def get_staff_id(self, obj):
         return obj.staff.pk
 
