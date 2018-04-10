@@ -42,15 +42,19 @@
             function staff_event(){
                 var event;
                 $.ajax({
-                    url: '/api/schedules/{{ enterprise.pk }}/{{ instance.pk }}/'+moment(dateToday).format('YYYY-MM-DD')+'/',
+                    //url: '/api/schedules/{{ enterprise.pk }}/{{ instance.pk }}/'+moment(dateToday).format('YYYY-MM-DD')+'/',
+                    url: '/api/schedules/event/{{ enterprise.pk }}/{{ instance.pk }}/',
                     success: (data) => {
                         event = $.map(data, function(value, key){
                             return value.event.task
                         })
                         var schedule = $.map(event, function(value, key){
                             return {
+                                title: value.staff,
                                 start: value.start_event,
-                                end: value.end_event
+                                end: value.end_event,
+                                color: 'indigo',
+                                textColor: 'aqua'
                             }
                         })
                         console.log(schedule)
@@ -62,10 +66,10 @@
                             header: {
                                 left: 'prev, next, today',
                                 center: 'title',
-                                right: 'agendaWeek, agendaDay'
+                                right: 'agendaMounth, agendaWeek, agendaDay'
                             },
                             defaultView: 'agendaDay',
-                            events: schedule
+                            events: schedule,
                             /*
                             businessHours: [
                                 {

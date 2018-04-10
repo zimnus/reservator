@@ -30,3 +30,11 @@ def staff_schedule(request, staff_pk):
     template_name = 'schedule/staff_timetable.html'
     template_data = {'instance': instance}
     return render(request, template_name, template_data)
+
+
+@manager_required
+def staff_new_event(request):
+    form = EventForm(request.POST or None)
+    template_name = 'schedule/staff_new_event.html'
+    template_data ={'form': form}
+    return render(request, template_name, template_data)
