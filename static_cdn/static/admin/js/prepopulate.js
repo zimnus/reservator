@@ -14,7 +14,7 @@
             var prepopulatedField = $(this);
 
             var populate = function() {
-                // Bail if the field's value has been changed by the accounts
+                // Bail if the field's value has been changed by the user
                 if (prepopulatedField.data('_changed')) {
                     return;
                 }

@@ -56,10 +56,6 @@
                                     {% endif %}
                                     <dt>Количество услуг:</dt>
                                     <dd> {{ instance.get_services.count }}</dd>
-                                    <dt>Client:</dt>
-                                    <dd><a href="#" class="text-navy"> Zender Company</a></dd>
-                                    <dt>Version:</dt>
-                                    <dd> v1.4.2</dd>
                                 </dl>
                             </div>
                             <div class="col-lg-7" id="cluster_info">
@@ -75,6 +71,7 @@
                                             {% if emp.avatar %}
                                                 <a href="#"><img alt="image" class="img-circle" src="{{ emp.avatar.url }}"></a>
                                             {% else %}
+                                                <a href="#"><span class='label'>{{ emp.name }}</span></a>
                                             {% endif %}
                                         {% empty %}
                                         <span class="label">Not active employee</span>
